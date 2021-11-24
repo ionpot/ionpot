@@ -1,0 +1,22 @@
+#pragma once
+
+#include "rwops.hpp"
+#include "surface.hpp"
+
+#include <util/log.hpp>
+#include <util/macros.hpp>
+
+#include <string>
+
+namespace ionpot::sdl {
+	struct Img {
+		static int init_flags;
+		static bool was_init;
+
+		Img(util::Log& log);
+		~Img();
+		IONPOT_NO_COPY(Img)
+
+		Surface load_png(const RWops&) const;
+	};
+}
