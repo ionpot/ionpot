@@ -1,12 +1,10 @@
 #pragma once
 
-#include "macros.hpp"
-
 #include <string>
 #include <sstream>
 
 #define IONPOT_FILE_LINE()\
-	ionpot::util::FileLine {IONPOT_FILE, __LINE__}
+	ionpot::util::FileLine {(char*)__FILE__, __LINE__}
 
 namespace ionpot::util {
 	struct FileLine {

@@ -13,11 +13,6 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-# number of characters from absolute root to project root
-# source files can use this to obtain the relative path
-string(LENGTH "${PROJECT_SOURCE_DIR}/" BASE_DIR_LENGTH)
-add_compile_definitions(IONPOT_BASE_DIR_LENGTH=${BASE_DIR_LENGTH})
-
 # favour the <prefix/...> include syntax
 include_directories("${CMAKE_CURRENT_LIST_DIR}")
 

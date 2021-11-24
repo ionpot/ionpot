@@ -1,8 +1,5 @@
 #pragma once
 
-// base dir length defined in CMakeLists.txt
-#define IONPOT_FILE ((char*)__FILE__ + IONPOT_BASE_DIR_LENGTH)
-
 // declare move-constructor and move-assignment
 #define IONPOT_DECLARE_MOVE(T)\
 	T(T&&) noexcept;\
