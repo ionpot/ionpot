@@ -19,3 +19,8 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}")
 # subdirectories
 add_subdirectory(util)
 add_subdirectory(sdl)
+
+# use the library with <ionpot/...> include syntax
+add_library(ionpot INTERFACE)
+target_include_directories(ionpot INTERFACE "${PROJECT_SOURCE_DIR}")
+target_link_libraries(ionpot INTERFACE ionpot_util ionpot_sdl)
