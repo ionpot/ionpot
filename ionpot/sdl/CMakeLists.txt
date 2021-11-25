@@ -2,6 +2,8 @@ add_library(ionpot_sdl base.cpp box.cpp config.cpp context.cpp event.cpp font.cp
 
 target_link_libraries(ionpot_sdl PRIVATE ionpot_util)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
 # SDL2 lib
 find_package(SDL2 REQUIRED)
 target_include_directories(ionpot_sdl PUBLIC "${SDL2_INCLUDE_DIRS}")
