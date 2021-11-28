@@ -1,4 +1,4 @@
-add_library(ionpot_sdl base.cpp box.cpp config.cpp context.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp img.cpp point.cpp rect.cpp renderer.cpp rwops.cpp scroll.cpp size.cpp surface.cpp text.cpp text_box.cpp text_lines.cpp text_lines_box.cpp texture.cpp ttf.cpp window.cpp)
+add_library(ionpot_sdl base.cpp box.cpp context.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp img.cpp point.cpp rect.cpp renderer.cpp rwops.cpp scroll.cpp size.cpp surface.cpp text.cpp text_box.cpp text_lines.cpp text_lines_box.cpp texture.cpp ttf.cpp window.cpp)
 
 # to include <util/...>
 target_include_directories(ionpot_sdl PUBLIC "${PROJECT_SOURCE_DIR}/ionpot")

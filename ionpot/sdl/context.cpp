@@ -1,25 +1,21 @@
 #include "context.hpp"
 
-#include "config.hpp"
 #include "event.hpp"
-#include "text_lines_box.hpp"
+#include "size.hpp"
 #include "texture.hpp"
 
 #include <util/log.hpp>
 
 #include <optional>
 #include <string>
-#include <vector>
 
 namespace ionpot::sdl {
-	Context::Context(std::string title, const Config& config, util::Log& log):
+	Context::Context(std::string title, Size window_size, util::Log& log):
 		base {log},
-		window {title, config.window_size},
+		window {title, window_size},
 		renderer {window.create_renderer()},
 		img {log},
-		ttf {log},
-		font {ttf.load_font(config.font)},
-		text_box_cfg {config.text_box}
+		ttf {log}
 	{}
 
 	Texture
@@ -37,11 +33,5 @@ namespace ionpot::sdl {
 		if (event)
 			window.handle(*event);
 		return event;
-	}
-
-	TextLinesBox
-	Context::text_lines_box(const std::vector<std::string>& lines) const
-	{
-		return {text_box_cfg, font, renderer, lines};
 	}
 }
