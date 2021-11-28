@@ -3,10 +3,10 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "text.hpp"
 
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <string>
 #include <vector>
@@ -24,11 +24,11 @@ namespace ionpot::sdl {
 
 		void render(const Renderer&, Point position) const;
 
-		Size size() const;
+		util::Size size() const;
 
 	private:
 		std::vector<Text> m_lines;
 		int m_line_skip;
-		Size m_size;
+		util::Size m_size;
 	};
 }

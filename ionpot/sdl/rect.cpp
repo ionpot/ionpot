@@ -1,17 +1,18 @@
 #include "rect.hpp"
 
 #include "point.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 #include <SDL.h>
 
 namespace ionpot::sdl {
-	Rect::Rect(Size s):
+	Rect::Rect(util::Size s):
 		position {0, 0},
 		size {s}
 	{}
 
-	Rect::Rect(Point p, Size s):
+	Rect::Rect(Point p, util::Size s):
 		position {p},
 		size {s}
 	{}

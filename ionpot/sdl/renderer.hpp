@@ -5,12 +5,12 @@
 #include "line.hpp"
 #include "point.hpp"
 #include "rect.hpp"
-#include "size.hpp"
 #include "surface.hpp"
 #include "texture.hpp"
 
 #include <util/rgba.hpp>
 #include <util/macros.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 #include <string>
@@ -20,7 +20,7 @@ namespace ionpot::sdl {
 	public:
 		void clear() const;
 		Texture create_hex(const Hexagon&, const util::RGBA&) const;
-		TargetTexture create_target_texture(Size) const;
+		TargetTexture create_target_texture(util::Size) const;
 		Texture create_text(const Font&, std::string text) const;
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		Texture create_texture(const Surface& surface) const;

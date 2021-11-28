@@ -1,13 +1,14 @@
 #include "texture.hpp"
 
 #include "exception.hpp"
-#include "size.hpp"
 #include "surface.hpp"
+
+#include <util/size.hpp>
 
 #include <SDL.h>
 
 namespace ionpot::sdl {
-	Texture::Texture(SDL_Texture* texture, Size size):
+	Texture::Texture(SDL_Texture* texture, util::Size size):
 		size {size},
 		m_texture {texture}
 	{
@@ -17,7 +18,7 @@ namespace ionpot::sdl {
 			throw Exception {};
 	}
 
-	Texture::Texture(SDL_Renderer* renderer, Size size, Uint32 flags):
+	Texture::Texture(SDL_Renderer* renderer, util::Size size, Uint32 flags):
 		Texture {
 			SDL_CreateTexture(
 				renderer,
@@ -58,7 +59,7 @@ namespace ionpot::sdl {
 		return *this;
 	}
 
-	TargetTexture::TargetTexture(SDL_Renderer* renderer, Size size):
+	TargetTexture::TargetTexture(SDL_Renderer* renderer, util::Size size):
 		Texture {renderer, size, SDL_TEXTUREACCESS_TARGET}
 	{}
 }

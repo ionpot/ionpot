@@ -5,6 +5,7 @@
 #include "renderer.hpp"
 
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <string>
 
@@ -25,7 +26,7 @@ namespace ionpot::sdl {
 		rdr.put(m_texture, pos);
 	}
 
-	Size
+	util::Size
 	Text::size() const
 	{
 		return m_size;

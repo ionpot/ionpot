@@ -3,7 +3,8 @@
 #include "exception.hpp"
 #include "event.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 #include <SDL.h>
 #include <string>
@@ -13,7 +14,7 @@ namespace ionpot::sdl {
 		SDL_Window*
 		s_create_window(
 				std::string title,
-				Size size,
+				util::Size size,
 				Window::Flags flags = 0)
 		{
 			return SDL_CreateWindow(
@@ -26,7 +27,7 @@ namespace ionpot::sdl {
 		}
 	}
 
-	Window::Window(std::string title, Size size):
+	Window::Window(std::string title, util::Size size):
 		m_focus {false},
 		m_mouse_pos {},
 		m_window {s_create_window(title, size)}

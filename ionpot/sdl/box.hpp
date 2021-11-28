@@ -2,10 +2,10 @@
 
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 
 #include <util/rgb.hpp>
+#include <util/size.hpp>
 
 namespace ionpot::sdl {
 	class Box {
@@ -14,10 +14,10 @@ namespace ionpot::sdl {
 			util::RGB background_color;
 			util::RGB border_color;
 			int border_width;
-			Point padding;
+			util::Size padding;
 		};
 
-		Box(const Config&, const Renderer&, Size inner_size);
+		Box(const Config&, const Renderer&, util::Size inner_size);
 
 		Point content(Point offset) const;
 

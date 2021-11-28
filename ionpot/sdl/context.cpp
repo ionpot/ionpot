@@ -1,16 +1,16 @@
 #include "context.hpp"
 
 #include "event.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 
 #include <util/log.hpp>
+#include <util/size.hpp>
 
 #include <optional>
 #include <string>
 
 namespace ionpot::sdl {
-	Context::Context(std::string title, Size window_size, util::Log& log):
+	Context::Context(std::string title, util::Size window_size, util::Log& log):
 		base {log},
 		window {title, window_size},
 		renderer {window.create_renderer()},

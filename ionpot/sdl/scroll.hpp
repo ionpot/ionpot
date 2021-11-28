@@ -1,14 +1,15 @@
 #pragma once
 
 #include "point.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 #include <string>
 
 namespace ionpot::sdl {
 	class Scroll {
 	public:
-		Scroll(Size screen, Size content, int speed);
+		Scroll(util::Size screen, util::Size content, int speed);
 		Point next(Point) const;
 		void start_left();
 		void start_right();

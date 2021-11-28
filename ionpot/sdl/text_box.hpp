@@ -4,7 +4,6 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "text.hpp"
 
 #include <util/rgb.hpp>

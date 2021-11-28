@@ -2,17 +2,18 @@
 
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 namespace ionpot::sdl {
 	Box::Box(
 			const Box::Config& config,
 			const Renderer& rdr,
-			Size inner_size
+			util::Size inner_size
 	):
-		m_content {Point {config.border_width} + config.padding},
+		m_content {util::Size {config.border_width} + config.padding},
 		m_texture {rdr.create_target_texture(
-			inner_size + Size {m_content * 2}
+			inner_size + (m_content * 2).to_size()
 		)}
 	{
 		rdr.set_target(m_texture);

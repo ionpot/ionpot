@@ -2,10 +2,10 @@
 
 #include "hexagon.hpp"
 #include "point.hpp"
-#include "size.hpp"
 
 #include <util/int.hpp>
 #include <util/grid.hpp>
+#include <util/size.hpp>
 
 namespace ionpot::sdl {
 	HexGrid::HexGrid(Hexagon hex):
@@ -21,7 +21,7 @@ namespace ionpot::sdl {
 		return rows * hex.y2 + 1 + offset;
 	}
 
-	Size
+	util::Size
 	HexGrid::calculate_size(const Hexagon& hex, util::GridSize size)
 	{
 		return {
@@ -71,7 +71,7 @@ namespace ionpot::sdl {
 	}
 
 	util::GridSize
-	HexGrid::max_visible(Size size) const
+	HexGrid::max_visible(util::Size size) const
 	{
 		return {
 			max_visible_rows(size.height),
@@ -112,7 +112,7 @@ namespace ionpot::sdl {
 		return {x_of(index), y_of(index)};
 	}
 
-	Size
+	util::Size
 	HexGrid::size_of(util::GridSize s) const
 	{
 		return calculate_size(hex, s);

@@ -1,6 +1,6 @@
 #include "point.hpp"
 
-#include "size.hpp"
+#include <util/size.hpp>
 
 #include <SDL.h>
 #include <cmath>
@@ -15,6 +15,10 @@ namespace ionpot::sdl {
 
 	Point::Point(int x, int y):
 		x {x}, y {y}
+	{}
+
+	Point::Point(const util::Size& size):
+		x {size.width}, y {size.height}
 	{}
 
 	void
@@ -77,6 +81,12 @@ namespace ionpot::sdl {
 		point.x = x;
 		point.y = y;
 		return point;
+	}
+
+	util::Size
+	Point::to_size() const
+	{
+		return {x, y};
 	}
 
 	std::string

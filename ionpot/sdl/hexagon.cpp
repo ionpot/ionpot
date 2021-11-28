@@ -3,6 +3,7 @@
 #include "point.hpp"
 
 #include <util/int.hpp>
+#include <util/size.hpp>
 
 #include <algorithm>
 #include <cmath>
@@ -64,7 +65,7 @@ namespace ionpot::sdl {
 		return {0, y1};
 	}
 
-	Size Hexagon::size() const
+	util::Size Hexagon::size() const
 	{
 		return {width(), height()};
 	}

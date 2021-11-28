@@ -3,11 +3,11 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "text.hpp"
 
 #include <util/int.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <string>
 #include <utility>
@@ -74,7 +74,7 @@ namespace ionpot::sdl {
 		}
 	}
 
-	Size
+	util::Size
 	TextLines::size() const
 	{
 		return m_size;

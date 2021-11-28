@@ -3,10 +3,10 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <string>
 
@@ -21,12 +21,12 @@ namespace ionpot::sdl {
 
 		void render(const Renderer&, Point position) const;
 
-		Size size() const;
+		util::Size size() const;
 		int width() const;
 		int height() const;
 
 	private:
 		Texture m_texture;
-		Size m_size;
+		util::Size m_size;
 	};
 }

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "point.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 namespace ionpot::sdl {
 	struct Hexagon {
@@ -12,7 +13,7 @@ namespace ionpot::sdl {
 
 		Hexagon(double side);
 
-		Size size() const;
+		util::Size size() const;
 		int height() const;
 		int width() const;
 

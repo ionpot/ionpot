@@ -3,9 +3,9 @@
 #include "event.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 
 #include <util/macros.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 #include <string>
@@ -25,7 +25,7 @@ namespace ionpot::sdl {
 		sdl::Point m_mouse_pos;
 		SDL_Window* m_window;
 
-		Window(std::string title, Size window_size);
+		Window(std::string title, util::Size window_size);
 		~Window();
 		IONPOT_NO_COPY(Window)
 

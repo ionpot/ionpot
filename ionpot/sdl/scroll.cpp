@@ -1,13 +1,14 @@
 #include "scroll.hpp"
 
 #include "point.hpp"
-#include "size.hpp"
+
+#include <util/size.hpp>
 
 #include <string>
 
 namespace ionpot::sdl {
-	Scroll::Scroll(Size screen, Size content, int speed):
-		m_max {Point::max((content - screen).to_point())},
+	Scroll::Scroll(util::Size screen, util::Size content, int speed):
+		m_max {Point::max(Point {content - screen})},
 		m_speed {speed},
 		m_state {}
 	{}

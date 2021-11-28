@@ -4,13 +4,13 @@
 #include "event.hpp"
 #include "img.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 #include "ttf.hpp"
 #include "window.hpp"
 
 #include <util/log.hpp>
 #include <util/macros.hpp>
+#include <util/size.hpp>
 
 #include <optional>
 #include <string>
@@ -26,7 +26,7 @@ namespace ionpot::sdl {
 		Img img;
 		Ttf ttf;
 
-		Context(std::string window_title, Size window_size, util::Log&);
+		Context(std::string window_title, util::Size window_size, util::Log&);
 		~Context() = default;
 		IONPOT_NO_COPY(Context)
 

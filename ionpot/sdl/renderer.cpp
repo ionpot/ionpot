@@ -7,11 +7,11 @@
 #include "point.hpp"
 #include "rect.hpp"
 #include "rwops.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 
 #include <util/rgb.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -81,7 +81,7 @@ namespace ionpot::sdl {
 	}
 
 	TargetTexture
-	Renderer::create_target_texture(Size size) const
+	Renderer::create_target_texture(util::Size size) const
 	{
 		return {m_renderer, size};
 	}
