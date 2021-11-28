@@ -1,6 +1,9 @@
 add_library(ionpot_sdl base.cpp box.cpp config.cpp context.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp img.cpp point.cpp rect.cpp renderer.cpp rwops.cpp scroll.cpp size.cpp surface.cpp text.cpp text_box.cpp text_lines.cpp text_lines_box.cpp texture.cpp ttf.cpp window.cpp)
 
-target_link_libraries(ionpot_sdl PRIVATE ionpot_util)
+# to include <util/...>
+target_include_directories(ionpot_sdl PUBLIC "${PROJECT_SOURCE_DIR}/ionpot")
+
+target_link_libraries(ionpot_sdl PUBLIC ionpot_util)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 

@@ -13,9 +13,6 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-# favour the <prefix/...> include syntax
-include_directories("${CMAKE_CURRENT_LIST_DIR}")
-
 # subdirectories
 add_subdirectory(util)
 add_subdirectory(sdl)
