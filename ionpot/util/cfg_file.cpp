@@ -2,6 +2,7 @@
 
 #include "file.hpp"
 #include "rgb.hpp"
+#include "size.hpp"
 
 #include <stdexcept> // std::invalid_argument
 #include <string>
@@ -98,6 +99,12 @@ namespace ionpot::util {
 	CfgFile::Pair::to_rgb() const
 	{
 		return RGB::from_hex(value);
+	}
+
+	Size
+	CfgFile::Pair::to_size() const
+	{
+		return {to_int_pair()};
 	}
 
 	template<class T>

@@ -3,6 +3,7 @@
 #include "exception.hpp"
 #include "file.hpp"
 #include "rgb.hpp"
+#include "size.hpp"
 
 #include <string>
 #include <utility> // std::pair
@@ -22,6 +23,7 @@ namespace ionpot::util {
 			int to_int() const;
 			std::pair<int, int> to_int_pair() const;
 			RGB to_rgb() const;
+			Size to_size() const;
 		private:
 			template<class T>
 			T to_value(T (*)(std::string)) const;
