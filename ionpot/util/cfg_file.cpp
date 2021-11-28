@@ -1,6 +1,7 @@
 #include "cfg_file.hpp"
 
 #include "file.hpp"
+#include "rgb.hpp"
 
 #include <stdexcept> // std::invalid_argument
 #include <string>
@@ -91,6 +92,12 @@ namespace ionpot::util {
 	CfgFile::Pair::to_int_pair() const
 	{
 		return to_value(s_to_int_pair);
+	}
+
+	RGB
+	CfgFile::Pair::to_rgb() const
+	{
+		return RGB::from_hex(value);
 	}
 
 	template<class T>

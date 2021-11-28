@@ -2,6 +2,7 @@
 
 #include "exception.hpp"
 #include "file.hpp"
+#include "rgb.hpp"
 
 #include <string>
 #include <utility> // std::pair
@@ -20,6 +21,7 @@ namespace ionpot::util {
 			double to_double() const;
 			int to_int() const;
 			std::pair<int, int> to_int_pair() const;
+			RGB to_rgb() const;
 		private:
 			template<class T>
 			T to_value(T (*)(std::string)) const;
