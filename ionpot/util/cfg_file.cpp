@@ -2,9 +2,9 @@
 
 #include "file.hpp"
 
-#include <stdexcept>
+#include <stdexcept> // std::invalid_argument
 #include <string>
-#include <tuple>
+#include <utility> // std::pair
 
 namespace ionpot::util {
 	namespace {
@@ -42,7 +42,7 @@ namespace ionpot::util {
 			throw s_BadValue {"an integer"};
 		}
 
-		std::tuple<int, int>
+		std::pair<int, int>
 		s_to_int_pair(std::string input)
 		{
 			auto i = input.find(' ');
@@ -87,7 +87,7 @@ namespace ionpot::util {
 		return to_value(s_to_int);
 	}
 
-	std::tuple<int, int>
+	std::pair<int, int>
 	CfgFile::Pair::to_int_pair() const
 	{
 		return to_value(s_to_int_pair);
