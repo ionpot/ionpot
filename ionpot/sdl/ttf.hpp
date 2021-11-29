@@ -13,6 +13,6 @@ namespace ionpot::sdl {
 		~Ttf();
 		IONPOT_NO_COPY(Ttf)
 
-		Font load_font(const Font::Config&) const;
+		Font load_font(const Font::Config&, util::Log&) const;
 	};
 }

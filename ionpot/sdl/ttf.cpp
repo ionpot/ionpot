@@ -37,8 +37,14 @@ namespace ionpot::sdl {
 	}
 
 	Font
-	Ttf::load_font(const Font::Config& config) const
+	Ttf::load_font(const Font::Config& config, util::Log& log) const
 	{
-		return {config};
+		Font font {config};
+		log.file
+			<< config.file << " loaded: line height = "
+			<< font.line_height() << "px, line skip = "
+			<< font.line_skip() << "px";
+		log.endl();
+		return font;
 	}
 }

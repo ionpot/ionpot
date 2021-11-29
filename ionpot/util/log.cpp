@@ -13,6 +13,12 @@ namespace ionpot::util {
 	}
 
 	void
+	Log::endl()
+	{
+		file << std::endl;
+	}
+
+	void
 	Log::error(std::string text)
 	{
 		put("[Error] " + text);

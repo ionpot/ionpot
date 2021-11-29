@@ -15,6 +15,8 @@ namespace ionpot::util {
 		IONPOT_NO_COPY(Log)
 		IONPOT_DEFAULT_MOVE(Log)
 
+		void endl();
+
 		void error(std::string);
 
 		template<class T>
