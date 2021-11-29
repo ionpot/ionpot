@@ -4,6 +4,7 @@
 #include "event.hpp"
 #include "renderer.hpp"
 
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 #include <SDL.h>
@@ -78,7 +79,7 @@ namespace ionpot::sdl {
 		return m_focus;
 	}
 
-	sdl::Point
+	util::Point
 	Window::mouse_position() const
 	{
 		return m_mouse_pos;

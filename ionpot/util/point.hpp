@@ -1,12 +1,12 @@
 #pragma once
 
-#include <util/size.hpp>
-
-#include <SDL.h>
+#include "size.hpp" // circular dep
 
 #include <string>
 
-namespace ionpot::sdl {
+namespace ionpot::util {
+	struct Size;
+
 	struct Point {
 		int x {0};
 		int y {0};
@@ -14,7 +14,7 @@ namespace ionpot::sdl {
 		Point() = default;
 		Point(int x_and_y);
 		Point(int x, int y);
-		Point(const util::Size&);
+		Point(const Size&);
 
 		void clear();
 
@@ -24,9 +24,6 @@ namespace ionpot::sdl {
 
 		void pick_min(const Point& p);
 		void pick_max(const Point& p);
-
-		SDL_Point to_sdl() const;
-		util::Size to_size() const;
 
 		Point operator+(int) const;
 		Point operator+(const Point& p) const;

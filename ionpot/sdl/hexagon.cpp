@@ -1,8 +1,7 @@
 #include "hexagon.hpp"
 
-#include "point.hpp"
-
 #include <util/int.hpp>
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 #include <algorithm>
@@ -29,38 +28,38 @@ namespace ionpot::sdl {
 	{
 	}
 
-	bool Hexagon::contains(Point p) const
+	bool Hexagon::contains(util::Point p) const
 	{
 		auto r = static_cast<double>(center.x);
 		return p.distance(center) <= r;
 	}
 
-	Point Hexagon::point1() const
+	util::Point Hexagon::point1() const
 	{
 		return {x1, 0};
 	}
 
-	Point Hexagon::point2() const
+	util::Point Hexagon::point2() const
 	{
 		return {x2, 0};
 	}
 
-	Point Hexagon::point3() const
+	util::Point Hexagon::point3() const
 	{
 		return {x3, y1};
 	}
 
-	Point Hexagon::point4() const
+	util::Point Hexagon::point4() const
 	{
 		return {x2, y2};
 	}
 
-	Point Hexagon::point5() const
+	util::Point Hexagon::point5() const
 	{
 		return {x1, y2};
 	}
 
-	Point Hexagon::point6() const
+	util::Point Hexagon::point6() const
 	{
 		return {0, y1};
 	}

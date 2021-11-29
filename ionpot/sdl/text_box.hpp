@@ -2,10 +2,10 @@
 
 #include "box.hpp"
 #include "font.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 #include "text.hpp"
 
+#include <util/point.hpp>
 #include <util/rgb.hpp>
 
 #include <string>
@@ -29,7 +29,7 @@ namespace ionpot::sdl {
 			const Renderer&,
 			std::string content);
 
-		void render(const Renderer&, Point position) const;
+		void render(const Renderer&, util::Point position) const;
 
 	private:
 		Text m_text;

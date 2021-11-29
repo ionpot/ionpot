@@ -1,10 +1,10 @@
 #include "hex_grid.hpp"
 
 #include "hexagon.hpp"
-#include "point.hpp"
 
 #include <util/int.hpp>
 #include <util/grid.hpp>
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 namespace ionpot::sdl {
@@ -38,7 +38,7 @@ namespace ionpot::sdl {
 	}
 
 	bool
-	HexGrid::contains(Point pos, util::GridIndex index) const
+	HexGrid::contains(util::Point pos, util::GridIndex index) const
 	{
 		return hex.contains(pos - position_of(index));
 	}
@@ -53,7 +53,7 @@ namespace ionpot::sdl {
 	}
 
 	util::GridIndex
-	HexGrid::get_visible_index(Point pos) const
+	HexGrid::get_visible_index(util::Point pos) const
 	{
 		return {
 			get_visible_row(pos.y),
@@ -106,7 +106,7 @@ namespace ionpot::sdl {
 		return 3 + n;
 	}
 
-	Point
+	util::Point
 	HexGrid::position_of(util::GridIndex index) const
 	{
 		return {x_of(index), y_of(index)};

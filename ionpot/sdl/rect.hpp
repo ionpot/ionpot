@@ -1,18 +1,17 @@
 #pragma once
 
-#include "point.hpp"
-
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 #include <SDL.h>
 
 namespace ionpot::sdl {
 	struct Rect {
-		Point position;
+		util::Point position;
 		util::Size size;
 		Rect(util::Size);
-		Rect(Point, util::Size);
-		bool contains(Point) const;
+		Rect(util::Point, util::Size);
+		bool contains(util::Point) const;
 		SDL_Rect to_sdl() const;
 	};
 }

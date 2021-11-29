@@ -2,13 +2,14 @@
 
 #include "box.hpp"
 #include "font.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 #include "text_box.hpp"
 #include "text_lines.hpp"
 
+#include <util/point.hpp>
+
 #include <string>
-#include <utility>
+#include <utility> // std::move
 #include <vector>
 
 namespace ionpot::sdl {
@@ -35,7 +36,7 @@ namespace ionpot::sdl {
 	{}
 
 	void
-	TextLinesBox::render(const Renderer& rdr, Point position) const
+	TextLinesBox::render(const Renderer& rdr, util::Point position) const
 	{
 		m_box.render(rdr, position);
 		m_lines.render(rdr, m_box.content(position));

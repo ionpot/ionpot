@@ -1,10 +1,10 @@
 #pragma once
 
 #include "font.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
 
+#include <util/point.hpp>
 #include <util/rgba.hpp>
 #include <util/size.hpp>
 
@@ -19,7 +19,7 @@ namespace ionpot::sdl {
 			std::string content,
 			const util::RGBA& text_color);
 
-		void render(const Renderer&, Point position) const;
+		void render(const Renderer&, util::Point position) const;
 
 		util::Size size() const;
 		int width() const;

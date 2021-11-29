@@ -4,11 +4,12 @@
 #include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "point.hpp"
 #include "rect.hpp"
 #include "rwops.hpp"
 #include "texture.hpp"
+#include "to_point.hpp"
 
+#include <util/point.hpp>
 #include <util/rgb.hpp>
 #include <util/rgba.hpp>
 #include <util/size.hpp>
@@ -108,13 +109,13 @@ namespace ionpot::sdl {
 	Renderer::draw_hex(const Hexagon& hex) const
 	{
 		std::array points = {
-			hex.point1().to_sdl(),
-			hex.point2().to_sdl(),
-			hex.point3().to_sdl(),
-			hex.point4().to_sdl(),
-			hex.point5().to_sdl(),
-			hex.point6().to_sdl(),
-			hex.point1().to_sdl()
+			to_point(hex.point1()),
+			to_point(hex.point2()),
+			to_point(hex.point3()),
+			to_point(hex.point4()),
+			to_point(hex.point5()),
+			to_point(hex.point6()),
+			to_point(hex.point1())
 		};
 		if (SDL_RenderDrawLines(m_renderer, points.data(), (int)points.size()))
 			throw Exception {};
@@ -136,7 +137,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::put(const Texture& texture, Point position) const
+	Renderer::put(const Texture& texture, util::Point position) const
 	{
 		auto dst = Rect {position, texture.size}.to_sdl();
 		auto err = SDL_RenderCopy(

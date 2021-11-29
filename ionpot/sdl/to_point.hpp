@@ -2,9 +2,8 @@
 
 #include <util/point.hpp>
 
+#include <SDL.h>
+
 namespace ionpot::sdl {
-	struct Line {
-		util::Point start;
-		util::Point end;
-	};
+	SDL_Point to_point(util::Point);
 }

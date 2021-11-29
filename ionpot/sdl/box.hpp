@@ -1,9 +1,9 @@
 #pragma once
 
-#include "point.hpp"
 #include "renderer.hpp"
 #include "texture.hpp"
 
+#include <util/point.hpp>
 #include <util/rgb.hpp>
 #include <util/size.hpp>
 
@@ -19,12 +19,12 @@ namespace ionpot::sdl {
 
 		Box(const Config&, const Renderer&, util::Size inner_size);
 
-		Point content(Point offset) const;
+		util::Point content(util::Point offset) const;
 
-		void render(const Renderer&, Point position) const;
+		void render(const Renderer&, util::Point position) const;
 
 	private:
-		Point m_content;
+		util::Point m_content;
 		TargetTexture m_texture;
 	};
 }

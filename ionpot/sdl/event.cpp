@@ -1,7 +1,8 @@
 #include "event.hpp"
 
 #include "key.hpp"
-#include "point.hpp"
+
+#include <util/point.hpp>
 
 #include <SDL.h>
 #include <variant>
@@ -40,7 +41,7 @@ namespace ionpot::sdl {
 			break;
 		case SDL_MOUSEMOTION: {
 			auto motion = event.motion;
-			m_data = MouseMoveEvent {Point {motion.x, motion.y}};
+			m_data = MouseMoveEvent {util::Point {motion.x, motion.y}};
 			break;
 		}
 		case SDL_QUIT:

@@ -3,13 +3,13 @@
 #include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "point.hpp"
 #include "rect.hpp"
 #include "surface.hpp"
 #include "texture.hpp"
 
-#include <util/rgba.hpp>
 #include <util/macros.hpp>
+#include <util/point.hpp>
+#include <util/rgba.hpp>
 #include <util/size.hpp>
 
 #include <SDL.h>
@@ -28,7 +28,7 @@ namespace ionpot::sdl {
 		void draw_line(Line) const;
 		void draw_rect(const Rect&) const;
 		void present() const;
-		void put(const Texture&, Point position) const;
+		void put(const Texture&, util::Point position) const;
 		void reset_color() const;
 		void reset_target() const;
 		void set_color(const util::RGBA&) const;

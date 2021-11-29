@@ -1,9 +1,10 @@
 #include "text_box.hpp"
 
 #include "font.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 #include "text.hpp"
+
+#include <util/point.hpp>
 
 #include <string>
 #include <utility>
@@ -28,7 +29,7 @@ namespace ionpot::sdl {
 	{}
 
 	void
-	TextBox::render(const Renderer& rdr, Point pos) const
+	TextBox::render(const Renderer& rdr, util::Point pos) const
 	{
 		m_box.render(rdr, pos);
 		m_text.render(rdr, m_box.content(pos));

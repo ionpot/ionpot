@@ -1,11 +1,11 @@
 #include "text_lines.hpp"
 
 #include "font.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 #include "text.hpp"
 
 #include <util/int.hpp>
+#include <util/point.hpp>
 #include <util/rgba.hpp>
 #include <util/size.hpp>
 
@@ -66,7 +66,7 @@ namespace ionpot::sdl {
 	{}
 
 	void
-	TextLines::render(const Renderer& rdr, Point position) const
+	TextLines::render(const Renderer& rdr, util::Point position) const
 	{
 		for (const auto& line : m_lines) {
 			line.render(rdr, position);

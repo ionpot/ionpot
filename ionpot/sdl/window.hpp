@@ -1,10 +1,10 @@
 #pragma once
 
 #include "event.hpp"
-#include "point.hpp"
 #include "renderer.hpp"
 
 #include <util/macros.hpp>
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 #include <SDL.h>
@@ -16,13 +16,13 @@ namespace ionpot::sdl {
 		typedef Uint32 Flags;
 
 		bool has_focus() const;
-		sdl::Point mouse_position() const;
+		util::Point mouse_position() const;
 
 	private:
 		friend struct Context;
 
 		bool m_focus;
-		sdl::Point m_mouse_pos;
+		util::Point m_mouse_pos;
 		SDL_Window* m_window;
 
 		Window(std::string title, util::Size window_size);

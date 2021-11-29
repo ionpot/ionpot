@@ -1,7 +1,8 @@
 #include "rect.hpp"
 
-#include "point.hpp"
+#include "to_point.hpp"
 
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 #include <SDL.h>
@@ -12,16 +13,16 @@ namespace ionpot::sdl {
 		size {s}
 	{}
 
-	Rect::Rect(Point p, util::Size s):
+	Rect::Rect(util::Point p, util::Size s):
 		position {p},
 		size {s}
 	{}
 
 	bool
-	Rect::contains(Point p) const
+	Rect::contains(util::Point p) const
 	{
 		auto rect = to_sdl();
-		auto point = p.to_sdl();
+		auto point = to_point(p);
 		return SDL_PointInRect(&point, &rect) == SDL_TRUE;
 	}
 

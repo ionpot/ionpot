@@ -1,7 +1,6 @@
 #pragma once
 
-#include "point.hpp"
-
+#include <util/point.hpp>
 #include <util/size.hpp>
 
 namespace ionpot::sdl {
@@ -9,7 +8,7 @@ namespace ionpot::sdl {
 		int side;
 		int x1, x2, x3;
 		int y1, y2;
-		Point center;
+		util::Point center;
 
 		Hexagon(double side);
 
@@ -17,14 +16,14 @@ namespace ionpot::sdl {
 		int height() const;
 		int width() const;
 
-		bool contains(Point) const;
+		bool contains(util::Point) const;
 
 		// clockwise from top left
-		Point point1() const;
-		Point point2() const;
-		Point point3() const;
-		Point point4() const;
-		Point point5() const;
-		Point point6() const;
+		util::Point point1() const;
+		util::Point point2() const;
+		util::Point point3() const;
+		util::Point point4() const;
+		util::Point point5() const;
+		util::Point point6() const;
 	};
 }

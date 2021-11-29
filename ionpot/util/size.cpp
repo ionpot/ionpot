@@ -1,5 +1,7 @@
 #include "size.hpp"
 
+#include "point.hpp"
+
 #include <string>
 #include <utility> // std::pair
 
@@ -12,6 +14,9 @@ namespace ionpot::util {
 	{}
 	Size::Size(const std::pair<int, int>& p):
 		Size(p.first, p.second)
+	{}
+	Size::Size(const Point& p):
+		Size(p.x, p.y)
 	{}
 
 	Size

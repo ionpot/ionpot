@@ -1,1 +1,1 @@
-add_library(ionpot_util cfg_file.cpp file.cpp grid.cpp int.cpp log.cpp rgb.cpp rgba.cpp size.cpp)
+add_library(ionpot_util cfg_file.cpp file.cpp grid.cpp int.cpp log.cpp point.cpp rgb.cpp rgba.cpp size.cpp)

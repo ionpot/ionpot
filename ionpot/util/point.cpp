@@ -1,12 +1,11 @@
 #include "point.hpp"
 
-#include <util/size.hpp>
+#include "size.hpp"
 
-#include <SDL.h>
-#include <cmath>
+#include <cmath> // std::sqrt, std::pow
 #include <string>
 
-namespace ionpot::sdl {
+namespace ionpot::util {
 	const Point Point::one {1, 1};
 
 	Point::Point(int xy):
@@ -17,7 +16,7 @@ namespace ionpot::sdl {
 		x {x}, y {y}
 	{}
 
-	Point::Point(const util::Size& size):
+	Point::Point(const Size& size):
 		x {size.width}, y {size.height}
 	{}
 
@@ -72,21 +71,6 @@ namespace ionpot::sdl {
 			x = p.x;
 		if (p.y > y)
 			y = p.y;
-	}
-
-	SDL_Point
-	Point::to_sdl() const
-	{
-		SDL_Point point;
-		point.x = x;
-		point.y = y;
-		return point;
-	}
-
-	util::Size
-	Point::to_size() const
-	{
-		return {x, y};
 	}
 
 	std::string
