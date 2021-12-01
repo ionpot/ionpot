@@ -7,7 +7,7 @@
 #include <util/point.hpp>
 
 #include <string>
-#include <utility>
+#include <utility> // std::move
 
 namespace ionpot::sdl {
 	TextBox::TextBox(

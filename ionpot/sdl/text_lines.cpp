@@ -10,7 +10,7 @@
 #include <util/size.hpp>
 
 #include <string>
-#include <utility>
+#include <utility> // std::move
 #include <vector>
 
 namespace ionpot::sdl {
