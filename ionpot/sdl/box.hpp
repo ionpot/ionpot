@@ -18,6 +18,11 @@ namespace ionpot::sdl {
 		};
 
 		Box(const Config&, const Renderer&, util::Size inner_size);
+		Box(
+			const Config&,
+			const Renderer&,
+			util::Size inner_size,
+			util::Size content_size);
 
 		util::Point content(util::Point offset) const;
 

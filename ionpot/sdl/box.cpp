@@ -11,11 +11,21 @@ namespace ionpot::sdl {
 			const Renderer& rdr,
 			util::Size inner_size
 	):
+		Box(config, rdr, inner_size, inner_size)
+	{}
+
+	Box::Box(
+			const Box::Config& config,
+			const Renderer& rdr,
+			util::Size inner_size,
+			util::Size content_size
+	):
 		m_content {util::Size {config.border_width} + config.padding},
 		m_texture {rdr.create_target_texture(
 			inner_size + util::Size {m_content * 2}
 		)}
 	{
+		m_content += inner_size.center(content_size);
 		rdr.set_target(m_texture);
 		rdr.set_color(config.background_color);
 		rdr.clear();

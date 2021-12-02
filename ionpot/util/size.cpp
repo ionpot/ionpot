@@ -19,6 +19,12 @@ namespace ionpot::util {
 		Size(p.x, p.y)
 	{}
 
+	Point
+	Size::center(const Size& size) const
+	{
+		return {(*this - size) / 2};
+	}
+
 	Size
 	Size::operator+(const Size& size) const
 	{
@@ -35,6 +41,12 @@ namespace ionpot::util {
 	Size::operator-(int n) const
 	{
 		return *this - Size {n};
+	}
+
+	Size
+	Size::operator/(int n) const
+	{
+		return {width / n, height / n};
 	}
 
 	Size&

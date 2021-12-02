@@ -18,9 +18,12 @@ namespace ionpot::util {
 		Size(const std::pair<int, int>&);
 		Size(const Point&);
 
+		Point center(const Size&) const;
+
 		Size operator+(const Size&) const;
 		Size operator-(const Size&) const;
 		Size operator-(int) const;
+		Size operator/(int) const;
 		Size& operator-=(const Size&);
 		Size& operator-=(int);
 
