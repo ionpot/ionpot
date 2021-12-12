@@ -40,6 +40,18 @@ namespace ionpot::sdl {
 	}
 
 	util::Point
+	Box::center(const Box& box) const
+	{
+		return center(box.size());
+	}
+
+	util::Point
+	Box::center(util::Size s) const
+	{
+		return size().center(s);
+	}
+
+	util::Point
 	Box::content(util::Point offset) const
 	{
 		return offset + m_content;
@@ -49,5 +61,11 @@ namespace ionpot::sdl {
 	Box::render(const Renderer& rdr, util::Point pos) const
 	{
 		rdr.put(m_texture, pos);
+	}
+
+	util::Size
+	Box::size() const
+	{
+		return m_texture.size;
 	}
 }
