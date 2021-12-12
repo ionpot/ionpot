@@ -63,6 +63,15 @@ namespace ionpot::util {
 		return *this;
 	}
 
+	void
+	Size::pick_max(const Size& size)
+	{
+		if (width < size.width)
+			width = size.width;
+		if (height < size.height)
+			height = size.height;
+	}
+
 	std::string
 	Size::to_str() const
 	{

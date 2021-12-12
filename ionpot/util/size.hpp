@@ -27,6 +27,8 @@ namespace ionpot::util {
 		Size& operator-=(const Size&);
 		Size& operator-=(int);
 
+		void pick_max(const Size&);
+
 		std::string to_str() const;
 	};
 }
