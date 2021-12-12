@@ -5,10 +5,12 @@
 #include "ttf_exception.hpp"
 
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL_ttf.h>
 
 #include <string>
+#include <vector>
 
 namespace ionpot::sdl {
 	Font::Font(const Config& config):
@@ -40,6 +42,16 @@ namespace ionpot::sdl {
 		return *this;
 	}
 
+	util::Size
+	Font::calculate_size(std::string text) const
+	{
+		int w {0};
+		int h {0};
+		if (TTF_SizeUTF8(m_font, text.c_str(), &w, &h))
+			throw TtfException {};
+		return {w, h};
+	}
+
 	int
 	Font::line_height() const
 	{
@@ -50,6 +62,17 @@ namespace ionpot::sdl {
 	Font::line_skip() const
 	{
 		return TTF_FontLineSkip(m_font);
+	}
+
+	util::Size
+	Font::max_size(const std::vector<std::string>& ls) const
+	{
+		util::Size output {0};
+		for (auto text : ls) {
+			auto size = calculate_size(text);
+			output.pick_max(size);
+		}
+		return output;
 	}
 
 	Surface
