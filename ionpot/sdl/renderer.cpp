@@ -139,7 +139,7 @@ namespace ionpot::sdl {
 	void
 	Renderer::put(const Texture& texture, util::Point position) const
 	{
-		auto dst = Rect {position, texture.size}.to_sdl();
+		auto dst = Rect {position, texture.size()}.to_sdl();
 		auto err = SDL_RenderCopy(
 			m_renderer, texture.m_texture, NULL, &dst
 		);

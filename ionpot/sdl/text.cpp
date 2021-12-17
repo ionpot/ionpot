@@ -17,7 +17,7 @@ namespace ionpot::sdl {
 			const util::RGBA& color
 	):
 		m_texture {rdr.create_text(font, content, color)},
-		m_size {m_texture.size.width, font.line_height()}
+		m_size {m_texture.size().width, font.line_height()}
 	{}
 
 	void

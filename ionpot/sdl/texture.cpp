@@ -9,7 +9,7 @@
 
 namespace ionpot::sdl {
 	Texture::Texture(SDL_Texture* texture, util::Size size):
-		size {size},
+		m_size {size},
 		m_texture {texture}
 	{
 		if (!m_texture)
@@ -31,7 +31,7 @@ namespace ionpot::sdl {
 	Texture::Texture(SDL_Renderer* renderer, const Surface& surface):
 		Texture {SDL_CreateTextureFromSurface(renderer, surface.pointer)}
 	{
-		if (SDL_QueryTexture(m_texture, NULL, NULL, &size.width, &size.height))
+		if (SDL_QueryTexture(m_texture, NULL, NULL, &m_size.width, &m_size.height))
 			throw Exception {};
 	}
 
@@ -44,7 +44,7 @@ namespace ionpot::sdl {
 	}
 
 	Texture::Texture(Texture&& from) noexcept:
-		size {from.size},
+		m_size {from.size()},
 		m_texture {from.m_texture}
 	{
 		from.m_texture = NULL;
@@ -53,11 +53,15 @@ namespace ionpot::sdl {
 	Texture&
 	Texture::operator=(Texture&& from) noexcept
 	{
-		size = from.size;
+		m_size = from.size();
 		m_texture = from.m_texture;
 		from.m_texture = NULL;
 		return *this;
 	}
+
+	util::Size
+	Texture::size() const
+	{ return m_size; }
 
 	TargetTexture::TargetTexture(SDL_Renderer* renderer, util::Size size):
 		Texture {renderer, size, SDL_TEXTUREACCESS_TARGET}
