@@ -20,10 +20,10 @@ namespace ionpot::sdl {
 	public:
 		void clear() const;
 		Texture create_hex(const Hexagon&, const util::RGBA&) const;
-		TargetTexture create_target_texture(util::Size) const;
 		Texture create_text(const Font&, std::string text) const;
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		Texture create_texture(const Surface& surface) const;
+		TargetTexture create_texture(util::Size) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void draw_rect(const Rect&) const;

@@ -71,7 +71,7 @@ namespace ionpot::sdl {
 	Texture
 	Renderer::create_hex(const Hexagon& hex, const util::RGBA& color) const
 	{
-		auto tx = create_target_texture(hex.size());
+		auto tx = create_texture(hex.size());
 		set_target(tx);
 		set_color(util::RGBA::blank);
 		clear();
@@ -82,7 +82,7 @@ namespace ionpot::sdl {
 	}
 
 	TargetTexture
-	Renderer::create_target_texture(util::Size size) const
+	Renderer::create_texture(util::Size size) const
 	{
 		return {m_renderer, size};
 	}
