@@ -7,6 +7,8 @@
 
 #include <SDL.h>
 
+#include <memory> // std::shared_ptr
+
 namespace ionpot::sdl {
 	class Texture {
 	public:
@@ -26,5 +28,15 @@ namespace ionpot::sdl {
 	class TargetTexture : public Texture {
 		friend class Renderer;
 		TargetTexture(SDL_Renderer*, util::Size);
+	};
+
+	template<class T>
+	class SharedTexture {
+	public:
+		util::Size size() const { return m_texture->size(); }
+	private:
+		friend class Renderer;
+		std::shared_ptr<T> m_texture;
+		SharedTexture(std::shared_ptr<T> t): m_texture {t} {}
 	};
 }

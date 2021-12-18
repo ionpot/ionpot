@@ -18,6 +18,7 @@
 #include <SDL_image.h>
 
 #include <array>
+#include <memory> // std::shared_ptr
 #include <string>
 
 namespace ionpot::sdl {
@@ -91,6 +92,22 @@ namespace ionpot::sdl {
 	Renderer::create_texture(const Surface& surface) const
 	{
 		return {m_renderer, surface};
+	}
+
+	SharedTexture<TargetTexture>
+	Renderer::shared_texture(util::Size size) const
+	{
+		std::shared_ptr<TargetTexture> t {
+			new TargetTexture {m_renderer, size}
+		};
+		return {t};
+	}
+
+	SharedTexture<Texture>
+	Renderer::shared_texture(const Surface& surface) const
+	{
+		std::shared_ptr<Texture> t {new Texture {m_renderer, surface}};
+		return {t};
 	}
 
 	void
