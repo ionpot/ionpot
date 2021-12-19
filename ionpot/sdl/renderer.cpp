@@ -94,16 +94,16 @@ namespace ionpot::sdl {
 		return {m_renderer, surface};
 	}
 
-	SharedTexture<TargetTexture>
+	std::shared_ptr<TargetTexture>
 	Renderer::shared_texture(util::Size size) const
 	{
 		std::shared_ptr<TargetTexture> t {
 			new TargetTexture {m_renderer, size}
 		};
-		return {t};
+		return t;
 	}
 
-	SharedTexture<Texture>
+	SharedTexture
 	Renderer::shared_texture(const Surface& surface) const
 	{
 		std::shared_ptr<Texture> t {new Texture {m_renderer, surface}};
@@ -162,6 +162,12 @@ namespace ionpot::sdl {
 		);
 		if (err)
 			throw Exception {};
+	}
+
+	void
+	Renderer::put(const SharedTexture& texture, util::Point position) const
+	{
+		put(texture.get(), position);
 	}
 
 	Texture

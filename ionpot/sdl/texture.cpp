@@ -7,6 +7,8 @@
 
 #include <SDL.h>
 
+#include <memory> // std::shared_ptr, std::static_pointer_cast
+
 namespace ionpot::sdl {
 	Texture::Texture(SDL_Texture* texture, util::Size size):
 		m_size {size},
@@ -63,7 +65,25 @@ namespace ionpot::sdl {
 	Texture::size() const
 	{ return m_size; }
 
+	// TargetTexture
 	TargetTexture::TargetTexture(SDL_Renderer* renderer, util::Size size):
 		Texture {renderer, size, SDL_TEXTUREACCESS_TARGET}
 	{}
+
+	// SharedTexture
+	SharedTexture::SharedTexture(std::shared_ptr<Texture> ptr):
+		m_texture {ptr}
+	{}
+
+	SharedTexture::SharedTexture(std::shared_ptr<TargetTexture> ptr):
+		m_texture {std::static_pointer_cast<Texture>(ptr)}
+	{}
+
+	const Texture&
+	SharedTexture::get() const
+	{ return *m_texture; }
+
+	util::Size
+	SharedTexture::size() const
+	{ return m_texture->size(); }
 }

@@ -13,6 +13,7 @@
 #include <util/size.hpp>
 
 #include <SDL.h>
+#include <memory> // std::shared_ptr
 #include <string>
 
 namespace ionpot::sdl {
@@ -24,16 +25,14 @@ namespace ionpot::sdl {
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		Texture create_texture(const Surface& surface) const;
 		TargetTexture create_texture(util::Size) const;
-		SharedTexture<Texture> shared_texture(const Surface& surface) const;
-		SharedTexture<TargetTexture> shared_texture(util::Size) const;
+		SharedTexture shared_texture(const Surface& surface) const;
+		std::shared_ptr<TargetTexture> shared_texture(util::Size) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void draw_rect(const Rect&) const;
 		void present() const;
 		void put(const Texture&, util::Point position) const;
-		template<class T>
-		void put(const SharedTexture<T>& t, util::Point position) const
-		{ put(*t.m_texture, position); }
+		void put(const SharedTexture&, util::Point position) const;
 		void reset_color() const;
 		void reset_target() const;
 		void set_color(const util::RGBA&) const;

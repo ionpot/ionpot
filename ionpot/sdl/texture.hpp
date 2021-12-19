@@ -30,13 +30,14 @@ namespace ionpot::sdl {
 		TargetTexture(SDL_Renderer*, util::Size);
 	};
 
-	template<class T>
 	class SharedTexture {
 	public:
-		util::Size size() const { return m_texture->size(); }
+		util::Size size() const;
 	private:
 		friend class Renderer;
-		std::shared_ptr<T> m_texture;
-		SharedTexture(std::shared_ptr<T> t): m_texture {t} {}
+		std::shared_ptr<Texture> m_texture;
+		SharedTexture(std::shared_ptr<Texture>);
+		SharedTexture(std::shared_ptr<TargetTexture>);
+		const Texture& get() const;
 	};
 }
