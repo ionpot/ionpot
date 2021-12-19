@@ -1,22 +1,22 @@
 #include "scroll.hpp"
 
-#include <util/point.hpp>
-#include <util/size.hpp>
+#include "point.hpp"
+#include "size.hpp"
 
 #include <string>
 
-namespace ionpot::sdl {
-	Scroll::Scroll(util::Size screen, util::Size content, int speed):
-		m_max {util::Point::max(util::Point {content - screen})},
+namespace ionpot::util {
+	Scroll::Scroll(Size screen, Size content, int speed):
+		m_max {Point::max(Point {content - screen})},
 		m_speed {speed},
 		m_state {}
 	{}
 
-	util::Point
-	Scroll::next(util::Point p) const
+	Point
+	Scroll::next(Point p) const
 	{
-		auto q = util::Point::max({p + m_state});
-		return util::Point::min(q, m_max);
+		auto q = Point::max({p + m_state});
+		return Point::min(q, m_max);
 	}
 
 	void
