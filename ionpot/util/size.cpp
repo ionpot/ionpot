@@ -7,16 +7,16 @@
 
 namespace ionpot::util {
 	Size::Size(int n):
-		Size(n, n)
+		Size {n, n}
 	{}
 	Size::Size(int w, int h):
 		width {w}, height {h}
 	{}
 	Size::Size(const std::pair<int, int>& p):
-		Size(p.first, p.second)
+		Size {p.first, p.second}
 	{}
 	Size::Size(const Point& p):
-		Size(p.x, p.y)
+		Size {p.x, p.y}
 	{}
 
 	Point
