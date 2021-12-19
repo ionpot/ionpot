@@ -1,11 +1,11 @@
 #include "text.hpp"
 
 #include "font.hpp"
+#include "point.hpp"
 #include "renderer.hpp"
+#include "size.hpp"
 
-#include <util/point.hpp>
 #include <util/rgba.hpp>
-#include <util/size.hpp>
 
 #include <string>
 
@@ -21,12 +21,12 @@ namespace ionpot::sdl {
 	{}
 
 	void
-	Text::render(const Renderer& rdr, util::Point pos) const
+	Text::render(const Renderer& rdr, Point pos) const
 	{
 		rdr.put(m_texture, pos);
 	}
 
-	util::Size
+	Size
 	Text::size() const
 	{
 		return m_size;

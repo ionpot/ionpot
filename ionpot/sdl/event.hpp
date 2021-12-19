@@ -1,8 +1,7 @@
 #pragma once
 
 #include "key.hpp"
-
-#include <util/point.hpp>
+#include "point.hpp"
 
 #include <SDL.h>
 #include <variant>
@@ -20,7 +19,7 @@ namespace ionpot::sdl {
 	class MouseMoveEvent {
 		friend class Event;
 	public:
-		util::Point position;
+		Point position;
 	private:
 		MouseMoveEvent() = default;
 	};

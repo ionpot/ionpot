@@ -1,14 +1,14 @@
 #pragma once
 
 #include "font.hpp"
+#include "point.hpp"
+#include "size.hpp"
 #include "surface.hpp"
 #include "texture.hpp"
 
 #include <util/hexagon.hpp>
 #include <util/macros.hpp>
-#include <util/point.hpp>
 #include <util/rgba.hpp>
-#include <util/size.hpp>
 
 #include <SDL.h>
 #include <memory> // std::shared_ptr
@@ -24,15 +24,15 @@ namespace ionpot::sdl {
 		Texture create_text(const Font&, std::string text) const;
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		Texture create_texture(const Surface& surface) const;
-		TargetTexture create_texture(util::Size) const;
+		TargetTexture create_texture(Size) const;
 		SharedTexture shared_texture(const Surface& surface) const;
-		std::shared_ptr<TargetTexture> shared_texture(util::Size) const;
+		std::shared_ptr<TargetTexture> shared_texture(Size) const;
 		void draw_hex(const util::Hexagon&) const;
-		void draw_line(util::Point start, util::Point end) const;
-		void draw_rect(util::Point position, util::Size size) const;
+		void draw_line(Point start, Point end) const;
+		void draw_rect(Point position, Size size) const;
 		void present() const;
-		void put(const Texture&, util::Point position) const;
-		void put(const SharedTexture&, util::Point position) const;
+		void put(const Texture&, Point position) const;
+		void put(const SharedTexture&, Point position) const;
 		void reset_color() const;
 		void reset_target() const;
 		void set_color(const util::RGBA&) const;

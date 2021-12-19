@@ -2,15 +2,15 @@
 
 #include "exception.hpp"
 #include "font.hpp"
+#include "point.hpp"
 #include "rwops.hpp"
+#include "size.hpp"
 #include "texture.hpp"
 #include "to.hpp"
 
 #include <util/hexagon.hpp>
-#include <util/point.hpp>
 #include <util/rgb.hpp>
 #include <util/rgba.hpp>
-#include <util/size.hpp>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -81,7 +81,7 @@ namespace ionpot::sdl {
 	}
 
 	TargetTexture
-	Renderer::create_texture(util::Size size) const
+	Renderer::create_texture(Size size) const
 	{
 		return {m_renderer, size};
 	}
@@ -93,7 +93,7 @@ namespace ionpot::sdl {
 	}
 
 	std::shared_ptr<TargetTexture>
-	Renderer::shared_texture(util::Size size) const
+	Renderer::shared_texture(Size size) const
 	{
 		std::shared_ptr<TargetTexture> t {
 			new TargetTexture {m_renderer, size}
@@ -109,7 +109,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_line(util::Point start, util::Point end) const
+	Renderer::draw_line(Point start, Point end) const
 	{
 		auto err = SDL_RenderDrawLine(
 			m_renderer,
@@ -137,7 +137,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_rect(util::Point position, util::Size size) const
+	Renderer::draw_rect(Point position, Size size) const
 	{
 		auto rect = to_rect(position, size);
 		auto err = SDL_RenderDrawRect(m_renderer, &rect);
@@ -152,7 +152,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::put(const Texture& texture, util::Point position) const
+	Renderer::put(const Texture& texture, Point position) const
 	{
 		auto dst = to_rect(position, texture.size());
 		auto err = SDL_RenderCopy(
@@ -163,7 +163,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::put(const SharedTexture& texture, util::Point position) const
+	Renderer::put(const SharedTexture& texture, Point position) const
 	{
 		put(texture.get(), position);
 	}

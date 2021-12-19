@@ -2,10 +2,9 @@
 
 #include "exception.hpp"
 #include "event.hpp"
+#include "point.hpp"
 #include "renderer.hpp"
-
-#include <util/point.hpp>
-#include <util/size.hpp>
+#include "size.hpp"
 
 #include <SDL.h>
 #include <string>
@@ -15,7 +14,7 @@ namespace ionpot::sdl {
 		SDL_Window*
 		s_create_window(
 				std::string title,
-				util::Size size,
+				Size size,
 				Window::Flags flags = 0)
 		{
 			return SDL_CreateWindow(
@@ -28,7 +27,7 @@ namespace ionpot::sdl {
 		}
 	}
 
-	Window::Window(std::string title, util::Size size):
+	Window::Window(std::string title, Size size):
 		m_focus {false},
 		m_mouse_pos {},
 		m_window {s_create_window(title, size)}
@@ -79,7 +78,7 @@ namespace ionpot::sdl {
 		return m_focus;
 	}
 
-	util::Point
+	Point
 	Window::mouse_position() const
 	{
 		return m_mouse_pos;
