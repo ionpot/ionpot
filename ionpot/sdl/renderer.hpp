@@ -3,7 +3,6 @@
 #include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "rect.hpp"
 #include "surface.hpp"
 #include "texture.hpp"
 
@@ -31,7 +30,7 @@ namespace ionpot::sdl {
 		std::shared_ptr<TargetTexture> shared_texture(util::Size) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
-		void draw_rect(const Rect&) const;
+		void draw_rect(util::Point position, util::Size size) const;
 		void present() const;
 		void put(const Texture&, util::Point position) const;
 		void put(const SharedTexture&, util::Point position) const;

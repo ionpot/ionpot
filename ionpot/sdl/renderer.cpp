@@ -4,10 +4,9 @@
 #include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "rect.hpp"
 #include "rwops.hpp"
 #include "texture.hpp"
-#include "to_point.hpp"
+#include "to.hpp"
 
 #include <util/point.hpp>
 #include <util/rgb.hpp>
@@ -139,10 +138,10 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_rect(const Rect& rect) const
+	Renderer::draw_rect(util::Point position, util::Size size) const
 	{
-		auto sdl_rect = rect.to_sdl();
-		auto err = SDL_RenderDrawRect(m_renderer, &sdl_rect);
+		auto rect = to_rect(position, size);
+		auto err = SDL_RenderDrawRect(m_renderer, &rect);
 		if (err)
 			throw Exception {};
 	}
@@ -156,7 +155,7 @@ namespace ionpot::sdl {
 	void
 	Renderer::put(const Texture& texture, util::Point position) const
 	{
-		auto dst = Rect {position, texture.size()}.to_sdl();
+		auto dst = to_rect(position, texture.size());
 		auto err = SDL_RenderCopy(
 			m_renderer, texture.m_texture, NULL, &dst
 		);
