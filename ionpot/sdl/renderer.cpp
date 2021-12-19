@@ -3,7 +3,6 @@
 #include "exception.hpp"
 #include "font.hpp"
 #include "hexagon.hpp"
-#include "line.hpp"
 #include "rwops.hpp"
 #include "texture.hpp"
 #include "to.hpp"
@@ -110,12 +109,12 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_line(Line line) const
+	Renderer::draw_line(util::Point start, util::Point end) const
 	{
 		auto err = SDL_RenderDrawLine(
 			m_renderer,
-			line.start.x, line.start.y,
-			line.end.x, line.end.y
+			start.x, start.y,
+			end.x, end.y
 		);
 		if (err)
 			throw Exception {};
