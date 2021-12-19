@@ -2,11 +2,11 @@
 
 #include "exception.hpp"
 #include "font.hpp"
-#include "hexagon.hpp"
 #include "rwops.hpp"
 #include "texture.hpp"
 #include "to.hpp"
 
+#include <util/hexagon.hpp>
 #include <util/point.hpp>
 #include <util/rgb.hpp>
 #include <util/rgba.hpp>
@@ -68,7 +68,7 @@ namespace ionpot::sdl {
 	}
 
 	Texture
-	Renderer::create_hex(const Hexagon& hex, const util::RGBA& color) const
+	Renderer::create_hex(const util::Hexagon& hex, const util::RGBA& color) const
 	{
 		auto tx = create_texture(hex.size());
 		set_target(tx);
@@ -121,7 +121,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_hex(const Hexagon& hex) const
+	Renderer::draw_hex(const util::Hexagon& hex) const
 	{
 		std::array points = {
 			to_point(hex.point1()),

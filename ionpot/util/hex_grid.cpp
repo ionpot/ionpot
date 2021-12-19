@@ -1,19 +1,18 @@
 #include "hex_grid.hpp"
 
+#include "grid.hpp"
 #include "hexagon.hpp"
+#include "int.hpp"
+#include "point.hpp"
+#include "size.hpp"
 
-#include <util/int.hpp>
-#include <util/grid.hpp>
-#include <util/point.hpp>
-#include <util/size.hpp>
-
-namespace ionpot::sdl {
+namespace ionpot::util {
 	HexGrid::HexGrid(Hexagon hex):
 		hex {hex}
 	{}
 
 	int
-	HexGrid::calculate_height(const Hexagon& hex, util::GridSize size)
+	HexGrid::calculate_height(const Hexagon& hex, GridSize size)
 	{
 		auto rows = IONPOT_INT_POSITIVE(size.rows);
 		auto columns = IONPOT_INT_POSITIVE(size.columns);
@@ -21,8 +20,8 @@ namespace ionpot::sdl {
 		return rows * hex.y2 + 1 + offset;
 	}
 
-	util::Size
-	HexGrid::calculate_size(const Hexagon& hex, util::GridSize size)
+	Size
+	HexGrid::calculate_size(const Hexagon& hex, GridSize size)
 	{
 		return {
 			calculate_width(hex, size),
@@ -31,14 +30,14 @@ namespace ionpot::sdl {
 	}
 
 	int
-	HexGrid::calculate_width(const Hexagon& hex, util::GridSize size)
+	HexGrid::calculate_width(const Hexagon& hex, GridSize size)
 	{
 		auto columns = IONPOT_INT_POSITIVE(size.columns);
 		return columns * hex.x2 + 1 + hex.x1;
 	}
 
 	bool
-	HexGrid::contains(util::Point pos, util::GridIndex index) const
+	HexGrid::contains(Point pos, GridIndex index) const
 	{
 		return hex.contains(pos - position_of(index));
 	}
@@ -52,8 +51,8 @@ namespace ionpot::sdl {
 		return (x_pos - base) / hex.x2;
 	}
 
-	util::GridIndex
-	HexGrid::get_visible_index(util::Point pos) const
+	GridIndex
+	HexGrid::get_visible_index(Point pos) const
 	{
 		return {
 			get_visible_row(pos.y),
@@ -70,8 +69,8 @@ namespace ionpot::sdl {
 		return (y_pos - base) / hex.y2;
 	}
 
-	util::GridSize
-	HexGrid::max_visible(util::Size size) const
+	GridSize
+	HexGrid::max_visible(Size size) const
 	{
 		return {
 			max_visible_rows(size.height),
@@ -106,26 +105,26 @@ namespace ionpot::sdl {
 		return 3 + n;
 	}
 
-	util::Point
-	HexGrid::position_of(util::GridIndex index) const
+	Point
+	HexGrid::position_of(GridIndex index) const
 	{
 		return {x_of(index), y_of(index)};
 	}
 
-	util::Size
-	HexGrid::size_of(util::GridSize s) const
+	Size
+	HexGrid::size_of(GridSize s) const
 	{
 		return calculate_size(hex, s);
 	}
 
 	int
-	HexGrid::x_of(util::GridIndex index) const
+	HexGrid::x_of(GridIndex index) const
 	{
 		return index.column * hex.x2;
 	}
 
 	int
-	HexGrid::y_of(util::GridIndex index) const
+	HexGrid::y_of(GridIndex index) const
 	{
 		int y {index.row * hex.y2};
 		if (index.column & 1)

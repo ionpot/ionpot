@@ -1,13 +1,13 @@
 #include "hexagon.hpp"
 
-#include <util/int.hpp>
-#include <util/point.hpp>
-#include <util/size.hpp>
+#include "int.hpp"
+#include "point.hpp"
+#include "size.hpp"
 
 #include <algorithm>
 #include <cmath>
 
-namespace ionpot::sdl {
+namespace ionpot::util {
 	namespace {
 		const double s_sqrt3 = std::sqrt(3);
 
@@ -28,43 +28,43 @@ namespace ionpot::sdl {
 	{
 	}
 
-	bool Hexagon::contains(util::Point p) const
+	bool Hexagon::contains(Point p) const
 	{
 		auto r = static_cast<double>(center.x);
 		return p.distance(center) <= r;
 	}
 
-	util::Point Hexagon::point1() const
+	Point Hexagon::point1() const
 	{
 		return {x1, 0};
 	}
 
-	util::Point Hexagon::point2() const
+	Point Hexagon::point2() const
 	{
 		return {x2, 0};
 	}
 
-	util::Point Hexagon::point3() const
+	Point Hexagon::point3() const
 	{
 		return {x3, y1};
 	}
 
-	util::Point Hexagon::point4() const
+	Point Hexagon::point4() const
 	{
 		return {x2, y2};
 	}
 
-	util::Point Hexagon::point5() const
+	Point Hexagon::point5() const
 	{
 		return {x1, y2};
 	}
 
-	util::Point Hexagon::point6() const
+	Point Hexagon::point6() const
 	{
 		return {0, y1};
 	}
 
-	util::Size Hexagon::size() const
+	Size Hexagon::size() const
 	{
 		return {width(), height()};
 	}

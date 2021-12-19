@@ -1,10 +1,10 @@
 #pragma once
 
 #include "font.hpp"
-#include "hexagon.hpp"
 #include "surface.hpp"
 #include "texture.hpp"
 
+#include <util/hexagon.hpp>
 #include <util/macros.hpp>
 #include <util/point.hpp>
 #include <util/rgba.hpp>
@@ -20,14 +20,14 @@ namespace ionpot::sdl {
 		friend class Window;
 	public:
 		void clear() const;
-		Texture create_hex(const Hexagon&, const util::RGBA&) const;
+		Texture create_hex(const util::Hexagon&, const util::RGBA&) const;
 		Texture create_text(const Font&, std::string text) const;
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		Texture create_texture(const Surface& surface) const;
 		TargetTexture create_texture(util::Size) const;
 		SharedTexture shared_texture(const Surface& surface) const;
 		std::shared_ptr<TargetTexture> shared_texture(util::Size) const;
-		void draw_hex(const Hexagon&) const;
+		void draw_hex(const util::Hexagon&) const;
 		void draw_line(util::Point start, util::Point end) const;
 		void draw_rect(util::Point position, util::Size size) const;
 		void present() const;
