@@ -22,7 +22,7 @@ namespace ionpot::util {
 	Point
 	Size::center(const Size& size) const
 	{
-		return {(*this - size) / 2};
+		return Point {(*this - size) / 2};
 	}
 
 	Size

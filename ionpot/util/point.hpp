@@ -14,7 +14,8 @@ namespace ionpot::util {
 		Point() = default;
 		Point(int x_and_y);
 		Point(int x, int y);
-		Point(const Size&);
+
+		explicit Point(const Size&);
 
 		void clear();
 

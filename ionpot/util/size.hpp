@@ -16,7 +16,8 @@ namespace ionpot::util {
 		Size(int width_and_height);
 		Size(int width, int height);
 		Size(const std::pair<int, int>&);
-		Size(const Point&);
+
+		explicit Size(const Point&);
 
 		Point center(const Size&) const;
 
