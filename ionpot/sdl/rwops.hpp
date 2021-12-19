@@ -6,6 +6,8 @@
 
 namespace ionpot::sdl {
 	class RWops {
+		friend class Base;
+
 	public:
 		SDL_RWops* pointer;
 
@@ -14,7 +16,6 @@ namespace ionpot::sdl {
 		IONPOT_DECLARE_MOVE(RWops)
 
 	private:
-		friend class Base;
 		RWops(SDL_RWops*);
 	};
 }

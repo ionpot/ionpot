@@ -11,13 +11,13 @@
 
 namespace ionpot::sdl {
 	class Texture {
+		friend class Renderer;
 	public:
 		util::Size size() const;
 		~Texture();
 		IONPOT_NO_COPY(Texture)
 		IONPOT_DECLARE_MOVE(Texture)
 	protected:
-		friend class Renderer;
 		util::Size m_size;
 		SDL_Texture* m_texture;
 		Texture(SDL_Texture*, util::Size = {});
@@ -31,10 +31,10 @@ namespace ionpot::sdl {
 	};
 
 	class SharedTexture {
+		friend class Renderer;
 	public:
 		util::Size size() const;
 	private:
-		friend class Renderer;
 		std::shared_ptr<Texture> m_texture;
 		SharedTexture(std::shared_ptr<Texture>);
 		SharedTexture(std::shared_ptr<TargetTexture>);

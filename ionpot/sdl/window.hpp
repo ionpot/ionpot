@@ -12,6 +12,8 @@
 
 namespace ionpot::sdl {
 	class Window {
+		friend struct Context;
+
 	public:
 		typedef Uint32 Flags;
 
@@ -19,8 +21,6 @@ namespace ionpot::sdl {
 		util::Point mouse_position() const;
 
 	private:
-		friend struct Context;
-
 		bool m_focus;
 		util::Point m_mouse_pos;
 		SDL_Window* m_window;

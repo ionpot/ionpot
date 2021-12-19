@@ -18,6 +18,8 @@
 
 namespace ionpot::sdl {
 	class Renderer {
+		friend struct Context;
+		friend class Window;
 	public:
 		void clear() const;
 		Texture create_hex(const Hexagon&, const util::RGBA&) const;
@@ -38,8 +40,6 @@ namespace ionpot::sdl {
 		void set_color(const util::RGBA&) const;
 		void set_target(const TargetTexture&) const;
 	private:
-		friend struct Context;
-		friend class Window;
 		SDL_Renderer* m_renderer;
 		Renderer(SDL_Window*);
 		~Renderer();

@@ -13,6 +13,8 @@
 
 namespace ionpot::sdl {
 	class Font {
+		friend struct Ttf;
+
 	public:
 		struct Config {
 			std::string file;
@@ -33,7 +35,6 @@ namespace ionpot::sdl {
 		Surface render_blended(std::string text, const util::RGBA&) const;
 
 	private:
-		friend struct Ttf;
 		TTF_Font* m_font;
 		Font(const Config&);
 	};

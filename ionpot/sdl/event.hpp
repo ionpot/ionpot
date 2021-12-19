@@ -9,39 +9,40 @@
 
 namespace ionpot::sdl {
 	class KeyEvent {
+		friend class Event;
 	public:
 		bool pressed {false};
 		Key key {Key::other};
 	private:
-		friend class Event;
 		KeyEvent(bool, SDL_Keycode);
 	};
 
 	class MouseMoveEvent {
+		friend class Event;
 	public:
 		util::Point position;
 	private:
-		friend class Event;
 		MouseMoveEvent() = default;
 	};
 
 	class QuitEvent {
-	private:
 		friend class Event;
+	private:
 		QuitEvent() = default;
 	};
 
 	class WindowEvent {
+		friend class Event;
 	public:
 		bool got_focus() const;
 		bool lost_focus() const;
 	private:
-		friend class Event;
 		Uint8 m_id;
 		WindowEvent(Uint8);
 	};
 
 	class Event {
+		friend class Base;
 	public:
 		template<class T>
 		const T* get() const
@@ -49,7 +50,6 @@ namespace ionpot::sdl {
 			return std::get_if<T>(&m_data);
 		}
 	private:
-		friend class Base;
 		std::variant<
 			std::monostate,
 			KeyEvent,
