@@ -2,37 +2,25 @@
 
 #include "exception.hpp"
 #include "event.hpp"
-#include "version.hpp"
-
-#include <util/log.hpp>
 
 #include <SDL.h>
 
 #include <optional>
-#include <string>
 
 namespace ionpot::sdl {
-	Uint32
-	Base::init_flags {SDL_INIT_VIDEO};
-
 	bool
 	Base::was_init()
 	{
-		auto on = SDL_WasInit(init_flags) & init_flags;
-		return on == init_flags;
+		return SDL_WasInit(0) > 0;
 	}
 
-	Base::Base(util::Log& log)
+	Base::Base()
 	{
 		if (was_init())
 			throw Exception {"Cannot re-initialize."};
 
-		SDL_version ver;
-		SDL_GetVersion(&ver);
-		log.put("Initializing SDL " + version::to_string(ver));
-
-		if (SDL_Init(init_flags)) {
-			Exception ex;
+		if (SDL_Init(0)) {
+			Exception ex; // <-- uses SDL_GetError
 			SDL_Quit();
 			throw ex;
 		}
@@ -40,8 +28,7 @@ namespace ionpot::sdl {
 
 	Base::~Base()
 	{
-		if (was_init())
-			SDL_Quit();
+		SDL_Quit();
 	}
 
 	void
@@ -58,11 +45,5 @@ namespace ionpot::sdl {
 			return {Event {event}};
 		}
 		return {};
-	}
-
-	RWops
-	Base::read_binary_file(std::string path) const
-	{
-		return {SDL_RWFromFile(path.c_str(), "rb")};
 	}
 }

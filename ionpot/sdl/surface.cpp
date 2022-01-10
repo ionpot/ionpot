@@ -1,10 +1,15 @@
 #include "surface.hpp"
 
+#include "video.hpp"
+
 #include <SDL.h>
 
+#include <memory> // std::shared_ptr
+
 namespace ionpot::sdl {
-	Surface::Surface(SDL_Surface* ptr):
-		pointer {ptr}
+	Surface::Surface(std::shared_ptr<Video> video, SDL_Surface* ptr):
+		pointer {ptr},
+		m_video {video}
 	{}
 
 	Surface::~Surface()
@@ -16,7 +21,8 @@ namespace ionpot::sdl {
 	}
 
 	Surface::Surface(Surface&& from) noexcept:
-		pointer {from.pointer}
+		pointer {from.pointer},
+		m_video {from.m_video}
 	{
 		from.pointer = NULL;
 	}
@@ -25,6 +31,7 @@ namespace ionpot::sdl {
 	Surface::operator=(Surface&& from) noexcept
 	{
 		pointer = from.pointer;
+		m_video = from.m_video;
 		from.pointer = NULL;
 		return *this;
 	}

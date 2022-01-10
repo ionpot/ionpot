@@ -5,11 +5,7 @@
 #include <string>
 
 namespace ionpot::sdl::version {
-	inline std::string
-	to_string(const SDL_version& v)
-	{
-		return std::to_string(v.major)
-			+ "." + std::to_string(v.minor)
-			+ "." + std::to_string(v.patch);
-	}
+	std::string as_string();
+	SDL_version query();
+	std::string to_string(const SDL_version&);
 }

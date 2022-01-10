@@ -1,40 +1,26 @@
 #include "window.hpp"
 
 #include "exception.hpp"
-#include "event.hpp"
-#include "point.hpp"
-#include "renderer.hpp"
 #include "size.hpp"
+#include "video.hpp"
 
 #include <SDL.h>
-#include <string>
+
+#include <memory> // std::shared_ptr
 
 namespace ionpot::sdl {
-	namespace {
-		SDL_Window*
-		s_create_window(
-				std::string title,
-				Size size,
-				Window::Flags flags = 0)
-		{
-			return SDL_CreateWindow(
-				title.c_str(),
-				SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED,
-				size.width, size.height,
-				flags
-			);
-		}
-	}
-
-	Window::Window(std::string title, Size size):
-		m_focus {false},
-		m_mouse_pos {},
-		m_window {s_create_window(title, size)}
+	Window::Window(std::shared_ptr<Video> video, const Config& config):
+		m_video {video},
+		m_window {SDL_CreateWindow(
+			config.title.c_str(),
+			SDL_WINDOWPOS_UNDEFINED,
+			SDL_WINDOWPOS_UNDEFINED,
+			config.size.width,
+			config.size.height,
+			config.flags)}
 	{
 		if (!m_window)
 			throw Exception {};
-		m_focus = check_flags(SDL_WINDOW_INPUT_FOCUS);
 	}
 
 	Window::~Window()
@@ -45,42 +31,40 @@ namespace ionpot::sdl {
 		}
 	}
 
+	Window::Window(Window&& from) noexcept:
+		m_video {from.m_video},
+		m_window {from.m_window}
+	{
+		from.m_window = NULL;
+	}
+
+	Window&
+	Window::operator=(Window&& from) noexcept
+	{
+		m_video = from.m_video;
+		m_window = from.m_window;
+		from.m_window = NULL;
+		return *this;
+	}
+
 	bool
 	Window::check_flags(Flags flags) const
 	{
-		auto active = SDL_GetWindowFlags(m_window);
-		return active & flags;
-	}
-
-	Renderer
-	Window::create_renderer() const
-	{
-		return Renderer {m_window};
-	}
-
-	void
-	Window::handle(const Event& event)
-	{
-		if (auto* window = event.get<WindowEvent>()) {
-			if (window->got_focus())
-				m_focus = true;
-			else if (window->lost_focus())
-				m_focus = false;
-		}
-		else if (auto* mouse = event.get<MouseMoveEvent>()) {
-			m_mouse_pos = mouse->position;
-		}
+		return SDL_GetWindowFlags(m_window) & flags;
 	}
 
 	bool
 	Window::has_focus() const
 	{
-		return m_focus;
+		return check_flags(SDL_WINDOW_INPUT_FOCUS);
 	}
 
-	Point
-	Window::mouse_position() const
+	Size
+	Window::query_size() const
 	{
-		return m_mouse_pos;
+		int width {0};
+		int height {0};
+		SDL_GetWindowSize(m_window, &width, &height);
+		return {width, height};
 	}
 }

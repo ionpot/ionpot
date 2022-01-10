@@ -1,9 +1,11 @@
 #pragma once
 
+#include "point.hpp"
+#include "renderer.hpp"
+#include "size.hpp"
 #include "surface.hpp"
 
 #include <util/macros.hpp>
-#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -11,33 +13,33 @@
 
 namespace ionpot::sdl {
 	class Texture {
-		friend class Renderer;
 	public:
-		util::Size size() const;
+		using Flags = Uint32;
+
+		Texture(std::shared_ptr<Renderer>, Size, Flags);
+		Texture(std::shared_ptr<Renderer>, const Surface&);
 		~Texture();
 		IONPOT_NO_COPY(Texture)
 		IONPOT_DECLARE_MOVE(Texture)
+
+		Size query_size() const;
+
+		void render(Point dst_pos, Size dst_size) const;
+		void render(Point dst_pos, Size dst_size, Point src_pos, Size src_size) const;
+
+		void set_blend() const;
+
 	protected:
-		util::Size m_size;
+		std::shared_ptr<Renderer> m_renderer;
 		SDL_Texture* m_texture;
-		Texture(SDL_Texture*, util::Size = {});
-		Texture(SDL_Renderer*, util::Size, Uint32 flags);
-		Texture(SDL_Renderer*, const Surface&);
+
+	private:
+		Texture(std::shared_ptr<Renderer>, SDL_Texture*);
 	};
 
 	class TargetTexture : public Texture {
-		friend class Renderer;
-		TargetTexture(SDL_Renderer*, util::Size);
-	};
-
-	class SharedTexture {
-		friend class Renderer;
 	public:
-		util::Size size() const;
-	private:
-		std::shared_ptr<Texture> m_texture;
-		SharedTexture(std::shared_ptr<Texture>);
-		SharedTexture(std::shared_ptr<TargetTexture>);
-		const Texture& get() const;
+		TargetTexture(std::shared_ptr<Renderer>, Size);
+		const Renderer& set_as_target() const;
 	};
 }

@@ -1,11 +1,8 @@
 #include "renderer.hpp"
 
 #include "exception.hpp"
-#include "font.hpp"
 #include "point.hpp"
-#include "rwops.hpp"
 #include "size.hpp"
-#include "texture.hpp"
 #include "to.hpp"
 
 #include <util/hexagon.hpp>
@@ -13,27 +10,23 @@
 #include <util/rgba.hpp>
 
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include <array>
 #include <memory> // std::shared_ptr
-#include <string>
 
 namespace ionpot::sdl {
-	namespace {
-		const Uint32 s_flags {
-			SDL_RENDERER_ACCELERATED
-			| SDL_RENDERER_PRESENTVSYNC
-			| SDL_RENDERER_TARGETTEXTURE
-		};
-	}
+	const Renderer::Flags
+	Renderer::default_flags {
+		SDL_RENDERER_ACCELERATED
+		| SDL_RENDERER_PRESENTVSYNC
+		| SDL_RENDERER_TARGETTEXTURE
+	};
 
-	Renderer::Renderer(SDL_Window* window):
-		m_renderer {SDL_CreateRenderer(window, -1, s_flags)}
+	Renderer::Renderer(std::shared_ptr<Window> window, Flags flags):
+		m_window {window},
+		m_renderer {SDL_CreateRenderer(window->m_window, -1, flags)}
 	{
 		if (!m_renderer)
-			throw Exception {};
-		if (SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND))
 			throw Exception {};
 	}
 
@@ -46,6 +39,7 @@ namespace ionpot::sdl {
 	}
 
 	Renderer::Renderer(Renderer&& from) noexcept:
+		m_window {from.m_window},
 		m_renderer {from.m_renderer}
 	{
 		from.m_renderer = NULL;
@@ -54,6 +48,7 @@ namespace ionpot::sdl {
 	Renderer&
 	Renderer::operator=(Renderer&& from) noexcept
 	{
+		m_window = from.m_window;
 		m_renderer = from.m_renderer;
 		from.m_renderer = NULL;
 		return *this;
@@ -65,47 +60,6 @@ namespace ionpot::sdl {
 		auto err = SDL_RenderClear(m_renderer);
 		if (err)
 			throw Exception {};
-	}
-
-	Texture
-	Renderer::create_hex(const util::Hexagon& hex, const util::RGBA& color) const
-	{
-		auto tx = create_texture(hex.size());
-		set_target(tx);
-		set_color(util::RGBA::blank);
-		clear();
-		set_color(color);
-		draw_hex(hex);
-		reset_target();
-		return std::move(tx);
-	}
-
-	TargetTexture
-	Renderer::create_texture(Size size) const
-	{
-		return {m_renderer, size};
-	}
-
-	Texture
-	Renderer::create_texture(const Surface& surface) const
-	{
-		return {m_renderer, surface};
-	}
-
-	std::shared_ptr<TargetTexture>
-	Renderer::shared_texture(Size size) const
-	{
-		std::shared_ptr<TargetTexture> t {
-			new TargetTexture {m_renderer, size}
-		};
-		return t;
-	}
-
-	SharedTexture
-	Renderer::shared_texture(const Surface& surface) const
-	{
-		std::shared_ptr<Texture> t {new Texture {m_renderer, surface}};
-		return {t};
 	}
 
 	void
@@ -151,34 +105,14 @@ namespace ionpot::sdl {
 		SDL_RenderPresent(m_renderer);
 	}
 
-	void
-	Renderer::put(const Texture& texture, Point position) const
+	Size
+	Renderer::query_output_size() const
 	{
-		auto dst = to_rect(position, texture.size());
-		auto err = SDL_RenderCopy(
-			m_renderer, texture.m_texture, NULL, &dst
-		);
-		if (err)
+		int width {0};
+		int height {0};
+		if (SDL_GetRendererOutputSize(m_renderer, &width, &height))
 			throw Exception {};
-	}
-
-	void
-	Renderer::put(const SharedTexture& texture, Point position) const
-	{
-		put(texture.get(), position);
-	}
-
-	Texture
-	Renderer::create_text(const Font& font, std::string text) const
-	{
-		return create_text(font, text, util::RGB::white);
-	}
-
-	Texture
-	Renderer::create_text(const Font& font, std::string text, const util::RGBA& color) const
-	{
-		auto surface = font.render_blended(text, color);
-		return create_texture(surface);
+		return {width, height};
 	}
 
 	void
@@ -196,6 +130,13 @@ namespace ionpot::sdl {
 	}
 
 	void
+	Renderer::set_blendmode(SDL_BlendMode mode) const
+	{
+		if (SDL_SetRenderDrawBlendMode(m_renderer, mode))
+			throw Exception {};
+	}
+
+	void
 	Renderer::set_color(const util::RGBA& color) const
 	{
 		auto err = SDL_SetRenderDrawColor(
@@ -205,14 +146,6 @@ namespace ionpot::sdl {
 			color.channels.blue,
 			color.alpha
 		);
-		if (err)
-			throw Exception {};
-	}
-
-	void
-	Renderer::set_target(const TargetTexture& texture) const
-	{
-		auto err = SDL_SetRenderTarget(m_renderer, texture.m_texture);
 		if (err)
 			throw Exception {};
 	}

@@ -4,27 +4,33 @@
 #include "rwops.hpp"
 #include "surface.hpp"
 #include "version.hpp"
-
-#include <util/log.hpp>
+#include "video.hpp"
 
 #include <SDL_image.h>
 
+#include <memory> // std::shared_ptr
 #include <string>
 
 namespace ionpot::sdl {
-	int
-	Img::init_flags {IMG_INIT_PNG};
+	const Img::Flags
+	Img::default_flags {IMG_INIT_PNG};
 
 	bool
 	Img::was_init {false};
 
-	Img::Img(util::Log& log)
+	std::string
+	Img::version_str()
+	{
+		return version::to_string(*IMG_Linked_Version());
+	}
+
+	Img::Img(
+			std::shared_ptr<Video> video,
+			Flags init_flags):
+		m_video {video}
 	{
 		if (was_init)
 			throw ImgException {"Already initialised."};
-
-		auto ver = version::to_string(*IMG_Linked_Version());
-		log.put("Initializing SDL_image " + ver);
 
 		auto flags = IMG_Init(init_flags) & init_flags;
 		if (flags != init_flags) {
@@ -38,16 +44,14 @@ namespace ionpot::sdl {
 
 	Img::~Img()
 	{
-		if (was_init) {
-			IMG_Quit();
-			was_init = false;
-		}
+		IMG_Quit();
+		was_init = false;
 	}
 
 	Surface
 	Img::load_png(const RWops& rwops) const
 	{
-		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
+		Surface surface {m_video, IMG_LoadPNG_RW(rwops.pointer)};
 		if (!surface.pointer)
 			throw ImgException {};
 		return surface;

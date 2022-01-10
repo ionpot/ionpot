@@ -1,19 +1,27 @@
 #include "font.hpp"
 
 #include "color.hpp"
+#include "size.hpp"
 #include "surface.hpp"
+#include "ttf.hpp"
 #include "ttf_exception.hpp"
+#include "video.hpp"
 
 #include <util/rgba.hpp>
-#include <util/size.hpp>
 
 #include <SDL_ttf.h>
 
+#include <memory> // std::shared_ptr
 #include <string>
 #include <vector>
 
 namespace ionpot::sdl {
-	Font::Font(const Config& config):
+	Font::Font(
+			std::shared_ptr<Ttf> ttf,
+			std::shared_ptr<Video> video,
+			const Config& config):
+		m_ttf {ttf},
+		m_video {video},
 		m_font {TTF_OpenFont(config.file.c_str(), config.height)}
 	{
 		if (!m_font)
@@ -29,6 +37,8 @@ namespace ionpot::sdl {
 	}
 
 	Font::Font(Font&& from) noexcept:
+		m_ttf {from.m_ttf},
+		m_video {from.m_video},
 		m_font {from.m_font}
 	{
 		from.m_font = NULL;
@@ -37,19 +47,21 @@ namespace ionpot::sdl {
 	Font&
 	Font::operator=(Font&& from) noexcept
 	{
+		m_ttf = from.m_ttf;
+		m_video = from.m_video;
 		m_font = from.m_font;
 		from.m_font = NULL;
 		return *this;
 	}
 
-	util::Size
+	Size
 	Font::calculate_size(std::string text) const
 	{
-		int w {0};
-		int h {0};
-		if (TTF_SizeUTF8(m_font, text.c_str(), &w, &h))
+		int width {0};
+		int height {0};
+		if (TTF_SizeUTF8(m_font, text.c_str(), &width, &height))
 			throw TtfException {};
-		return {w, h};
+		return {width, height};
 	}
 
 	int
@@ -64,10 +76,10 @@ namespace ionpot::sdl {
 		return TTF_FontLineSkip(m_font);
 	}
 
-	util::Size
+	Size
 	Font::max_size(const std::vector<std::string>& ls) const
 	{
-		util::Size output {0};
+		Size output {0};
 		for (auto text : ls) {
 			auto size = calculate_size(text);
 			output.pick_max(size);
@@ -79,6 +91,7 @@ namespace ionpot::sdl {
 	Font::render_blended(std::string text, const util::RGBA& color) const
 	{
 		Surface surface {
+			m_video,
 			TTF_RenderUTF8_Blended(m_font, text.c_str(), color_rgba(color))
 		};
 		if (!surface.pointer)

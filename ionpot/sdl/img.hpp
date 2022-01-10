@@ -2,21 +2,30 @@
 
 #include "rwops.hpp"
 #include "surface.hpp"
+#include "video.hpp"
 
-#include <util/log.hpp>
 #include <util/macros.hpp>
 
+#include <memory> // std::shared_ptr
 #include <string>
 
 namespace ionpot::sdl {
-	struct Img {
-		static int init_flags;
+	class Img {
+	public:
+		using Flags = int;
+
+		static const Flags default_flags;
 		static bool was_init;
 
-		Img(util::Log& log);
+		static std::string version_str();
+
+		Img(std::shared_ptr<Video>, Flags = default_flags);
 		~Img();
 		IONPOT_NO_COPY(Img)
 
 		Surface load_png(const RWops&) const;
+
+	private:
+		std::shared_ptr<Video> m_video;
 	};
 }

@@ -1,41 +1,40 @@
 #include "texture.hpp"
 
 #include "exception.hpp"
+#include "renderer.hpp"
+#include "size.hpp"
 #include "surface.hpp"
-
-#include <util/size.hpp>
+#include "to.hpp"
 
 #include <SDL.h>
 
-#include <memory> // std::shared_ptr, std::static_pointer_cast
+#include <memory> // std::shared_ptr
 
 namespace ionpot::sdl {
-	Texture::Texture(SDL_Texture* texture, util::Size size):
-		m_size {size},
-		m_texture {texture}
+	Texture::Texture(std::shared_ptr<Renderer> rdr, SDL_Texture* tx):
+		m_renderer {rdr},
+		m_texture {tx}
 	{
 		if (!m_texture)
 			throw Exception {};
-		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
-			throw Exception {};
 	}
 
-	Texture::Texture(SDL_Renderer* renderer, util::Size size, Uint32 flags):
-		Texture {
+	Texture::Texture(std::shared_ptr<Renderer> rdr, Size size, Uint32 flags):
+		Texture {rdr,
 			SDL_CreateTexture(
-				renderer,
+				rdr->m_renderer,
 				SDL_PIXELFORMAT_RGBA8888,
 				flags,
-				size.width, size.height),
-			size}
+				size.width, size.height)
+		}
 	{}
 
-	Texture::Texture(SDL_Renderer* renderer, const Surface& surface):
-		Texture {SDL_CreateTextureFromSurface(renderer, surface.pointer)}
-	{
-		if (SDL_QueryTexture(m_texture, NULL, NULL, &m_size.width, &m_size.height))
-			throw Exception {};
-	}
+	Texture::Texture(std::shared_ptr<Renderer> rdr, const Surface& surface):
+		Texture {
+			rdr,
+			SDL_CreateTextureFromSurface(rdr->m_renderer, surface.pointer)
+		}
+	{}
 
 	Texture::~Texture()
 	{
@@ -46,7 +45,7 @@ namespace ionpot::sdl {
 	}
 
 	Texture::Texture(Texture&& from) noexcept:
-		m_size {from.size()},
+		m_renderer {from.m_renderer},
 		m_texture {from.m_texture}
 	{
 		from.m_texture = NULL;
@@ -55,35 +54,61 @@ namespace ionpot::sdl {
 	Texture&
 	Texture::operator=(Texture&& from) noexcept
 	{
-		m_size = from.size();
+		m_renderer = from.m_renderer;
 		m_texture = from.m_texture;
 		from.m_texture = NULL;
 		return *this;
 	}
 
-	util::Size
-	Texture::size() const
-	{ return m_size; }
+	Size
+	Texture::query_size() const
+	{
+		int width {0};
+		int height {0};
+		if (SDL_QueryTexture(m_texture, NULL, NULL, &width, &height))
+			throw Exception {};
+		return {width, height};
+	}
+
+	void
+	Texture::render(Point dst_pos, Size dst_size) const
+	{
+		auto dst = to_rect(dst_pos, dst_size);
+		if (SDL_RenderCopy(m_renderer->m_renderer, m_texture, NULL, &dst))
+			throw Exception {};
+	}
+
+	void
+	Texture::render(
+			Point dst_pos,
+			Size dst_size,
+			Point src_pos,
+			Size src_size) const
+	{
+		auto src = to_rect(src_pos, src_size);
+		auto dst = to_rect(dst_pos, dst_size);
+		if (SDL_RenderCopy(m_renderer->m_renderer, m_texture, &src, &dst))
+			throw Exception {};
+	}
+
+	void
+	Texture::set_blend() const
+	{
+		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
+			throw Exception {};
+	}
 
 	// TargetTexture
-	TargetTexture::TargetTexture(SDL_Renderer* renderer, util::Size size):
-		Texture {renderer, size, SDL_TEXTUREACCESS_TARGET}
+	TargetTexture::TargetTexture(std::shared_ptr<Renderer> rdr, Size size):
+		Texture {rdr, size, SDL_TEXTUREACCESS_TARGET}
 	{}
 
-	// SharedTexture
-	SharedTexture::SharedTexture(std::shared_ptr<Texture> ptr):
-		m_texture {ptr}
-	{}
-
-	SharedTexture::SharedTexture(std::shared_ptr<TargetTexture> ptr):
-		m_texture {std::static_pointer_cast<Texture>(ptr)}
-	{}
-
-	const Texture&
-	SharedTexture::get() const
-	{ return *m_texture; }
-
-	util::Size
-	SharedTexture::size() const
-	{ return m_texture->size(); }
+	const Renderer&
+	TargetTexture::set_as_target() const
+	{
+		const auto& rdr = *m_renderer;
+		if (SDL_SetRenderTarget(rdr.m_renderer, m_texture))
+			throw Exception {};
+		return rdr;
+	}
 }
