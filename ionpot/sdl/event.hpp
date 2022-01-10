@@ -4,59 +4,21 @@
 #include "point.hpp"
 
 #include <SDL.h>
-#include <variant>
+#include <optional>
 
 namespace ionpot::sdl {
-	class KeyEvent {
-		friend class Event;
-	public:
-		bool pressed {false};
-		Key key {Key::other};
-	private:
-		KeyEvent(bool, SDL_Keycode);
-	};
-
-	class MouseMoveEvent {
-		friend class Event;
-	public:
-		Point position;
-	private:
-		MouseMoveEvent() = default;
-	};
-
-	class QuitEvent {
-		friend class Event;
-	private:
-		QuitEvent() = default;
-	};
-
-	class WindowEvent {
-		friend class Event;
-	public:
-		bool got_focus() const;
-		bool lost_focus() const;
-	private:
-		Uint8 m_id;
-		WindowEvent(Uint8);
-	};
-
 	class Event {
-		friend class Base;
 	public:
-		template<class T>
-		const T* get() const
-		{
-			return std::get_if<T>(&m_data);
-		}
+		Event(SDL_Event&&);
+
+		bool focus_gained() const;
+		bool focus_lost() const;
+		std::optional<Key> key_down() const;
+		std::optional<Key> key_up() const;
+		std::optional<Point> mouse_move() const;
+		bool quit() const;
+
 	private:
-		std::variant<
-			std::monostate,
-			KeyEvent,
-			MouseMoveEvent,
-			QuitEvent,
-			WindowEvent
-		> m_data;
-		Event() = default;
-		Event(const SDL_Event&);
+		SDL_Event m_event;
 	};
 }

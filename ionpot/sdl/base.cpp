@@ -6,6 +6,7 @@
 #include <SDL.h>
 
 #include <optional>
+#include <utility> // std::move
 
 namespace ionpot::sdl {
 	bool
@@ -42,7 +43,7 @@ namespace ionpot::sdl {
 	{
 		SDL_Event event;
 		if (SDL_PollEvent(&event)) {
-			return {Event {event}};
+			return {Event {std::move(event)}};
 		}
 		return {};
 	}

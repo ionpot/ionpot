@@ -1,82 +1,63 @@
 #include "event.hpp"
 
 #include "key.hpp"
-
-#include <util/point.hpp>
+#include "point.hpp"
 
 #include <SDL.h>
-#include <variant>
+
+#include <optional>
+#include <utility> // std::move
 
 namespace ionpot::sdl {
-	namespace {
-		Key
-		s_lookup_keycode(SDL_Keycode code)
-		{
-			switch (code)
-			{
-			case SDLK_DOWN:
-				return Key::down;
-			case SDLK_LEFT:
-				return Key::left;
-			case SDLK_RIGHT:
-				return Key::right;
-			case SDLK_UP:
-				return Key::up;
-			default:
-				return Key::other;
-			}
-		}
-	}
-
-	Event::Event(const SDL_Event& event)
-	{
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			if (event.key.repeat == 0)
-				m_data = KeyEvent {true, event.key.keysym.sym};
-			break;
-		case SDL_KEYUP:
-			if (event.key.repeat == 0)
-				m_data = KeyEvent {false, event.key.keysym.sym};
-			break;
-		case SDL_MOUSEMOTION: {
-			auto motion = event.motion;
-			m_data = MouseMoveEvent {util::Point {motion.x, motion.y}};
-			break;
-		}
-		case SDL_QUIT:
-			m_data = QuitEvent {};
-			break;
-		case SDL_WINDOWEVENT:
-			m_data = WindowEvent {event.window.event};
-			break;
-		default:
-			break;
-		}
-	}
-
-	// key event //
-
-	KeyEvent::KeyEvent(bool pressed, SDL_Keycode code):
-		pressed {pressed},
-		key {s_lookup_keycode(code)}
-	{}
-
-	// window event //
-
-	WindowEvent::WindowEvent(Uint8 id):
-		m_id {id}
+	Event::Event(SDL_Event&& event):
+		m_event {std::move(event)}
 	{}
 
 	bool
-	WindowEvent::got_focus() const
+	Event::focus_gained() const
 	{
-		return m_id == SDL_WINDOWEVENT_FOCUS_GAINED;
+		return m_event.type == SDL_WINDOWEVENT
+			&& m_event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED;
 	}
 
 	bool
-	WindowEvent::lost_focus() const
+	Event::focus_lost() const
 	{
-		return m_id == SDL_WINDOWEVENT_FOCUS_LOST;
+		return m_event.type == SDL_WINDOWEVENT
+			&& m_event.window.event == SDL_WINDOWEVENT_FOCUS_LOST;
+	}
+
+	std::optional<Key>
+	Event::key_down() const
+	{
+		if (m_event.type == SDL_KEYDOWN) {
+			return {Key {m_event.key}};
+		}
+		return {};
+	}
+
+	std::optional<Key>
+	Event::key_up() const
+	{
+		if (m_event.type == SDL_KEYUP) {
+			return {Key {m_event.key}};
+		}
+		return {};
+	}
+
+	std::optional<Point>
+	Event::mouse_move() const
+	{
+		if (m_event.type == SDL_MOUSEMOTION) {
+			auto motion = m_event.motion;
+			return {Point {motion.x, motion.y}};
+		}
+		return {};
+	}
+
+	bool
+	Event::quit() const
+	{
+		return m_event.type == SDL_QUIT;
 	}
 }
