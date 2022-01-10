@@ -1,12 +1,8 @@
 #include "base.hpp"
 
 #include "exception.hpp"
-#include "event.hpp"
 
 #include <SDL.h>
-
-#include <optional>
-#include <utility> // std::move
 
 namespace ionpot::sdl {
 	bool
@@ -36,15 +32,5 @@ namespace ionpot::sdl {
 	Base::delay(Uint32 milliseconds) const
 	{
 		SDL_Delay(milliseconds);
-	}
-
-	std::optional<Event>
-	Base::poll_event() const
-	{
-		SDL_Event event;
-		if (SDL_PollEvent(&event)) {
-			return {Event {std::move(event)}};
-		}
-		return {};
 	}
 }

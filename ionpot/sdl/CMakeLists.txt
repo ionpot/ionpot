@@ -1,4 +1,4 @@
-add_library(ionpot_sdl base.cpp event.cpp font.cpp img.cpp key.cpp point_in_rect.cpp renderer.cpp rwops.cpp surface.cpp texture.cpp to.cpp ttf.cpp version.cpp video.cpp window.cpp)
+add_library(ionpot_sdl base.cpp event.cpp events.cpp font.cpp img.cpp key.cpp point_in_rect.cpp renderer.cpp rwops.cpp surface.cpp texture.cpp to.cpp ttf.cpp version.cpp video.cpp window.cpp)
 
 # to include <util/...>
 target_include_directories(ionpot_sdl PUBLIC "${PROJECT_SOURCE_DIR}/ionpot")
