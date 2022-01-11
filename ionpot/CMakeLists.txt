@@ -16,8 +16,9 @@ endif()
 # subdirectories
 add_subdirectory(util)
 add_subdirectory(sdl)
+add_subdirectory(widget)
 
 # use the library with <ionpot/...> include syntax
 add_library(ionpot INTERFACE)
 target_include_directories(ionpot INTERFACE "${PROJECT_SOURCE_DIR}")
-target_link_libraries(ionpot INTERFACE ionpot_util ionpot_sdl)
+target_link_libraries(ionpot INTERFACE ionpot_util ionpot_sdl ionpot_widget)
