@@ -4,26 +4,57 @@
 #include "point.hpp"
 #include "size.hpp"
 
-#include <sdl/font.hpp>
-#include <sdl/texture.hpp>
+#include <memory> // std::shared_ptr
+#include <utility> // std::move
 
 namespace ionpot::widget {
+	template<class T>
 	class Texture : public Box {
 	public:
-		Texture(sdl::Texture&&);
-		Texture(sdl::Texture&&, const sdl::Font&);
-		Texture(sdl::Texture&&, Size);
+		Texture(T&& tx):
+			m_texture {std::move(tx)},
+			m_position {0}
+		{}
 
-		void position(Point) override;
-		Point position() const override;
+		void position(Point p) override
+		{ m_position = p; }
 
-		void render() const;
+		Point position() const override
+		{ return m_position; }
 
-		Size size() const override;
+		void render() const
+		{ m_texture.render(m_position); }
+
+		Size size() const override
+		{ return m_texture.size(); }
 
 	private:
-		sdl::Texture m_texture;
+		T m_texture;
 		Point m_position;
-		Size m_size;
+	};
+
+	template<class T>
+	class SharedTexture : public Box {
+	public:
+		SharedTexture(std::shared_ptr<T> tx):
+			m_texture {tx},
+			m_position {0}
+		{}
+
+		void position(Point p) override
+		{ m_position = p; }
+
+		Point position() const override
+		{ return m_position; }
+
+		void render() const
+		{ m_texture->render(m_position); }
+
+		Size size() const override
+		{ return m_texture->size(); }
+
+	private:
+		std::shared_ptr<T> m_texture;
+		Point m_position;
 	};
 }

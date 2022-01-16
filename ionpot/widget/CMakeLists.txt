@@ -1,4 +1,4 @@
-add_library(ionpot_widget box.cpp texture.cpp)
+add_library(ionpot_widget box.cpp)
 
 target_include_directories(ionpot_widget PUBLIC "${PROJECT_SOURCE_DIR}/ionpot")
 
