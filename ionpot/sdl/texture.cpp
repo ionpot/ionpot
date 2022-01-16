@@ -130,4 +130,19 @@ namespace ionpot::sdl {
 	void
 	SizedTexture::render(Point position) const
 	{ m_texture.render(position, m_size); }
+
+	// ClippedTexture
+	ClippedTexture::ClippedTexture(Texture&& tx, Size size, Point offset):
+		m_texture {std::move(tx)},
+		m_size {size},
+		m_offset {offset}
+	{}
+
+	Size
+	ClippedTexture::size() const
+	{ return m_size; }
+
+	void
+	ClippedTexture::render(Point position) const
+	{ m_texture.render(position, m_size, m_offset, m_size); }
 }
