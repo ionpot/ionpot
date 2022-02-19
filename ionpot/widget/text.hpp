@@ -24,9 +24,6 @@ namespace ionpot::widget {
 
 		Text(const Config&, std::string text);
 
-		void position(Point p) override;
-		Point position() const override;
-
 		void render(Point offset = {0}) const;
 
 		Size size() const override;
@@ -34,6 +31,5 @@ namespace ionpot::widget {
 	private:
 		sdl::SizedTexture m_texture;
 		Size m_size;
-		Point m_position;
 	};
 }

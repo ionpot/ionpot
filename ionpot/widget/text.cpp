@@ -20,17 +20,8 @@ namespace ionpot::widget {
 		m_size {
 			m_texture.size().width,
 			config.font->line_height()
-		},
-		m_position {0}
+		}
 	{}
-
-	void
-	Text::position(Point p)
-	{ m_position = p; }
-
-	Point
-	Text::position() const
-	{ return m_position; }
 
 	void
 	Text::render(Point offset) const

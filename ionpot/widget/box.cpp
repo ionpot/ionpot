@@ -8,20 +8,19 @@ namespace ionpot::widget {
 	void
 	Box::add_x(int amount)
 	{
-		auto [x, y] = position();
-		position(Point {x + amount, y});
+		m_position.x += amount;
 	}
 
 	void
 	Box::center_to(const Box& box)
 	{
-		position(box.size().center(size()) + box.position());
+		m_position = box.size().center(size()) + box.position();
 	}
 
 	const Box*
 	Box::contains(Point p) const
 	{
-		if (sdl::point_in_rect(position(), size(), p)) {
+		if (sdl::point_in_rect(m_position, size(), p)) {
 			return this;
 		}
 		return nullptr;
@@ -37,6 +36,18 @@ namespace ionpot::widget {
 	void
 	Box::place_on(const Box& box)
 	{
-		position(box.position());
+		m_position = box.position();
+	}
+
+	void
+	Box::position(Point p)
+	{
+		m_position = p;
+	}
+
+	Point
+	Box::position() const
+	{
+		return m_position;
 	}
 }
