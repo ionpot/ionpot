@@ -1,10 +1,16 @@
 #include "box.hpp"
 
 #include "point.hpp"
+#include "size.hpp"
 
 #include <sdl/point_in_rect.hpp>
 
 namespace ionpot::widget {
+	Box::Box(Size size, Point pos):
+		m_position {pos},
+		m_size {size}
+	{}
+
 	void
 	Box::add_x(int amount)
 	{
@@ -49,5 +55,11 @@ namespace ionpot::widget {
 	Box::position() const
 	{
 		return m_position;
+	}
+
+	Size
+	Box::size() const
+	{
+		return m_size;
 	}
 }

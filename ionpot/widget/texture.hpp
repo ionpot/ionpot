@@ -12,8 +12,8 @@ namespace ionpot::widget {
 	class Texture : public Box {
 	public:
 		Texture(sdl::Texture&& tx, Size size):
-			m_texture {std::move(tx)},
-			m_size {size}
+			Box {size},
+			m_texture {std::move(tx)}
 		{}
 
 		Texture(sdl::Texture&& tx):
@@ -21,13 +21,9 @@ namespace ionpot::widget {
 		{}
 
 		void render(Point offset = {0}) const
-		{ m_texture.render(m_position + offset, m_size); }
-
-		Size size() const override
-		{ return m_size; }
+		{ m_texture.render(position() + offset, size()); }
 
 	private:
 		sdl::Texture m_texture;
-		Size m_size;
 	};
 }

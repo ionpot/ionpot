@@ -6,14 +6,14 @@
 namespace ionpot::widget {
 	class Box {
 	public:
-		virtual ~Box() {}
+		Box(Size, Point pos = {0});
 
-		virtual Size size() const = 0;
-
-		virtual const Box* contains(Point) const;
+		const Box* contains(Point) const;
 
 		void position(Point);
 		Point position() const;
+
+		Size size() const;
 
 		void add_x(int amount);
 
@@ -22,7 +22,8 @@ namespace ionpot::widget {
 		void place_after(const Box&, int spacing);
 		void place_on(const Box&);
 
-	protected:
+	private:
 		Point m_position;
+		Size m_size;
 	};
 }
