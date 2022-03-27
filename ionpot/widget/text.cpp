@@ -1,33 +1,26 @@
 #include "text.hpp"
 
-#include "point.hpp"
 #include "size.hpp"
+#include "texture.hpp"
 
+#include <sdl/renderer.hpp>
 #include <sdl/texture.hpp>
+
+#include <util/rgba.hpp>
 
 #include <string>
 
 namespace ionpot::widget {
-	Text::Text(const Config& config, std::string text):
-		m_texture {
-			sdl::SizedTexture {
-				sdl::Texture {
-					config.renderer,
-					config.font->render_blended(text, config.color)
-				}
-			}
-		},
-		m_size {
-			m_texture.size().width,
-			config.font->line_height()
-		}
-	{}
-
-	void
-	Text::render(Point offset) const
-	{ m_texture.render(m_position + offset); }
-
-	Size
-	Text::size() const
-	{ return m_size; }
+	Texture text(
+			std::shared_ptr<sdl::Renderer> renderer,
+			const sdl::Font& font,
+			std::string contents,
+			util::RGBA color)
+	{
+		auto surface = font.render_blended(contents, color);
+		return {
+			sdl::Texture {renderer, surface},
+			font.calculate_size(contents)
+		};
+	}
 }

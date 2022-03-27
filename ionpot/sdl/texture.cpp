@@ -9,7 +9,6 @@
 #include <SDL.h>
 
 #include <memory> // std::shared_ptr
-#include <utility> // std::move
 
 namespace ionpot::sdl {
 	Texture::Texture(std::shared_ptr<Renderer> rdr, SDL_Texture* tx):
@@ -112,37 +111,4 @@ namespace ionpot::sdl {
 			throw Exception {};
 		return rdr;
 	}
-
-	// SizedTexture
-	SizedTexture::SizedTexture(Texture&& tx):
-		SizedTexture(std::move(tx), tx.query_size())
-	{}
-
-	SizedTexture::SizedTexture(Texture&& tx, Size size):
-		m_texture {std::move(tx)},
-		m_size {size}
-	{}
-
-	Size
-	SizedTexture::size() const
-	{ return m_size; }
-
-	void
-	SizedTexture::render(Point position) const
-	{ m_texture.render(position, m_size); }
-
-	// ClippedTexture
-	ClippedTexture::ClippedTexture(Texture&& tx, Size size, Point offset):
-		m_texture {std::move(tx)},
-		m_size {size},
-		m_offset {offset}
-	{}
-
-	Size
-	ClippedTexture::size() const
-	{ return m_size; }
-
-	void
-	ClippedTexture::render(Point position) const
-	{ m_texture.render(position, m_size, m_offset, m_size); }
 }

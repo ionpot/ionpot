@@ -1,43 +1,33 @@
 #pragma once
 
 #include "box.hpp"
+#include "point.hpp"
 #include "size.hpp"
 
-#include <memory> // std::shared_ptr
+#include <sdl/texture.hpp>
+
 #include <utility> // std::move
 
 namespace ionpot::widget {
-	template<class T>
 	class Texture : public Box {
 	public:
-		Texture(T&& tx):
-			m_texture {std::move(tx)}
+		Texture(sdl::Texture&& tx, Size size):
+			m_texture {std::move(tx)},
+			m_size {size}
 		{}
 
-		void render() const
-		{ m_texture.render(m_position); }
-
-		Size size() const override
-		{ return m_texture.size(); }
-
-	private:
-		T m_texture;
-	};
-
-	template<class T>
-	class SharedTexture : public Box {
-	public:
-		SharedTexture(std::shared_ptr<T> tx):
-			m_texture {tx}
+		Texture(sdl::Texture&& tx):
+			Texture(std::move(tx), tx.query_size())
 		{}
 
-		void render() const
-		{ m_texture->render(m_position); }
+		void render(Point offset = {0}) const
+		{ m_texture.render(m_position + offset, m_size); }
 
 		Size size() const override
-		{ return m_texture->size(); }
+		{ return m_size; }
 
 	private:
-		std::shared_ptr<T> m_texture;
+		sdl::Texture m_texture;
+		Size m_size;
 	};
 }

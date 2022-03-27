@@ -42,32 +42,4 @@ namespace ionpot::sdl {
 		TargetTexture(std::shared_ptr<Renderer>, Size);
 		const Renderer& set_as_target() const;
 	};
-
-	class SizedTexture {
-	public:
-		SizedTexture(Texture&&);
-		SizedTexture(Texture&&, Size);
-
-		Size size() const;
-
-		void render(Point position) const;
-
-	private:
-		Texture m_texture;
-		Size m_size;
-	};
-
-	class ClippedTexture {
-	public:
-		ClippedTexture(Texture&&, Size clipped_size, Point clip_offset);
-
-		Size size() const;
-
-		void render(Point position) const;
-
-	private:
-		Texture m_texture;
-		Size m_size;
-		Point m_offset;
-	};
 }

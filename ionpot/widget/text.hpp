@@ -1,12 +1,9 @@
 #pragma once
 
-#include "box.hpp"
-#include "point.hpp"
-#include "size.hpp"
+#include "texture.hpp"
 
 #include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
-#include <sdl/texture.hpp>
 
 #include <util/rgba.hpp>
 
@@ -14,22 +11,9 @@
 #include <string>
 
 namespace ionpot::widget {
-	class Text : public Box {
-	public:
-		struct Config {
-			std::shared_ptr<sdl::Renderer> renderer;
-			std::shared_ptr<sdl::Font> font;
-			util::RGBA color;
-		};
-
-		Text(const Config&, std::string text);
-
-		void render(Point offset = {0}) const;
-
-		Size size() const override;
-
-	private:
-		sdl::SizedTexture m_texture;
-		Size m_size;
-	};
+	Texture text(
+		std::shared_ptr<sdl::Renderer>,
+		const sdl::Font&,
+		std::string,
+		util::RGBA);
 }
