@@ -22,13 +22,21 @@ namespace ionpot::util {
 		template<class T>
 		void pair(std::string key, T value)
 		{
-			write_pair_key(key);
-			file << std::forward<T>(value) << std::endl;
+			write(key);
+			put(value);
 		}
 
-		void put(std::string);
+		template<class T>
+		void put(T value)
+		{
+			write(value, "");
+			endl();
+		}
 
-	private:
-		void write_pair_key(std::string key);
+		template<class T>
+		void write(T value, std::string suffix = " ")
+		{
+			file << std::forward<T>(value) << suffix;
+		}
 	};
 }
