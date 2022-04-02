@@ -5,7 +5,6 @@
 #include "surface.hpp"
 #include "ttf.hpp"
 #include "ttf_exception.hpp"
-#include "video.hpp"
 
 #include <util/rgba.hpp>
 
@@ -18,10 +17,8 @@
 namespace ionpot::sdl {
 	Font::Font(
 			std::shared_ptr<Ttf> ttf,
-			std::shared_ptr<Video> video,
 			const Config& config):
 		m_ttf {ttf},
-		m_video {video},
 		m_font {TTF_OpenFont(config.file.c_str(), config.height)}
 	{
 		if (!m_font)
@@ -38,7 +35,6 @@ namespace ionpot::sdl {
 
 	Font::Font(Font&& from) noexcept:
 		m_ttf {from.m_ttf},
-		m_video {from.m_video},
 		m_font {from.m_font}
 	{
 		from.m_font = NULL;
@@ -48,7 +44,6 @@ namespace ionpot::sdl {
 	Font::operator=(Font&& from) noexcept
 	{
 		m_ttf = from.m_ttf;
-		m_video = from.m_video;
 		m_font = from.m_font;
 		from.m_font = NULL;
 		return *this;
@@ -91,7 +86,6 @@ namespace ionpot::sdl {
 	Font::render_blended(std::string text, const util::RGBA& color) const
 	{
 		Surface surface {
-			m_video,
 			TTF_RenderUTF8_Blended(m_font, text.c_str(), color_rgba(color))
 		};
 		if (!surface.pointer)

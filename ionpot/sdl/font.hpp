@@ -3,7 +3,6 @@
 #include "size.hpp"
 #include "surface.hpp"
 #include "ttf.hpp"
-#include "video.hpp"
 
 #include <util/macros.hpp>
 #include <util/rgba.hpp>
@@ -22,7 +21,7 @@ namespace ionpot::sdl {
 			int height;
 		};
 
-		Font(std::shared_ptr<Ttf>, std::shared_ptr<Video>, const Config&);
+		Font(std::shared_ptr<Ttf>, const Config&);
 		~Font();
 		IONPOT_NO_COPY(Font)
 		IONPOT_DECLARE_MOVE(Font)
@@ -38,7 +37,6 @@ namespace ionpot::sdl {
 
 	private:
 		std::shared_ptr<Ttf> m_ttf;
-		std::shared_ptr<Video> m_video;
 		TTF_Font* m_font;
 	};
 }

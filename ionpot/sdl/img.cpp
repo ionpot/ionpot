@@ -4,11 +4,9 @@
 #include "rwops.hpp"
 #include "surface.hpp"
 #include "version.hpp"
-#include "video.hpp"
 
 #include <SDL_image.h>
 
-#include <memory> // std::shared_ptr
 #include <string>
 
 namespace ionpot::sdl {
@@ -24,10 +22,7 @@ namespace ionpot::sdl {
 		return version::to_string(*IMG_Linked_Version());
 	}
 
-	Img::Img(
-			std::shared_ptr<Video> video,
-			Flags init_flags):
-		m_video {video}
+	Img::Img(Flags init_flags)
 	{
 		if (was_init)
 			throw ImgException {"Already initialised."};
@@ -51,7 +46,7 @@ namespace ionpot::sdl {
 	Surface
 	Img::load_png(const RWops& rwops) const
 	{
-		Surface surface {m_video, IMG_LoadPNG_RW(rwops.pointer)};
+		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
 		if (!surface.pointer)
 			throw ImgException {};
 		return surface;
