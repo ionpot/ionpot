@@ -112,18 +112,17 @@ namespace ionpot::sdl {
 	):
 		TargetTexture {renderer, size}
 	{
-		const auto& rdr = set_as_target();
-		rdr.set_color(color);
-		rdr.clear();
-		rdr.reset_target();
+		set_as_target();
+		renderer->set_color(color);
+		renderer->clear();
+		renderer->reset_target();
 	}
 
-	const Renderer&
+	void
 	TargetTexture::set_as_target() const
 	{
-		const auto& rdr = *m_renderer;
-		if (SDL_SetRenderTarget(rdr.m_renderer, m_texture))
+		auto* rdr = m_renderer->m_renderer;
+		if (SDL_SetRenderTarget(rdr, m_texture))
 			throw Exception {};
-		return rdr;
 	}
 }

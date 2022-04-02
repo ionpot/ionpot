@@ -42,6 +42,6 @@ namespace ionpot::sdl {
 	public:
 		TargetTexture(std::shared_ptr<Renderer>, Size);
 		TargetTexture(std::shared_ptr<Renderer>, Size, const util::RGBA&);
-		const Renderer& set_as_target() const;
+		void set_as_target() const;
 	};
 }

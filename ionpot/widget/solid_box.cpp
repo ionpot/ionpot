@@ -33,9 +33,9 @@ namespace ionpot::widget {
 			const Border& border)
 	{
 		sdl::TargetTexture tx {renderer, size, color};
-		const auto& rdr = tx.set_as_target();
-		border.draw(rdr, size);
-		rdr.reset_target();
+		tx.set_as_target();
+		border.draw(*renderer, size);
+		renderer->reset_target();
 		return {std::move(tx), size};
 	}
 }
