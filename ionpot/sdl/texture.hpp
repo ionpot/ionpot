@@ -6,6 +6,7 @@
 #include "surface.hpp"
 
 #include <util/macros.hpp>
+#include <util/rgba.hpp>
 
 #include <SDL.h>
 
@@ -40,6 +41,7 @@ namespace ionpot::sdl {
 	class TargetTexture : public Texture {
 	public:
 		TargetTexture(std::shared_ptr<Renderer>, Size);
+		TargetTexture(std::shared_ptr<Renderer>, Size, const util::RGBA&);
 		const Renderer& set_as_target() const;
 	};
 }

@@ -6,6 +6,8 @@
 #include "surface.hpp"
 #include "to.hpp"
 
+#include <util/rgba.hpp>
+
 #include <SDL.h>
 
 #include <memory> // std::shared_ptr
@@ -102,6 +104,19 @@ namespace ionpot::sdl {
 	TargetTexture::TargetTexture(std::shared_ptr<Renderer> rdr, Size size):
 		Texture {rdr, size, SDL_TEXTUREACCESS_TARGET}
 	{}
+
+	TargetTexture::TargetTexture(
+			std::shared_ptr<Renderer> renderer,
+			Size size,
+			const util::RGBA& color
+	):
+		TargetTexture {renderer, size}
+	{
+		const auto& rdr = set_as_target();
+		rdr.set_color(color);
+		rdr.clear();
+		rdr.reset_target();
+	}
 
 	const Renderer&
 	TargetTexture::set_as_target() const
