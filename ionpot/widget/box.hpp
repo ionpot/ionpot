@@ -16,10 +16,12 @@ namespace ionpot::widget {
 		Size size() const;
 
 		void add_x(int amount);
+		void add_y(int amount);
 
 		void center_to(const Box&);
 
 		void place_after(const Box&, int spacing);
+		void place_below(const Box&, int spacing);
 		void place_on(const Box&);
 
 	private:

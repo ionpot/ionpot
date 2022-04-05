@@ -18,6 +18,12 @@ namespace ionpot::widget {
 	}
 
 	void
+	Box::add_y(int amount)
+	{
+		m_position.y += amount;
+	}
+
+	void
 	Box::center_to(const Box& box)
 	{
 		m_position = box.size().center(size()) + box.position();
@@ -37,6 +43,13 @@ namespace ionpot::widget {
 	{
 		place_on(box);
 		add_x(box.size().width + spacing);
+	}
+
+	void
+	Box::place_below(const Box& box, int spacing)
+	{
+		place_on(box);
+		add_y(box.size().height + spacing);
 	}
 
 	void
