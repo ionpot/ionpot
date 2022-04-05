@@ -2,6 +2,7 @@
 
 #include "base.hpp"
 #include "event.hpp"
+#include "point.hpp"
 
 #include <util/macros.hpp>
 
@@ -17,6 +18,8 @@ namespace ionpot::sdl {
 		IONPOT_DEFAULT_MOVE(Events)
 
 		std::optional<Event> poll() const;
+
+		Point mouse_position() const;
 
 	private:
 		std::shared_ptr<Base> m_base;

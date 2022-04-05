@@ -2,6 +2,7 @@
 
 #include "base.hpp"
 #include "exception.hpp"
+#include "point.hpp"
 
 #include <SDL.h>
 
@@ -21,6 +22,14 @@ namespace ionpot::sdl {
 	Events::~Events()
 	{
 		SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	}
+
+	Point
+	Events::mouse_position() const
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		return {x, y};
 	}
 
 	std::optional<Event>
