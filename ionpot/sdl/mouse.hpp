@@ -1,7 +1,7 @@
 #pragma once
 
-#include "events.hpp"
 #include "point.hpp"
+#include "video.hpp"
 
 #include <util/value.hpp>
 
@@ -11,7 +11,7 @@
 namespace ionpot::sdl {
 	class Mouse {
 	public:
-		Mouse(std::shared_ptr<Events>);
+		Mouse(std::shared_ptr<Video>);
 
 		Point position() const;
 		std::optional<Point> moved() const;
@@ -20,7 +20,7 @@ namespace ionpot::sdl {
 		void update(Point new_mouse_pos);
 
 	private:
-		std::shared_ptr<Events> m_events;
+		std::shared_ptr<Video> m_video;
 		util::Value<Point> m_position;
 	};
 }

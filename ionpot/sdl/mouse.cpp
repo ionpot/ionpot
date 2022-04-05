@@ -1,7 +1,7 @@
 #include "mouse.hpp"
 
-#include "events.hpp"
 #include "point.hpp"
+#include "video.hpp"
 
 #include <util/value.hpp>
 
@@ -9,8 +9,8 @@
 #include <optional>
 
 namespace ionpot::sdl {
-	Mouse::Mouse(std::shared_ptr<Events> events):
-		m_events {events},
+	Mouse::Mouse(std::shared_ptr<Video> video):
+		m_video {video},
 		m_position {}
 	{}
 
@@ -24,7 +24,7 @@ namespace ionpot::sdl {
 
 	void
 	Mouse::update()
-	{ update(m_events->mouse_position()); }
+	{ update(m_video->mouse_position()); }
 
 	void
 	Mouse::update(Point new_mouse_pos)
