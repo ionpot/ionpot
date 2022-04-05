@@ -33,7 +33,7 @@ namespace ionpot::widget {
 	template<class T>
 	class SharedTextBox : public Box {
 	public:
-		SharedTextBox(T&& text, std::shared_ptr<Texture> box):
+		SharedTextBox(T&& text, std::shared_ptr<const Texture> box):
 			Box(box->size()),
 			m_text {std::move(text)},
 			m_box {box}
@@ -49,6 +49,6 @@ namespace ionpot::widget {
 
 	private:
 		T m_text;
-		std::shared_ptr<Texture> m_box;
+		std::shared_ptr<const Texture> m_box;
 	};
 }

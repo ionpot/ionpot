@@ -21,7 +21,7 @@ namespace ionpot::sdl {
 			int height;
 		};
 
-		Font(std::shared_ptr<Ttf>, const Config&);
+		Font(std::shared_ptr<const Ttf>, const Config&);
 		~Font();
 		IONPOT_NO_COPY(Font)
 		IONPOT_DECLARE_MOVE(Font)
@@ -36,7 +36,7 @@ namespace ionpot::sdl {
 		Surface render_blended(std::string text, const util::RGBA&) const;
 
 	private:
-		std::shared_ptr<Ttf> m_ttf;
+		std::shared_ptr<const Ttf> m_ttf;
 		TTF_Font* m_font;
 	};
 }

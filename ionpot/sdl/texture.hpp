@@ -17,8 +17,8 @@ namespace ionpot::sdl {
 	public:
 		using Flags = Uint32;
 
-		Texture(std::shared_ptr<Renderer>, Size, Flags);
-		Texture(std::shared_ptr<Renderer>, const Surface&);
+		Texture(std::shared_ptr<const Renderer>, Size, Flags);
+		Texture(std::shared_ptr<const Renderer>, const Surface&);
 		~Texture();
 		IONPOT_NO_COPY(Texture)
 		IONPOT_DECLARE_MOVE(Texture)
@@ -31,17 +31,17 @@ namespace ionpot::sdl {
 		void set_blend() const;
 
 	protected:
-		std::shared_ptr<Renderer> m_renderer;
+		std::shared_ptr<const Renderer> m_renderer;
 		SDL_Texture* m_texture;
 
 	private:
-		Texture(std::shared_ptr<Renderer>, SDL_Texture*);
+		Texture(std::shared_ptr<const Renderer>, SDL_Texture*);
 	};
 
 	class TargetTexture : public Texture {
 	public:
-		TargetTexture(std::shared_ptr<Renderer>, Size);
-		TargetTexture(std::shared_ptr<Renderer>, Size, const util::RGBA&);
+		TargetTexture(std::shared_ptr<const Renderer>, Size);
+		TargetTexture(std::shared_ptr<const Renderer>, Size, const util::RGBA&);
 		void set_as_target() const;
 	};
 }

@@ -10,7 +10,7 @@
 #include <utility> // std::move
 
 namespace ionpot::sdl {
-	Events::Events(std::shared_ptr<Base> base):
+	Events::Events(std::shared_ptr<const Base> base):
 		m_base {base}
 	{
 		if (SDL_InitSubSystem(SDL_INIT_EVENTS)) {

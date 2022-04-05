@@ -13,7 +13,10 @@
 #include <memory> // std::shared_ptr
 
 namespace ionpot::sdl {
-	Texture::Texture(std::shared_ptr<Renderer> rdr, SDL_Texture* tx):
+	Texture::Texture(
+			std::shared_ptr<const Renderer> rdr,
+			SDL_Texture* tx
+	):
 		m_renderer {rdr},
 		m_texture {tx}
 	{
@@ -21,7 +24,11 @@ namespace ionpot::sdl {
 			throw Exception {};
 	}
 
-	Texture::Texture(std::shared_ptr<Renderer> rdr, Size size, Uint32 flags):
+	Texture::Texture(
+			std::shared_ptr<const Renderer> rdr,
+			Size size,
+			Uint32 flags
+	):
 		Texture {rdr,
 			SDL_CreateTexture(
 				rdr->m_renderer,
@@ -31,7 +38,10 @@ namespace ionpot::sdl {
 		}
 	{}
 
-	Texture::Texture(std::shared_ptr<Renderer> rdr, const Surface& surface):
+	Texture::Texture(
+			std::shared_ptr<const Renderer> rdr,
+			const Surface& surface
+	):
 		Texture {
 			rdr,
 			SDL_CreateTextureFromSurface(rdr->m_renderer, surface.pointer)
@@ -101,12 +111,15 @@ namespace ionpot::sdl {
 	}
 
 	// TargetTexture
-	TargetTexture::TargetTexture(std::shared_ptr<Renderer> rdr, Size size):
+	TargetTexture::TargetTexture(
+			std::shared_ptr<const Renderer> rdr,
+			Size size
+	):
 		Texture {rdr, size, SDL_TEXTUREACCESS_TARGET}
 	{}
 
 	TargetTexture::TargetTexture(
-			std::shared_ptr<Renderer> renderer,
+			std::shared_ptr<const Renderer> renderer,
 			Size size,
 			const util::RGBA& color
 	):

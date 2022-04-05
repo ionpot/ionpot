@@ -11,7 +11,7 @@
 namespace ionpot::sdl {
 	class Mouse {
 	public:
-		Mouse(std::shared_ptr<Video>);
+		Mouse(std::shared_ptr<const Video>);
 
 		Point position() const;
 		std::optional<Point> moved() const;
@@ -20,7 +20,7 @@ namespace ionpot::sdl {
 		void update(Point new_mouse_pos);
 
 	private:
-		std::shared_ptr<Video> m_video;
+		std::shared_ptr<const Video> m_video;
 		util::Value<Point> m_position;
 	};
 }

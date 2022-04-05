@@ -12,12 +12,12 @@
 
 namespace ionpot::widget {
 	Texture solid_box(
-		std::shared_ptr<sdl::Renderer>,
+		std::shared_ptr<const sdl::Renderer>,
 		Size,
 		const util::RGBA&);
 
 	Texture solid_box(
-		std::shared_ptr<sdl::Renderer>,
+		std::shared_ptr<const sdl::Renderer>,
 		Size,
 		const util::RGBA&,
 		const Border&);

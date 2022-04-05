@@ -22,7 +22,7 @@ namespace ionpot::sdl {
 			Flags flags {0};
 		};
 
-		Window(std::shared_ptr<Video>, const Config&);
+		Window(std::shared_ptr<const Video>, const Config&);
 		~Window();
 		IONPOT_NO_COPY(Window)
 		IONPOT_DECLARE_MOVE(Window)
@@ -32,7 +32,7 @@ namespace ionpot::sdl {
 		Size query_size() const;
 
 	private:
-		std::shared_ptr<Video> m_video;
+		std::shared_ptr<const Video> m_video;
 		SDL_Window* m_window;
 	};
 }

@@ -9,7 +9,7 @@
 #include <memory> // std::shared_ptr
 
 namespace ionpot::sdl {
-	Window::Window(std::shared_ptr<Video> video, const Config& config):
+	Window::Window(std::shared_ptr<const Video> video, const Config& config):
 		m_video {video},
 		m_window {SDL_CreateWindow(
 			config.title.c_str(),

@@ -12,7 +12,7 @@
 
 namespace ionpot::widget {
 	Texture text(
-		std::shared_ptr<sdl::Renderer>,
+		std::shared_ptr<const sdl::Renderer>,
 		const sdl::Font&,
 		const util::RGBA&,
 		std::string contents);

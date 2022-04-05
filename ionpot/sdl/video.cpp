@@ -9,7 +9,7 @@
 #include <memory> // std::shared_ptr
 
 namespace ionpot::sdl {
-	Video::Video(std::shared_ptr<Base> base):
+	Video::Video(std::shared_ptr<const Base> base):
 		m_base {base}
 	{
 		if (SDL_InitSubSystem(SDL_INIT_VIDEO)) {

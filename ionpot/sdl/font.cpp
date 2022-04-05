@@ -16,7 +16,7 @@
 
 namespace ionpot::sdl {
 	Font::Font(
-			std::shared_ptr<Ttf> ttf,
+			std::shared_ptr<const Ttf> ttf,
 			const Config& config):
 		m_ttf {ttf},
 		m_font {TTF_OpenFont(config.file.c_str(), config.height)}

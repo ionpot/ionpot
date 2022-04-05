@@ -22,7 +22,7 @@ namespace ionpot::sdl {
 
 		static const Flags default_flags;
 
-		Renderer(std::shared_ptr<Window>, Flags = default_flags);
+		Renderer(std::shared_ptr<const Window>, Flags = default_flags);
 		~Renderer();
 		IONPOT_NO_COPY(Renderer)
 		IONPOT_DECLARE_MOVE(Renderer)
@@ -39,7 +39,7 @@ namespace ionpot::sdl {
 		void set_color(const util::RGBA&) const;
 
 	private:
-		std::shared_ptr<Window> m_window;
+		std::shared_ptr<const Window> m_window;
 		SDL_Renderer* m_renderer;
 	};
 }

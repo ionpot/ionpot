@@ -10,7 +10,7 @@
 namespace ionpot::sdl {
 	class Video {
 	public:
-		Video(std::shared_ptr<Base>);
+		Video(std::shared_ptr<const Base>);
 		~Video();
 		IONPOT_NO_COPY(Video)
 		IONPOT_DEFAULT_MOVE(Video)
@@ -18,6 +18,6 @@ namespace ionpot::sdl {
 		Point mouse_position() const;
 
 	private:
-		std::shared_ptr<Base> m_base;
+		std::shared_ptr<const Base> m_base;
 	};
 }

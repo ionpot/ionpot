@@ -13,12 +13,12 @@ namespace ionpot::sdl {
 	class RWops {
 	public:
 		static RWops read_binary(
-				std::shared_ptr<Base>,
+				std::shared_ptr<const Base>,
 				const std::string& file);
 
 		SDL_RWops* pointer;
 
-		RWops(std::shared_ptr<Base>,
+		RWops(std::shared_ptr<const Base>,
 				const std::string& file,
 				const std::string& mode);
 		~RWops();
@@ -26,6 +26,6 @@ namespace ionpot::sdl {
 		IONPOT_DECLARE_MOVE(RWops)
 
 	private:
-		std::shared_ptr<Base> m_base;
+		std::shared_ptr<const Base> m_base;
 	};
 }

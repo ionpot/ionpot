@@ -9,7 +9,7 @@
 #include <optional>
 
 namespace ionpot::sdl {
-	Mouse::Mouse(std::shared_ptr<Video> video):
+	Mouse::Mouse(std::shared_ptr<const Video> video):
 		m_video {video},
 		m_position {}
 	{}

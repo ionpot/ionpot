@@ -22,7 +22,7 @@ namespace ionpot::sdl {
 		| SDL_RENDERER_TARGETTEXTURE
 	};
 
-	Renderer::Renderer(std::shared_ptr<Window> window, Flags flags):
+	Renderer::Renderer(std::shared_ptr<const Window> window, Flags flags):
 		m_window {window},
 		m_renderer {SDL_CreateRenderer(window->m_window, -1, flags)}
 	{

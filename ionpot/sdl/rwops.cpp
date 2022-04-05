@@ -11,14 +11,14 @@
 namespace ionpot::sdl {
 	RWops
 	RWops::read_binary(
-			std::shared_ptr<Base> base,
+			std::shared_ptr<const Base> base,
 			const std::string& file)
 	{
 		return {base, file, "rb"};
 	}
 
 	RWops::RWops(
-			std::shared_ptr<Base> base,
+			std::shared_ptr<const Base> base,
 			const std::string& file,
 			const std::string& mode):
 		pointer {SDL_RWFromFile(file.c_str(), mode.c_str())},
