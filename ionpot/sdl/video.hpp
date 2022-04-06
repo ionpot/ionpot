@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base.hpp"
-#include "point.hpp"
 
 #include <util/macros.hpp>
 
@@ -14,8 +13,6 @@ namespace ionpot::sdl {
 		~Video();
 		IONPOT_NO_COPY(Video)
 		IONPOT_DEFAULT_MOVE(Video)
-
-		Point mouse_position() const;
 
 	private:
 		std::shared_ptr<const Base> m_base;

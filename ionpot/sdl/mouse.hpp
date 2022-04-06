@@ -16,6 +16,8 @@ namespace ionpot::sdl {
 		Point position() const;
 		std::optional<Point> moved() const;
 
+		Point query_position() const;
+
 		void update();
 		void update(Point new_mouse_pos);
 

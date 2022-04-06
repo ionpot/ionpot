@@ -12,7 +12,7 @@ namespace ionpot::sdl {
 	Mouse::Mouse(std::shared_ptr<const Video> video):
 		m_video {video},
 		m_position {}
-	{}
+	{ update(); }
 
 	Point
 	Mouse::position() const
@@ -22,9 +22,17 @@ namespace ionpot::sdl {
 	Mouse::moved() const
 	{ return m_position.changed(); }
 
+	Point
+	Mouse::query_position() const
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		return {x, y};
+	}
+
 	void
 	Mouse::update()
-	{ update(m_video->mouse_position()); }
+	{ update(query_position()); }
 
 	void
 	Mouse::update(Point new_mouse_pos)
