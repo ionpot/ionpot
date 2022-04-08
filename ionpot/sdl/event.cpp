@@ -46,6 +46,30 @@ namespace ionpot::sdl {
 	}
 
 	std::optional<Point>
+	Event::lmb_down() const
+	{
+		if (m_event.type == SDL_MOUSEBUTTONDOWN) {
+			const auto& event = m_event.button;
+			if (event.button == SDL_BUTTON_LEFT) {
+				return {Point {event.x, event.y}};
+			}
+		}
+		return {};
+	}
+
+	std::optional<Point>
+	Event::lmb_up() const
+	{
+		if (m_event.type == SDL_MOUSEBUTTONUP) {
+			const auto& event = m_event.button;
+			if (event.button == SDL_BUTTON_LEFT) {
+				return {Point {event.x, event.y}};
+			}
+		}
+		return {};
+	}
+
+	std::optional<Point>
 	Event::mouse_move() const
 	{
 		if (m_event.type == SDL_MOUSEMOTION) {
