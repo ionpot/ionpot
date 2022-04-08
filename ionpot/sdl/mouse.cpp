@@ -14,7 +14,7 @@ namespace ionpot::sdl {
 		m_lmb_down {false}
 	{ update(); }
 
-	bool
+	std::optional<Point>
 	Mouse::lmb_down() const
 	{ return m_lmb_down; }
 
@@ -47,15 +47,15 @@ namespace ionpot::sdl {
 	{
 		if (auto pos = event.lmb_up()) {
 			if (m_lmb_down) {
-				m_lmb_down = false;
+				m_lmb_down = {};
 				return pos;
 			}
 		}
-		else if (event.lmb_down()) {
-			m_lmb_down = true;
+		else if (auto pos = event.lmb_down()) {
+			m_lmb_down = pos;
 		}
 		else if (event.focus_lost()) {
-			m_lmb_down = false;
+			m_lmb_down = {};
 		}
 		return {};
 	}

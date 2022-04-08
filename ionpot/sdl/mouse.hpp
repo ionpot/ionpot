@@ -16,7 +16,7 @@ namespace ionpot::sdl {
 
 		Mouse(std::shared_ptr<const Video>);
 
-		bool lmb_down() const;
+		std::optional<Point> lmb_down() const;
 
 		std::optional<Point> moved() const;
 
@@ -30,6 +30,6 @@ namespace ionpot::sdl {
 	private:
 		std::shared_ptr<const Video> m_video;
 		util::Value<Point> m_position;
-		bool m_lmb_down;
+		std::optional<Point> m_lmb_down;
 	};
 }
