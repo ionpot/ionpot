@@ -13,9 +13,9 @@ namespace ionpot::sdl {
 	public:
 		Mouse(std::shared_ptr<const Video>);
 
-		Point position() const;
 		std::optional<Point> moved() const;
 
+		Point position() const;
 		Point query_position() const;
 
 		void update();

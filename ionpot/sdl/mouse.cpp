@@ -14,13 +14,13 @@ namespace ionpot::sdl {
 		m_position {}
 	{ update(); }
 
-	Point
-	Mouse::position() const
-	{ return m_position.current(); }
-
 	std::optional<Point>
 	Mouse::moved() const
 	{ return m_position.changed(); }
+
+	Point
+	Mouse::position() const
+	{ return m_position.current(); }
 
 	Point
 	Mouse::query_position() const
