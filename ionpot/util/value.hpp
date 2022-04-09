@@ -24,6 +24,14 @@ namespace ionpot::util {
 		current() const
 		{ return m_current; }
 
+		T
+		previous() const
+		{ return m_previous; }
+
+		void
+		set_to_same()
+		{ m_previous = m_current; }
+
 		void
 		operator=(T new_value)
 		{
