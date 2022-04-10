@@ -17,6 +17,22 @@ namespace ionpot::widget {
 		m_hovered {}
 	{}
 
+	Cursor::Widget
+	Cursor::find(Point p) const
+	{
+		if (auto widget = m_hovered.current()) {
+			if (widget->contains(p)) {
+				return widget;
+			}
+		}
+		for (auto widget : m_widgets) {
+			if (widget->contains(p)) {
+				return widget;
+			}
+		}
+		return nullptr;
+	}
+
 	bool
 	Cursor::is_on(const Widget& widget) const
 	{
@@ -40,29 +56,10 @@ namespace ionpot::widget {
 	Cursor::update()
 	{
 		if (auto pos = m_mouse->moved()) {
-			update(*pos);
+			m_hovered = find(*pos);
 		}
 		else {
 			m_hovered.set_to_same();
 		}
-	}
-
-	void
-	Cursor::update(Point p)
-	{
-		if (auto w = m_hovered.current()) {
-			if (w->contains(p)) {
-				m_hovered = w;
-				return;
-			}
-		}
-		Widget new_widget {};
-		for (const auto& widget : m_widgets) {
-			if (widget->contains(p)) {
-				new_widget = widget;
-				break;
-			}
-		}
-		m_hovered = new_widget;
 	}
 }

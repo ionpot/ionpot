@@ -24,8 +24,9 @@ namespace ionpot::widget {
 		bool has_entered(const Widget&) const;
 		bool has_left(const Widget&) const;
 
+		Widget find(Point) const;
+
 		void update();
-		void update(Point);
 
 	private:
 		std::shared_ptr<sdl::Mouse> m_mouse;
