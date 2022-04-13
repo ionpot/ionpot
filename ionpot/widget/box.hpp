@@ -8,7 +8,7 @@ namespace ionpot::widget {
 	public:
 		Box(Size, Point pos = {0});
 
-		const Box* contains(Point) const;
+		bool contains(Point, Point offset = {0}) const;
 
 		void position(Point);
 		Point position() const;

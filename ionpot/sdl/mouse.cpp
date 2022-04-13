@@ -1,8 +1,9 @@
 #include "mouse.hpp"
 
-#include "event.hpp"
 #include "point.hpp"
 #include "video.hpp"
+
+#include <SDL.h>
 
 #include <memory> // std::shared_ptr
 #include <optional>
@@ -10,13 +11,8 @@
 namespace ionpot::sdl {
 	Mouse::Mouse(std::shared_ptr<const Video> video):
 		m_video {video},
-		m_position {},
-		m_lmb_down {false}
+		m_position {}
 	{ update(); }
-
-	std::optional<Point>
-	Mouse::lmb_down() const
-	{ return m_lmb_down; }
 
 	std::optional<Point>
 	Mouse::moved() const
@@ -41,22 +37,4 @@ namespace ionpot::sdl {
 	void
 	Mouse::update(Point new_mouse_pos)
 	{ m_position = new_mouse_pos; }
-
-	std::optional<Mouse::LeftClick>
-	Mouse::update(const Event& event)
-	{
-		if (auto pos = event.lmb_up()) {
-			if (m_lmb_down) {
-				m_lmb_down = {};
-				return pos;
-			}
-		}
-		else if (auto pos = event.lmb_down()) {
-			m_lmb_down = pos;
-		}
-		else if (event.focus_lost()) {
-			m_lmb_down = {};
-		}
-		return {};
-	}
 }

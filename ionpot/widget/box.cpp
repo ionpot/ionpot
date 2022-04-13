@@ -29,13 +29,10 @@ namespace ionpot::widget {
 		m_position = box.size().center(size()) + box.position();
 	}
 
-	const Box*
-	Box::contains(Point p) const
+	bool
+	Box::contains(Point p, Point offset) const
 	{
-		if (sdl::point_in_rect(m_position, size(), p)) {
-			return this;
-		}
-		return nullptr;
+		return sdl::point_in_rect(m_position + offset, m_size, p);
 	}
 
 	void
