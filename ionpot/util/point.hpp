@@ -3,6 +3,7 @@
 #include "size.hpp" // circular dep
 
 #include <string>
+#include <utility> // std::pair
 
 namespace ionpot::util {
 	struct Size;
@@ -14,6 +15,7 @@ namespace ionpot::util {
 		Point() = default;
 		Point(int x_and_y);
 		Point(int x, int y);
+		Point(const std::pair<int, int>&);
 
 		explicit Point(const Size&);
 

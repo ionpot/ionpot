@@ -2,6 +2,7 @@
 
 #include "exception.hpp"
 #include "file.hpp"
+#include "point.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
 
@@ -22,6 +23,7 @@ namespace ionpot::util {
 			double to_double() const;
 			int to_int() const;
 			std::pair<int, int> to_int_pair() const;
+			Point to_point() const;
 			RGB to_rgb() const;
 			Size to_size() const;
 		private:

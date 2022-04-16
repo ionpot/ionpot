@@ -4,6 +4,7 @@
 
 #include <cmath> // std::sqrt, std::pow
 #include <string>
+#include <utility> // std::pair
 
 namespace ionpot::util {
 	const Point Point::one {1, 1};
@@ -14,6 +15,10 @@ namespace ionpot::util {
 
 	Point::Point(int x, int y):
 		x {x}, y {y}
+	{}
+
+	Point::Point(const std::pair<int, int>& p):
+		Point {p.first, p.second}
 	{}
 
 	Point::Point(const Size& size):

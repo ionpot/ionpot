@@ -1,6 +1,7 @@
 #include "cfg_file.hpp"
 
 #include "file.hpp"
+#include "point.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
 
@@ -93,6 +94,12 @@ namespace ionpot::util {
 	CfgFile::Pair::to_int_pair() const
 	{
 		return to_value(s_to_int_pair);
+	}
+
+	Point
+	CfgFile::Pair::to_point() const
+	{
+		return {to_int_pair()};
 	}
 
 	RGB
