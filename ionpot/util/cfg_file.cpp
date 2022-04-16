@@ -47,14 +47,19 @@ namespace ionpot::util {
 
 		std::pair<int, int>
 		s_to_int_pair(std::string input)
-		{
+		try {
 			auto i = input.find(' ');
-			if (i == std::string::npos)
-				throw s_BadValue {"an integer pair"};
+			if (i == std::string::npos) {
+				auto x = s_to_int(input);
+				return {x, x};
+			}
 			return {
 				s_to_int(input.substr(0, i)),
 				s_to_int(input.substr(i + 1))
 			};
+		}
+		catch (const s_BadValue&) {
+			throw s_BadValue {"an integer pair"};
 		}
 	}
 
