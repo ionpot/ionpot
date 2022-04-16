@@ -1,43 +1,27 @@
 #pragma once
 
 #include "box.hpp"
+#include "padding.hpp"
 #include "point.hpp"
 #include "texture.hpp"
 
-#include <memory> // std::shared_ptr
 #include <utility> // std::move
 
 namespace ionpot::widget {
-	template<class T>
+	template<class T> // unique_ptr or shared_ptr<const Texture>
 	class TextBox : public Box {
 	public:
-		TextBox(T&& text, Texture&& box):
-			Box(box.size()),
+		TextBox(Texture&& text, T&& box):
+			Box(box->size()),
 			m_text {std::move(text)},
 			m_box {std::move(box)}
 		{}
 
-		void
-		render(Point offset = {0}) const
+		TextBox(Texture&& text, T&& box, const Padding& padding):
+			TextBox(std::move(text), std::move(box))
 		{
-			auto pos = position() + offset;
-			m_box.render(pos);
-			m_text.render(pos);
+			m_text.position(padding.offset());
 		}
-
-	private:
-		T m_text;
-		Texture m_box;
-	};
-
-	template<class T>
-	class SharedTextBox : public Box {
-	public:
-		SharedTextBox(T&& text, std::shared_ptr<const Texture> box):
-			Box(box->size()),
-			m_text {std::move(text)},
-			m_box {box}
-		{}
 
 		void
 		render(Point offset = {0}) const
@@ -48,7 +32,7 @@ namespace ionpot::widget {
 		}
 
 	private:
-		T m_text;
-		std::shared_ptr<const Texture> m_box;
+		Texture m_text;
+		T m_box;
 	};
 }
