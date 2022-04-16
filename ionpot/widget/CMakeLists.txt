@@ -1,4 +1,4 @@
-add_library(ionpot_widget border.cpp box.cpp click.cpp hover.cpp solid_box.cpp text.cpp texture.cpp)
+add_library(ionpot_widget border.cpp box.cpp click.cpp hover.cpp padding.cpp solid_box.cpp text.cpp texture.cpp)
 
 target_include_directories(ionpot_widget PUBLIC "${PROJECT_SOURCE_DIR}/ionpot")
 

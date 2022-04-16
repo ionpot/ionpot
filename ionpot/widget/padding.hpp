@@ -1,7 +1,17 @@
 #pragma once
 
 #include "point.hpp"
+#include "size.hpp"
 
 namespace ionpot::widget {
-	using Padding = Point;
+	class Padding {
+	public:
+		Padding(Size);
+		Padding(int horizontal, int vertical);
+		Padding(int both);
+		Point offset() const;
+		Size size() const;
+	private:
+		Point m_amount;
+	};
 }

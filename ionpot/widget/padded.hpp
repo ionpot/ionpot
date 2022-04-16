@@ -8,11 +8,11 @@
 #include <utility> // std::move
 
 namespace ionpot::widget {
-	template<class T>
+	template<class T> // T = Box
 	class Padded : public Box {
 	public:
 		Padded(T&& content, Padding padding = {0}):
-			Box(content.size() + Size {padding * 2}),
+			Box(content.size() + padding.size()),
 			m_content {std::move(content)},
 			m_padding {padding}
 		{}
@@ -20,7 +20,7 @@ namespace ionpot::widget {
 		void
 		render(Point offset = {0}) const
 		{
-			m_content.render(position() + offset + m_padding);
+			m_content.render(position() + offset + m_padding.offset());
 		}
 
 	private:
