@@ -12,7 +12,7 @@ namespace ionpot::widget {
 	public:
 		Click(Point start, Point end);
 
-		bool on(const Box&, Point offset = {0}) const;
+		bool on(const Box&, Point offset = {}) const;
 
 	private:
 		Point m_start;
@@ -24,7 +24,7 @@ namespace ionpot::widget {
 		LeftClick();
 
 		std::optional<Click> check(const sdl::Event&);
-		bool pressed_on(const Box&, Point offset = {0}) const;
+		bool pressed_on(const Box&, Point offset = {}) const;
 
 	private:
 		std::optional<Point> m_down;

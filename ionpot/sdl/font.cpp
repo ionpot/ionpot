@@ -86,7 +86,7 @@ namespace ionpot::sdl {
 	Size
 	Font::max_size(const std::vector<std::string>& ls) const
 	{
-		Size output {0};
+		Size output;
 		for (auto text : ls) {
 			auto size = calculate_size(text);
 			output.pick_max(size);

@@ -11,7 +11,7 @@ namespace ionpot::widget {
 	public:
 		TextBox(Texture&& text, Texture&& box);
 
-		void render(Point offset = {0}) const;
+		void render(Point offset = {}) const;
 
 	private:
 		Texture m_text;
@@ -22,7 +22,7 @@ namespace ionpot::widget {
 	public:
 		SharedTextBox(Texture&& text, std::shared_ptr<const Texture> box);
 
-		void render(Point offset = {0}) const;
+		void render(Point offset = {}) const;
 
 	private:
 		Texture m_text;

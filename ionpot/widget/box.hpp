@@ -6,9 +6,9 @@
 namespace ionpot::widget {
 	class Box {
 	public:
-		Box(Size, Point pos = {0});
+		Box(Size, Point pos = {});
 
-		bool contains(Point, Point offset = {0}) const;
+		bool contains(Point, Point offset = {}) const;
 
 		Point max_point() const;
 

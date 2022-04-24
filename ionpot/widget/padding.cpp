@@ -4,6 +4,10 @@
 #include "size.hpp"
 
 namespace ionpot::widget {
+	Padding::Padding():
+		Padding {0}
+	{}
+
 	Padding::Padding(Size size):
 		m_amount {Point {size}}
 	{}
