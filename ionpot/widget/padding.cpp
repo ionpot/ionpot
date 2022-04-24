@@ -8,6 +8,10 @@ namespace ionpot::widget {
 		m_amount {Point {size}}
 	{}
 
+	Padding::Padding(Size content, Size total):
+		Padding {(total - content) / 2}
+	{}
+
 	Padding::Padding(int horizontal, int vertical):
 		Padding {Size {horizontal, vertical}}
 	{}

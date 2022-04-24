@@ -7,6 +7,7 @@ namespace ionpot::widget {
 	class Padding {
 	public:
 		Padding(Size);
+		Padding(Size content, Size total);
 		Padding(int horizontal, int vertical);
 		Padding(int both);
 		Point offset() const;

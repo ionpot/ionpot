@@ -17,6 +17,13 @@ namespace ionpot::widget {
 			m_padding {padding}
 		{}
 
+		Padded(T&& content, Size total_size):
+			Padded {
+				std::move(content),
+				Padding {content.size(), total_size}
+			}
+		{}
+
 		void
 		render(Point offset = {0}) const
 		{
