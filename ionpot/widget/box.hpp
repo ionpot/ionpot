@@ -10,6 +10,8 @@ namespace ionpot::widget {
 
 		bool contains(Point, Point offset = {0}) const;
 
+		Point max_point() const;
+
 		void position(Point);
 		Point position() const;
 

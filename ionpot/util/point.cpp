@@ -3,6 +3,7 @@
 #include "size.hpp"
 
 #include <cmath> // std::sqrt, std::pow
+#include <cstdlib> // std::abs
 #include <string>
 #include <utility> // std::pair
 
@@ -29,6 +30,13 @@ namespace ionpot::util {
 	Point::clear()
 	{
 		*this = {};
+	}
+
+	Point
+	Point::diff(const Point& p) const
+	{
+		auto diff = *this - p;
+		return {std::abs(diff.x), std::abs(diff.y)};
 	}
 
 	double

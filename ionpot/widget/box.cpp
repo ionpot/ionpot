@@ -35,6 +35,12 @@ namespace ionpot::widget {
 		return sdl::point_in_rect(m_position + offset, m_size, p);
 	}
 
+	Point
+	Box::max_point() const
+	{
+		return position() + Point {size()};
+	}
+
 	void
 	Box::place_after(const Box& box, int spacing)
 	{

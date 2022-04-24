@@ -21,6 +21,8 @@ namespace ionpot::util {
 
 		void clear();
 
+		Point diff(const Point& p) const;
+
 		double distance(Point target) const;
 
 		Point negate() const;
