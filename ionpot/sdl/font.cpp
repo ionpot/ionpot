@@ -59,6 +59,18 @@ namespace ionpot::sdl {
 		return {width, height};
 	}
 
+	bool
+	Font::is_bold() const
+	{
+		return TTF_GetFontStyle(m_font) & TTF_STYLE_BOLD;
+	}
+
+	bool
+	Font::is_normal() const
+	{
+		return TTF_GetFontStyle(m_font) == TTF_STYLE_NORMAL;
+	}
+
 	int
 	Font::line_height() const
 	{
@@ -91,5 +103,19 @@ namespace ionpot::sdl {
 		if (!surface.pointer)
 			throw TtfException {};
 		return surface;
+	}
+
+	void
+	Font::set_bold() const
+	{
+		if (!is_bold())
+			TTF_SetFontStyle(m_font, TTF_STYLE_BOLD);
+	}
+
+	void
+	Font::set_normal() const
+	{
+		if (!is_normal())
+			TTF_SetFontStyle(m_font, TTF_STYLE_NORMAL);
 	}
 }

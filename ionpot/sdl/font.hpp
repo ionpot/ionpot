@@ -28,6 +28,12 @@ namespace ionpot::sdl {
 
 		Size calculate_size(std::string) const;
 
+		bool is_normal() const;
+		void set_normal() const;
+
+		bool is_bold() const;
+		void set_bold() const;
+
 		int line_height() const;
 		int line_skip() const;
 
