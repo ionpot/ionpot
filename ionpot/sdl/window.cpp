@@ -1,8 +1,9 @@
 #include "window.hpp"
 
 #include "exception.hpp"
-#include "size.hpp"
 #include "video.hpp"
+
+#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -59,7 +60,7 @@ namespace ionpot::sdl {
 		return check_flags(SDL_WINDOW_INPUT_FOCUS);
 	}
 
-	Size
+	util::Size
 	Window::query_size() const
 	{
 		int width {0};

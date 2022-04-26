@@ -1,7 +1,8 @@
 #include "event.hpp"
 
 #include "key.hpp"
-#include "point.hpp"
+
+#include <util/point.hpp>
 
 #include <SDL.h>
 
@@ -45,36 +46,36 @@ namespace ionpot::sdl {
 		return {};
 	}
 
-	std::optional<Point>
+	std::optional<util::Point>
 	Event::lmb_down() const
 	{
 		if (m_event.type == SDL_MOUSEBUTTONDOWN) {
 			const auto& event = m_event.button;
 			if (event.button == SDL_BUTTON_LEFT) {
-				return {Point {event.x, event.y}};
+				return {util::Point {event.x, event.y}};
 			}
 		}
 		return {};
 	}
 
-	std::optional<Point>
+	std::optional<util::Point>
 	Event::lmb_up() const
 	{
 		if (m_event.type == SDL_MOUSEBUTTONUP) {
 			const auto& event = m_event.button;
 			if (event.button == SDL_BUTTON_LEFT) {
-				return {Point {event.x, event.y}};
+				return {util::Point {event.x, event.y}};
 			}
 		}
 		return {};
 	}
 
-	std::optional<Point>
+	std::optional<util::Point>
 	Event::mouse_move() const
 	{
 		if (m_event.type == SDL_MOUSEMOTION) {
 			auto motion = m_event.motion;
-			return {Point {motion.x, motion.y}};
+			return {util::Point {motion.x, motion.y}};
 		}
 		return {};
 	}

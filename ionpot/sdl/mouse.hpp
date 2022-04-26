@@ -1,8 +1,8 @@
 #pragma once
 
-#include "point.hpp"
 #include "video.hpp"
 
+#include <util/point.hpp>
 #include <util/value.hpp>
 
 #include <memory> // std::shared_ptr
@@ -13,16 +13,16 @@ namespace ionpot::sdl {
 	public:
 		Mouse(std::shared_ptr<const Video>);
 
-		std::optional<Point> moved() const;
+		std::optional<util::Point> moved() const;
 
-		Point position() const;
-		Point query_position() const;
+		util::Point position() const;
+		util::Point query_position() const;
 
 		void update();
-		void update(Point new_mouse_pos);
+		void update(util::Point new_mouse_pos);
 
 	private:
 		std::shared_ptr<const Video> m_video;
-		util::Value<Point> m_position;
+		util::Value<util::Point> m_position;
 	};
 }

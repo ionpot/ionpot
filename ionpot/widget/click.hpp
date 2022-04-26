@@ -1,22 +1,23 @@
 #pragma once
 
 #include "box.hpp"
-#include "point.hpp"
 
 #include <sdl/event.hpp>
+
+#include <util/point.hpp>
 
 #include <optional>
 
 namespace ionpot::widget {
 	class Click {
 	public:
-		Click(Point start, Point end);
+		Click(util::Point start, util::Point end);
 
-		bool on(const Box&, Point offset = {}) const;
+		bool on(const Box&, util::Point offset = {}) const;
 
 	private:
-		Point m_start;
-		Point m_end;
+		util::Point m_start;
+		util::Point m_end;
 	};
 
 	class LeftClick {
@@ -24,9 +25,9 @@ namespace ionpot::widget {
 		LeftClick();
 
 		std::optional<Click> check(const sdl::Event&);
-		bool pressed_on(const Box&, Point offset = {}) const;
+		bool pressed_on(const Box&, util::Point offset = {}) const;
 
 	private:
-		std::optional<Point> m_down;
+		std::optional<util::Point> m_down;
 	};
 }

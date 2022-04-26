@@ -1,9 +1,9 @@
 #pragma once
 
-#include "size.hpp"
 #include "video.hpp"
 
 #include <util/macros.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -18,7 +18,7 @@ namespace ionpot::sdl {
 		using Flags = Uint32;
 		struct Config {
 			std::string title;
-			Size size;
+			util::Size size;
 			Flags flags {0};
 		};
 
@@ -29,7 +29,7 @@ namespace ionpot::sdl {
 
 		bool check_flags(Flags) const;
 		bool has_focus() const;
-		Size query_size() const;
+		util::Size query_size() const;
 
 	private:
 		std::shared_ptr<const Video> m_video;

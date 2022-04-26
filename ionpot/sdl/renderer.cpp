@@ -1,13 +1,13 @@
 #include "renderer.hpp"
 
 #include "exception.hpp"
-#include "point.hpp"
-#include "size.hpp"
 #include "to.hpp"
 
 #include <util/hexagon.hpp>
+#include <util/point.hpp>
 #include <util/rgb.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -63,7 +63,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_line(Point start, Point end) const
+	Renderer::draw_line(util::Point start, util::Point end) const
 	{
 		auto err = SDL_RenderDrawLine(
 			m_renderer,
@@ -91,7 +91,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Renderer::draw_rect(Point position, Size size) const
+	Renderer::draw_rect(util::Point position, util::Size size) const
 	{
 		auto rect = to_rect(position, size);
 		auto err = SDL_RenderDrawRect(m_renderer, &rect);
@@ -105,7 +105,7 @@ namespace ionpot::sdl {
 		SDL_RenderPresent(m_renderer);
 	}
 
-	Size
+	util::Size
 	Renderer::query_output_size() const
 	{
 		int width {0};

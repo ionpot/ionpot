@@ -1,12 +1,12 @@
 #include "font.hpp"
 
 #include "color.hpp"
-#include "size.hpp"
 #include "surface.hpp"
 #include "ttf.hpp"
 #include "ttf_exception.hpp"
 
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL_ttf.h>
 
@@ -49,7 +49,7 @@ namespace ionpot::sdl {
 		return *this;
 	}
 
-	Size
+	util::Size
 	Font::calculate_size(std::string text) const
 	{
 		int width {0};
@@ -83,10 +83,10 @@ namespace ionpot::sdl {
 		return TTF_FontLineSkip(m_font);
 	}
 
-	Size
+	util::Size
 	Font::max_size(const std::vector<std::string>& ls) const
 	{
-		Size output;
+		util::Size output;
 		for (auto text : ls) {
 			auto size = calculate_size(text);
 			output.pick_max(size);

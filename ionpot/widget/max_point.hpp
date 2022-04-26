@@ -1,13 +1,13 @@
 #pragma once
 
-#include "point.hpp"
+#include <util/point.hpp>
 
 namespace ionpot::widget {
 	template<class T> // T = Box[]
-	Point
+	util::Point
 	max_point(const T& boxes)
 	{
-		Point max;
+		util::Point max;
 		auto box = boxes.begin();
 		if (box < boxes.end()) {
 			max = box->max_point();

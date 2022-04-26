@@ -1,34 +1,34 @@
 #include "padding.hpp"
 
-#include "point.hpp"
-#include "size.hpp"
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 namespace ionpot::widget {
 	Padding::Padding():
 		Padding {0}
 	{}
 
-	Padding::Padding(Size size):
-		m_amount {Point {size}}
+	Padding::Padding(util::Size size):
+		m_amount {util::Point {size}}
 	{}
 
-	Padding::Padding(Size content, Size total):
+	Padding::Padding(util::Size content, util::Size total):
 		Padding {(total - content) / 2}
 	{}
 
 	Padding::Padding(int horizontal, int vertical):
-		Padding {Size {horizontal, vertical}}
+		Padding {util::Size {horizontal, vertical}}
 	{}
 
 	Padding::Padding(int both):
 		Padding {both, both}
 	{}
 
-	Point
+	util::Point
 	Padding::offset() const
 	{ return m_amount; }
 
-	Size
+	util::Size
 	Padding::size() const
-	{ return Size {m_amount * 2}; }
+	{ return util::Size {m_amount * 2}; }
 }

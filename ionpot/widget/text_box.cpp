@@ -1,8 +1,9 @@
 #include "text_box.hpp"
 
 #include "box.hpp"
-#include "point.hpp"
 #include "texture.hpp"
+
+#include <util/point.hpp>
 
 #include <memory> // std::shared_ptr
 #include <utility> // std::move
@@ -17,7 +18,7 @@ namespace ionpot::widget {
 	}
 
 	void
-	TextBox::render(Point offset) const
+	TextBox::render(util::Point offset) const
 	{
 		auto pos = position() + offset;
 		m_box.render(pos);
@@ -37,7 +38,7 @@ namespace ionpot::widget {
 	}
 
 	void
-	SharedTextBox::render(Point offset) const
+	SharedTextBox::render(util::Point offset) const
 	{
 		auto pos = position() + offset;
 		m_box->render(pos);

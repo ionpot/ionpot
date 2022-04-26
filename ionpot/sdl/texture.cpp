@@ -2,11 +2,12 @@
 
 #include "exception.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "surface.hpp"
 #include "to.hpp"
 
+#include <util/point.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -26,7 +27,7 @@ namespace ionpot::sdl {
 
 	Texture::Texture(
 			std::shared_ptr<const Renderer> rdr,
-			Size size,
+			util::Size size,
 			Uint32 flags
 	):
 		Texture {rdr,
@@ -72,7 +73,7 @@ namespace ionpot::sdl {
 		return *this;
 	}
 
-	Size
+	util::Size
 	Texture::query_size() const
 	{
 		int width {0};
@@ -83,7 +84,7 @@ namespace ionpot::sdl {
 	}
 
 	void
-	Texture::render(Point dst_pos, Size dst_size) const
+	Texture::render(util::Point dst_pos, util::Size dst_size) const
 	{
 		auto dst = to_rect(dst_pos, dst_size);
 		if (SDL_RenderCopy(m_renderer->m_renderer, m_texture, NULL, &dst))
@@ -92,10 +93,10 @@ namespace ionpot::sdl {
 
 	void
 	Texture::render(
-			Point dst_pos,
-			Size dst_size,
-			Point src_pos,
-			Size src_size) const
+			util::Point dst_pos,
+			util::Size dst_size,
+			util::Point src_pos,
+			util::Size src_size) const
 	{
 		auto src = to_rect(src_pos, src_size);
 		auto dst = to_rect(dst_pos, dst_size);
@@ -113,14 +114,14 @@ namespace ionpot::sdl {
 	// TargetTexture
 	TargetTexture::TargetTexture(
 			std::shared_ptr<const Renderer> rdr,
-			Size size
+			util::Size size
 	):
 		Texture {rdr, size, SDL_TEXTUREACCESS_TARGET}
 	{}
 
 	TargetTexture::TargetTexture(
 			std::shared_ptr<const Renderer> renderer,
-			Size size,
+			util::Size size,
 			const util::RGBA& color
 	):
 		TargetTexture {renderer, size}

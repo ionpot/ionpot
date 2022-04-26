@@ -1,13 +1,13 @@
 #include "solid_box.hpp"
 
 #include "border.hpp"
-#include "point.hpp"
-#include "size.hpp"
 #include "texture.hpp"
 
 #include <sdl/renderer.hpp>
 
+#include <util/point.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <memory> // std::shared_ptr
 #include <utility> // std::move
@@ -16,7 +16,7 @@ namespace ionpot::widget {
 	Texture
 	solid_box(
 			std::shared_ptr<const sdl::Renderer> renderer,
-			Size size,
+			util::Size size,
 			const util::RGBA& color)
 	{
 		return {
@@ -28,7 +28,7 @@ namespace ionpot::widget {
 	Texture
 	solid_box(
 			std::shared_ptr<const sdl::Renderer> renderer,
-			Size size,
+			util::Size size,
 			const util::RGBA& color,
 			const Border& border)
 	{

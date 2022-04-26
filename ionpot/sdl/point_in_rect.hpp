@@ -1,8 +1,11 @@
 #pragma once
 
-#include "point.hpp"
-#include "size.hpp"
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 namespace ionpot::sdl {
-	bool point_in_rect(Point rect_pos, Size rect_size, Point point);
+	bool point_in_rect(
+		util::Point rect_pos,
+		util::Size rect_size,
+		util::Point point);
 }

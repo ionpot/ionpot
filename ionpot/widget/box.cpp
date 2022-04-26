@@ -1,12 +1,12 @@
 #include "box.hpp"
 
-#include "point.hpp"
-#include "size.hpp"
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 #include <sdl/point_in_rect.hpp>
 
 namespace ionpot::widget {
-	Box::Box(Size size, Point pos):
+	Box::Box(util::Size size, util::Point pos):
 		m_position {pos},
 		m_size {size}
 	{}
@@ -30,15 +30,15 @@ namespace ionpot::widget {
 	}
 
 	bool
-	Box::contains(Point p, Point offset) const
+	Box::contains(util::Point p, util::Point offset) const
 	{
 		return sdl::point_in_rect(m_position + offset, m_size, p);
 	}
 
-	Point
+	util::Point
 	Box::max_point() const
 	{
-		return position() + Point {size()};
+		return position() + util::Point {size()};
 	}
 
 	void
@@ -62,18 +62,18 @@ namespace ionpot::widget {
 	}
 
 	void
-	Box::position(Point p)
+	Box::position(util::Point p)
 	{
 		m_position = p;
 	}
 
-	Point
+	util::Point
 	Box::position() const
 	{
 		return m_position;
 	}
 
-	Size
+	util::Size
 	Box::size() const
 	{
 		return m_size;

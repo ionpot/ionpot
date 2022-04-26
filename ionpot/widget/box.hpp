@@ -1,21 +1,21 @@
 #pragma once
 
-#include "point.hpp"
-#include "size.hpp"
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 namespace ionpot::widget {
 	class Box {
 	public:
-		Box(Size, Point pos = {});
+		Box(util::Size, util::Point pos = {});
 
-		bool contains(Point, Point offset = {}) const;
+		bool contains(util::Point, util::Point offset = {}) const;
 
-		Point max_point() const;
+		util::Point max_point() const;
 
-		void position(Point);
-		Point position() const;
+		void position(util::Point);
+		util::Point position() const;
 
-		Size size() const;
+		util::Size size() const;
 
 		void add_x(int amount);
 		void add_y(int amount);
@@ -27,7 +27,7 @@ namespace ionpot::widget {
 		void place_on(const Box&);
 
 	private:
-		Point m_position;
-		Size m_size;
+		util::Point m_position;
+		util::Size m_size;
 	};
 }

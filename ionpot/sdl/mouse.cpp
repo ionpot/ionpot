@@ -1,7 +1,8 @@
 #include "mouse.hpp"
 
-#include "point.hpp"
 #include "video.hpp"
+
+#include <util/point.hpp>
 
 #include <SDL.h>
 
@@ -14,15 +15,15 @@ namespace ionpot::sdl {
 		m_position {}
 	{ update(); }
 
-	std::optional<Point>
+	std::optional<util::Point>
 	Mouse::moved() const
 	{ return m_position.changed(); }
 
-	Point
+	util::Point
 	Mouse::position() const
 	{ return m_position.current(); }
 
-	Point
+	util::Point
 	Mouse::query_position() const
 	{
 		int x, y;
@@ -35,6 +36,6 @@ namespace ionpot::sdl {
 	{ update(query_position()); }
 
 	void
-	Mouse::update(Point new_mouse_pos)
+	Mouse::update(util::Point new_mouse_pos)
 	{ m_position = new_mouse_pos; }
 }

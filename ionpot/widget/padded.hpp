@@ -2,8 +2,9 @@
 
 #include "box.hpp"
 #include "padding.hpp"
-#include "point.hpp"
-#include "size.hpp"
+
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 #include <utility> // std::move
 
@@ -17,7 +18,7 @@ namespace ionpot::widget {
 			m_padding {padding}
 		{}
 
-		Padded(T&& content, Size total_size):
+		Padded(T&& content, util::Size total_size):
 			Padded {
 				std::move(content),
 				Padding {content.size(), total_size}
@@ -25,7 +26,7 @@ namespace ionpot::widget {
 		{}
 
 		void
-		render(Point offset = {}) const
+		render(util::Point offset = {}) const
 		{
 			m_content.render(position() + offset + m_padding.offset());
 		}

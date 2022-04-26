@@ -1,13 +1,13 @@
 #include "to.hpp"
 
-#include "point.hpp"
-#include "size.hpp"
+#include <util/point.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 
 namespace ionpot::sdl {
 	SDL_Point
-	to_point(Point p)
+	to_point(util::Point p)
 	{
 		SDL_Point point;
 		point.x = p.x;
@@ -16,7 +16,7 @@ namespace ionpot::sdl {
 	}
 
 	SDL_Rect
-	to_rect(Point pos, Size size)
+	to_rect(util::Point pos, util::Size size)
 	{
 		SDL_Rect rect;
 		rect.x = pos.x;

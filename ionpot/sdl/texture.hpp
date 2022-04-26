@@ -1,12 +1,12 @@
 #pragma once
 
-#include "point.hpp"
 #include "renderer.hpp"
-#include "size.hpp"
 #include "surface.hpp"
 
 #include <util/macros.hpp>
+#include <util/point.hpp>
 #include <util/rgba.hpp>
+#include <util/size.hpp>
 
 #include <SDL.h>
 
@@ -17,16 +17,23 @@ namespace ionpot::sdl {
 	public:
 		using Flags = Uint32;
 
-		Texture(std::shared_ptr<const Renderer>, Size, Flags);
+		Texture(std::shared_ptr<const Renderer>, util::Size, Flags);
 		Texture(std::shared_ptr<const Renderer>, const Surface&);
 		~Texture();
 		IONPOT_NO_COPY(Texture)
 		IONPOT_DECLARE_MOVE(Texture)
 
-		Size query_size() const;
+		util::Size query_size() const;
 
-		void render(Point dst_pos, Size dst_size) const;
-		void render(Point dst_pos, Size dst_size, Point src_pos, Size src_size) const;
+		void render(
+			util::Point dst_pos,
+			util::Size dst_size) const;
+
+		void render(
+			util::Point dst_pos,
+			util::Size dst_size,
+			util::Point src_pos,
+			util::Size src_size) const;
 
 		void set_blend() const;
 
@@ -40,8 +47,8 @@ namespace ionpot::sdl {
 
 	class TargetTexture : public Texture {
 	public:
-		TargetTexture(std::shared_ptr<const Renderer>, Size);
-		TargetTexture(std::shared_ptr<const Renderer>, Size, const util::RGBA&);
+		TargetTexture(std::shared_ptr<const Renderer>, util::Size);
+		TargetTexture(std::shared_ptr<const Renderer>, util::Size, const util::RGBA&);
 		void set_as_target() const;
 	};
 }

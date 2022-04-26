@@ -1,9 +1,10 @@
 #include "hover.hpp"
 
 #include "box.hpp"
-#include "point.hpp"
 
 #include <sdl/mouse.hpp>
+
+#include <util/point.hpp>
 
 #include <memory> // std::shared_ptr
 
@@ -34,7 +35,7 @@ namespace ionpot::widget {
 	}
 
 	void
-	Hover::update(const Box& widget, Point offset)
+	Hover::update(const Box& widget, util::Point offset)
 	{
 		if (auto pos = m_mouse->moved()) {
 			m_hovered = widget.contains(*pos, offset);
