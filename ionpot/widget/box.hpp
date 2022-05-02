@@ -2,11 +2,14 @@
 
 #include <util/point.hpp>
 #include <util/size.hpp>
+#include <util/vector.hpp>
+
+#include <vector>
 
 namespace ionpot::widget {
 	class Box {
 	public:
-		Box(util::Size, util::Point pos = {});
+		Box(util::Size = {}, util::Point pos = {});
 
 		bool contains(util::Point, util::Point offset = {}) const;
 
@@ -30,4 +33,17 @@ namespace ionpot::widget {
 		util::Point m_position;
 		util::Size m_size;
 	};
+
+	util::Point min_point(const std::vector<const Box*>&);
+	util::Point max_point(const std::vector<const Box*>&);
+
+	template<class T>
+	util::Size
+	sum_sizes(const std::vector<T>& input)
+	{
+		return sum_sizes<const Box*>(util::ptr_vector<const Box>(input));
+	}
+
+	template<>
+	util::Size sum_sizes(const std::vector<const Box*>&);
 }
