@@ -29,6 +29,9 @@ namespace ionpot::widget {
 		void place_below(const Box&, int spacing = 0);
 		void place_on(const Box&);
 
+	protected:
+		void size(util::Size);
+
 	private:
 		util::Point m_position;
 		util::Size m_size;

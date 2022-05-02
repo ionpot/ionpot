@@ -81,6 +81,12 @@ namespace ionpot::widget {
 		return m_size;
 	}
 
+	void
+	Box::size(util::Size size)
+	{
+		m_size = size;
+	}
+
 	// helpers
 	util::Point
 	min_point(const std::vector<const Box*>& boxes)
