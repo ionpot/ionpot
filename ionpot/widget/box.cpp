@@ -15,33 +15,23 @@ namespace ionpot::widget {
 
 	void
 	Box::add_x(int amount)
-	{
-		m_position.x += amount;
-	}
+	{ m_position.x += amount; }
 
 	void
 	Box::add_y(int amount)
-	{
-		m_position.y += amount;
-	}
+	{ m_position.y += amount; }
 
 	void
 	Box::center_to(const Box& box)
-	{
-		m_position = box.size().center(size()) + box.position();
-	}
+	{ m_position = box.size().center(size()) + box.position(); }
 
 	bool
 	Box::contains(util::Point p, util::Point offset) const
-	{
-		return sdl::point_in_rect(m_position + offset, m_size, p);
-	}
+	{ return sdl::point_in_rect(m_position + offset, m_size, p); }
 
 	util::Point
 	Box::max_point() const
-	{
-		return position() + util::Point {size()};
-	}
+	{ return position() + util::Point {size()}; }
 
 	void
 	Box::place_after(const Box& box, int spacing)
@@ -52,9 +42,7 @@ namespace ionpot::widget {
 
 	void
 	Box::place_after(util::Size size, int spacing)
-	{
-		place_after(Box {size}, spacing);
-	}
+	{ place_after(Box {size}, spacing); }
 
 	void
 	Box::place_below(const Box& box, int spacing)
@@ -65,33 +53,23 @@ namespace ionpot::widget {
 
 	void
 	Box::place_on(const Box& box)
-	{
-		m_position = box.position();
-	}
+	{ m_position = box.position(); }
 
 	void
 	Box::position(util::Point p)
-	{
-		m_position = p;
-	}
+	{ m_position = p; }
 
 	util::Point
 	Box::position() const
-	{
-		return m_position;
-	}
+	{ return m_position; }
 
 	util::Size
 	Box::size() const
-	{
-		return m_size;
-	}
+	{ return m_size; }
 
 	void
 	Box::size(util::Size size)
-	{
-		m_size = size;
-	}
+	{ m_size = size; }
 
 	// helpers
 	util::Point
