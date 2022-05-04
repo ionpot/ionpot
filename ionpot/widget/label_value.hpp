@@ -7,6 +7,7 @@
 #include <util/point.hpp>
 #include <util/size.hpp>
 
+#include <optional>
 #include <utility> // std::move
 #include <vector>
 
@@ -14,45 +15,70 @@ namespace ionpot::widget {
 	template<class T, class U> // T = Texture, U = Texture
 	class LabelValue : public Box {
 	public:
+		LabelValue(T&& label, int spacing = 0):
+			Box {label.size()},
+			m_label {std::move(label)},
+			m_value {},
+			m_value_offset {}
+		{
+			value_offset(size(), spacing);
+		}
+
 		LabelValue(T&& label, U&& value, int spacing = 0):
 			Box {},
 			m_label {std::move(label)},
-			m_value {std::move(value)}
+			m_value {std::move(value)},
+			m_value_offset {}
 		{
-			m_value.place_after(m_label, spacing);
-			size(sum_sizes(std::vector<const Box*> {&m_label, &m_value}));
+			value_offset(label.size(), spacing);
 		}
 
 		util::Size
 		label_size() const
-		{
-			return util::Size {m_value.position()};
-		}
-
-		void
-		label_size(util::Size size, int spacing = 0)
-		{
-			Box box {size, m_label.position()};
-			m_value.place_after(box, spacing);
-		}
+		{ return m_label.size(); }
 
 		void
 		render(util::Point offset = {}) const
 		{
 			auto pos = position() + offset;
 			m_label.render(pos);
-			m_value.render(pos);
+			if (m_value)
+				m_value->render(pos);
+		}
+
+		void
+		update_size()
+		{
+			std::vector<Box> ls {m_label};
+			if (m_value)
+				ls.push_back(*m_value);
+			size(sum_sizes(ls));
 		}
 
 		void
 		value(U&& new_value)
 		{
-			swap(m_value, std::move(new_value));
+			m_value = std::move(new_value);
+			m_value->position(m_value_offset);
+			update_size();
+		}
+
+		void
+		value_offset(util::Size size, int spacing = 0)
+		{
+			Box box {m_label};
+			box.place_after(size, spacing);
+			m_value_offset = box.position();
+			if (m_value) {
+				m_value->position(m_value_offset);
+				update_size();
+			}
 		}
 
 	private:
 		T m_label;
-		U m_value;
+		std::optional<U> m_value;
+		util::Point m_value_offset;
 	};
 
 	template<class T> // T = LabelValue*[]
@@ -61,7 +87,7 @@ namespace ionpot::widget {
 	{
 		auto size = max_label_size(labels);
 		for (auto lv : labels)
-			lv->label_size(size, spacing);
+			lv->value_offset(size, spacing);
 	}
 
 	template<class T> // T = const LabelValue*[]

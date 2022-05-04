@@ -51,6 +51,12 @@ namespace ionpot::widget {
 	}
 
 	void
+	Box::place_after(util::Size size, int spacing)
+	{
+		place_after(Box {size}, spacing);
+	}
+
+	void
 	Box::place_below(const Box& box, int spacing)
 	{
 		place_on(box);
