@@ -5,8 +5,6 @@
 
 #include <sdl/point_in_rect.hpp>
 
-#include <optional>
-
 namespace ionpot::widget {
 	Box::Box(util::Size size, util::Point pos):
 		m_position {pos},
@@ -70,42 +68,4 @@ namespace ionpot::widget {
 	void
 	Box::size(util::Size size)
 	{ m_size = size; }
-
-	// helpers
-	util::Point
-	min_point(const std::vector<const Box*>& boxes)
-	{
-		std::optional<util::Point> min;
-		for (auto box : boxes) {
-			auto p = box->position();
-			if (min)
-				min->pick_min(p);
-			else
-				min = p;
-		}
-		return min.value_or(util::Point {});
-	}
-
-	util::Point
-	max_point(const std::vector<const Box*>& boxes)
-	{
-		std::optional<util::Point> max;
-		for (auto box : boxes) {
-			auto p = box->max_point();
-			if (max)
-				max->pick_max(p);
-			else
-				max = p;
-		}
-		return max.value_or(util::Point {});
-	}
-
-	template<>
-	util::Size
-	sum_sizes(const std::vector<const Box*>& boxes)
-	{
-		auto min = min_point(boxes);
-		auto max = max_point(boxes);
-		return util::Size {min.diff(max)};
-	}
 }
