@@ -1,6 +1,6 @@
 #pragma once
 
-#include "box.hpp"
+#include "element.hpp"
 
 #include <sdl/texture.hpp>
 
@@ -8,7 +8,7 @@
 #include <util/size.hpp>
 
 namespace ionpot::widget {
-	class Texture : public Box {
+	class Texture : public Element {
 	public:
 		Texture(sdl::Texture&&);
 		Texture(sdl::Texture&&, util::Size);

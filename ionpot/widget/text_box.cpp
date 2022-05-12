@@ -1,6 +1,6 @@
 #include "text_box.hpp"
 
-#include "box.hpp"
+#include "element.hpp"
 #include "texture.hpp"
 
 #include <util/point.hpp>
@@ -10,7 +10,7 @@
 
 namespace ionpot::widget {
 	TextBox::TextBox(Texture&& text, Texture&& box):
-		Box {box.size()},
+		Element {box.size()},
 		m_text {std::move(text)},
 		m_box {std::move(box)}
 	{
@@ -30,7 +30,7 @@ namespace ionpot::widget {
 			Texture&& text,
 			std::shared_ptr<const Texture> box
 	):
-		Box {box->size()},
+		Element {box->size()},
 		m_text {std::move(text)},
 		m_box {box}
 	{

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "box.hpp"
+#include "element.hpp"
 #include "swap.hpp"
 #include "texture.hpp"
 
@@ -13,10 +14,10 @@
 
 namespace ionpot::widget {
 	template<class T, class U> // T = Texture, U = Texture
-	class LabelValue : public Box {
+	class LabelValue : public Element {
 	public:
 		LabelValue(T&& label, int spacing = 0):
-			Box {label.size()},
+			Element {label.size()},
 			m_label {std::move(label)},
 			m_value {},
 			m_value_offset {}
@@ -25,7 +26,7 @@ namespace ionpot::widget {
 		}
 
 		LabelValue(T&& label, U&& value, int spacing = 0):
-			Box {},
+			Element {},
 			m_label {std::move(label)},
 			m_value {std::move(value)},
 			m_value_offset {}

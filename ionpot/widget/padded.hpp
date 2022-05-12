@@ -1,6 +1,7 @@
 #pragma once
 
 #include "box.hpp"
+#include "element.hpp"
 #include "padding.hpp"
 
 #include <util/point.hpp>
@@ -10,10 +11,10 @@
 
 namespace ionpot::widget {
 	template<class T> // T = Box
-	class Padded : public Box {
+	class Padded : public Element {
 	public:
 		Padded(T&& content, Padding padding = {}):
-			Box(content.size() + padding.size()),
+			Element {content.size() + padding.size()},
 			m_content {std::move(content)},
 			m_padding {padding}
 		{}
@@ -28,7 +29,7 @@ namespace ionpot::widget {
 		void
 		render(util::Point offset = {}) const
 		{
-			m_content.render(position() + offset + m_padding.offset());
+			Element::render(m_content, offset + m_padding.offset());
 		}
 
 	private:

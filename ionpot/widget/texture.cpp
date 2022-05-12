@@ -1,6 +1,6 @@
 #include "texture.hpp"
 
-#include "box.hpp"
+#include "element.hpp"
 
 #include <sdl/texture.hpp>
 
@@ -11,7 +11,7 @@
 
 namespace ionpot::widget {
 	Texture::Texture(sdl::Texture&& tx, util::Size size):
-		Box {size},
+		Element {size},
 		m_texture {std::move(tx)}
 	{}
 
