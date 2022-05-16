@@ -2,6 +2,7 @@
 
 #include "box.hpp"
 #include "element.hpp"
+#include "sum_sizes.hpp"
 #include "swap.hpp"
 #include "texture.hpp"
 
