@@ -14,8 +14,8 @@
 namespace ionpot::util {
 	namespace {
 		struct s_BadValue : public CfgFile::Exception {
-			const std::string expected;
-			s_BadValue(std::string expected):
+			std::string expected;
+			s_BadValue(std::string expected = ""):
 				CfgFile::Exception {"Value is not " + expected + "."},
 				expected {expected}
 			{}
@@ -63,8 +63,7 @@ namespace ionpot::util {
 		try {
 			auto [left, right] = s_split(input, delimiter);
 			if (right.empty()) {
-				auto x = s_to_int(left);
-				return {x, x};
+				throw s_BadValue {};
 			}
 			return {s_to_int(left), s_to_int(right)};
 		}
