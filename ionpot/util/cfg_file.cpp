@@ -30,6 +30,16 @@ namespace ionpot::util {
 			return q(section) + " -> " + q(key);
 		}
 
+		std::pair<std::string, std::string>
+		s_split(std::string input, char delimiter = ' ')
+		{
+			auto i = input.find(delimiter);
+			if (i == std::string::npos) {
+				return {input, ""};
+			}
+			return {input.substr(0, i), input.substr(i + 1)};
+		}
+
 		double
 		s_to_double(std::string input)
 		try {
@@ -49,17 +59,14 @@ namespace ionpot::util {
 		}
 
 		std::pair<int, int>
-		s_to_int_pair(std::string input, char delimiter)
+		s_to_int_pair(std::string input, char delimiter = ' ')
 		try {
-			auto i = input.find(delimiter);
-			if (i == std::string::npos) {
-				auto x = s_to_int(input);
+			auto [left, right] = s_split(input, delimiter);
+			if (right.empty()) {
+				auto x = s_to_int(left);
 				return {x, x};
 			}
-			return {
-				s_to_int(input.substr(0, i)),
-				s_to_int(input.substr(i + 1))
-			};
+			return {s_to_int(left), s_to_int(right)};
 		}
 		catch (const s_BadValue&) {
 			throw s_BadValue {"an integer pair"};
