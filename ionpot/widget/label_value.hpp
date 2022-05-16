@@ -51,7 +51,7 @@ namespace ionpot::widget {
 		void
 		update_size()
 		{
-			std::vector<Box> ls {m_label};
+			std::vector<Element> ls {m_label};
 			if (m_value)
 				ls.push_back(*m_value);
 			size(sum_sizes(ls));
