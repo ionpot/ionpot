@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dice.hpp"
 #include "exception.hpp"
 #include "file.hpp"
 #include "point.hpp"
@@ -20,9 +21,10 @@ namespace ionpot::util {
 			std::string key;
 			std::string value;
 			Pair(std::string line, std::string section = "");
+			dice::Input to_dice() const;
 			double to_double() const;
 			int to_int() const;
-			std::pair<int, int> to_int_pair() const;
+			std::pair<int, int> to_int_pair(char delim = ' ') const;
 			Point to_point() const;
 			RGB to_rgb() const;
 			Size to_size() const;

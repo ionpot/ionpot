@@ -1,5 +1,6 @@
 #include "cfg_file.hpp"
 
+#include "dice.hpp"
 #include "file.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
@@ -46,9 +47,9 @@ namespace ionpot::util {
 		}
 
 		std::pair<int, int>
-		s_to_int_pair(std::string input)
+		s_to_int_pair(std::string input, char delimiter)
 		try {
-			auto i = input.find(' ');
+			auto i = input.find(delimiter);
 			if (i == std::string::npos) {
 				auto x = s_to_int(input);
 				return {x, x};
@@ -83,6 +84,16 @@ namespace ionpot::util {
 		value = line.substr(i + delimiter.size());
 	}
 
+	dice::Input
+	CfgFile::Pair::to_dice() const
+	try {
+		auto [left, right] = s_to_int_pair(value, 'd');
+		return {left, right};
+	}
+	catch (const s_BadValue&) {
+		throw BadValue {key, "a dice notation",  section};
+	}
+
 	double
 	CfgFile::Pair::to_double() const
 	{
@@ -96,9 +107,12 @@ namespace ionpot::util {
 	}
 
 	std::pair<int, int>
-	CfgFile::Pair::to_int_pair() const
-	{
-		return to_value(s_to_int_pair);
+	CfgFile::Pair::to_int_pair(char delimiter) const
+	try {
+		return s_to_int_pair(value, delimiter);
+	}
+	catch (const s_BadValue& err) {
+		throw BadValue {key, err.expected, section};
 	}
 
 	Point
