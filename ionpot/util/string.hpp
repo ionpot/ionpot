@@ -46,6 +46,12 @@ namespace ionpot::util::string {
 	}
 
 	inline std::string
+	quote(std::string value)
+	{
+		return "\"" + value + "\"";
+	}
+
+	inline std::string
 	trim_trailing_zeroes(std::string value)
 	{
 		while (!value.empty()) {

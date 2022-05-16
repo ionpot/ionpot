@@ -5,6 +5,7 @@
 #include "point.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
+#include "string.hpp"
 
 #include <stdexcept> // std::invalid_argument
 #include <string>
@@ -23,9 +24,10 @@ namespace ionpot::util {
 		std::string
 		s_key_str(std::string key, std::string section)
 		{
+			auto q = string::quote;
 			if (section.empty())
-				return key;
-			return section + " -> " + key;
+				return q(key);
+			return q(section) + " -> " + q(key);
 		}
 
 		double
