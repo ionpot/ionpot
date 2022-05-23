@@ -23,8 +23,13 @@ namespace ionpot::widget {
 		void center_to(const Box&);
 
 		void place_after(const Box&, int spacing = 0);
+		void place_after(const Box&, util::Size spacing);
 		void place_after(util::Size, int spacing = 0);
+		void place_after(util::Size, util::Size spacing);
+
 		void place_below(const Box&, int spacing = 0);
+		void place_below(const Box&, util::Size spacing);
+
 		void place_on(const Box&);
 
 	protected:

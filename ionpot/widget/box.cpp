@@ -39,8 +39,16 @@ namespace ionpot::widget {
 	}
 
 	void
+	Box::place_after(const Box& box, util::Size spacing)
+	{ place_after(box, spacing.width); }
+
+	void
 	Box::place_after(util::Size size, int spacing)
 	{ place_after(Box {size}, spacing); }
+
+	void
+	Box::place_after(util::Size size, util::Size spacing)
+	{ place_after(size, spacing.width); }
 
 	void
 	Box::place_below(const Box& box, int spacing)
@@ -48,6 +56,10 @@ namespace ionpot::widget {
 		place_on(box);
 		add_y(box.size().height + spacing);
 	}
+
+	void
+	Box::place_below(const Box& box, util::Size spacing)
+	{ place_below(box, spacing.height); }
 
 	void
 	Box::place_on(const Box& box)

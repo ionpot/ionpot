@@ -92,6 +92,11 @@ namespace ionpot::widget {
 			lv->value_offset(size, spacing);
 	}
 
+	template<class T> // T = LabelValue*[]
+	void
+	align_labels(const T& labels, util::Size spacing)
+	{ align_labels(labels, spacing.width); }
+
 	template<class T> // T = const LabelValue*[]
 	util::Size
 	max_label_size(const T& labels)
