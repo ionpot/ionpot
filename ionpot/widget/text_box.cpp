@@ -25,6 +25,10 @@ namespace ionpot::widget {
 		m_text.render(pos);
 	}
 
+	const Texture&
+	TextBox::text() const
+	{ return m_text; }
+
 	// SharedTextBox
 	SharedTextBox::SharedTextBox(
 			Texture&& text,
@@ -44,4 +48,8 @@ namespace ionpot::widget {
 		m_box->render(pos);
 		m_text.render(pos);
 	}
+
+	const Texture&
+	SharedTextBox::text() const
+	{ return m_text; }
 }
