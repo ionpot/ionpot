@@ -5,6 +5,8 @@
 #include <util/point.hpp>
 #include <util/size.hpp>
 
+#include <memory> // std::shared_ptr
+
 namespace ionpot::widget {
 	class Element;
 
@@ -17,12 +19,12 @@ namespace ionpot::widget {
 	}
 
 	template<class T> // T = Element
-	Element*
+	std::shared_ptr<Element>
 	find(T& elmt, util::Point point, util::Point offset = {})
 	{
-		return elmt.visible()
-			? elmt.find(point, offset)
-			: nullptr;
+		if (elmt.visible())
+			return elmt.find(point, offset);
+		return {};
 	}
 
 	template<class T> // T = Element
@@ -66,7 +68,7 @@ namespace ionpot::widget {
 		{ return widget::contains(elmt, point, position() + offset); }
 
 		template<class T> // T = Element
-		Element*
+		std::shared_ptr<Element>
 		find(T& elmt, util::Point point, util::Point offset = {})
 		{ return widget::find(elmt, point, position() + offset); }
 

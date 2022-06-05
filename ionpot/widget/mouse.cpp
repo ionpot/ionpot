@@ -6,6 +6,7 @@
 
 #include <util/point.hpp>
 
+#include <memory> // std::shared_ptr
 #include <optional>
 #include <utility> // std::move
 
@@ -17,12 +18,12 @@ namespace ionpot::widget {
 		m_click_start {}
 	{}
 
-	const Element*
+	std::shared_ptr<const Element>
 	Mouse::hovered() const
 	{ return m_hovered; }
 
 	void
-	Mouse::hovered(Element* elmt)
+	Mouse::hovered(std::shared_ptr<Element> elmt)
 	{
 		if (m_click_start)
 			m_click_start->held_down(m_click_start == elmt);
@@ -34,7 +35,7 @@ namespace ionpot::widget {
 	}
 
 	void
-	Mouse::lmb_down(Element* elmt)
+	Mouse::lmb_down(std::shared_ptr<Element> elmt)
 	{
 		if (m_click_start)
 			m_click_start->held_down(false);
@@ -44,7 +45,7 @@ namespace ionpot::widget {
 	}
 
 	bool
-	Mouse::lmb_up(Element* elmt)
+	Mouse::lmb_up(std::shared_ptr<Element> elmt)
 	{
 		bool clicked {false};
 		if (m_click_start) {
@@ -53,7 +54,7 @@ namespace ionpot::widget {
 			if (elmt)
 				clicked &= elmt->clickable();
 		}
-		m_click_start = nullptr;
+		m_click_start.reset();
 		return clicked;
 	}
 
