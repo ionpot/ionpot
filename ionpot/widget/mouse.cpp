@@ -50,6 +50,8 @@ namespace ionpot::widget {
 		if (m_click_start) {
 			m_click_start->held_down(false);
 			clicked = (m_click_start == elmt);
+			if (elmt)
+				clicked &= elmt->clickable();
 		}
 		m_click_start = nullptr;
 		return clicked;
