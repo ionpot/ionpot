@@ -5,7 +5,7 @@
 namespace ionpot::util {
 	template<class T, class U>
 	std::vector<T*>
-	ptr_vector(const std::vector<U>& input)
+	ptr_vector(std::vector<U>& input)
 	{
 		std::vector<T*> output;
 		for (auto& x : input)
