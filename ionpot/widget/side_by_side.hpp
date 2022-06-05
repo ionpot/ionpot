@@ -1,15 +1,17 @@
 #pragma once
 
+#include <vector>
+
 namespace ionpot::widget {
-	template<class T> // T = Box[]
+	template<class T> // T = Box*
 	void
-	side_by_side(T& boxes, int spacing = 0)
+	side_by_side(std::vector<T>& boxes, int spacing = 0)
 	{
-		auto a = boxes.begin();
-		auto b = a;
-		while (++b < boxes.end()) {
-			b->place_after(*a, spacing);
-			a = b;
+		T prev {nullptr};
+		for (auto box : boxes) {
+			if (prev)
+				box->place_after(*prev, spacing);
+			prev = box;
 		}
 	}
 }
