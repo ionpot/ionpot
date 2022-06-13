@@ -1,24 +1,25 @@
 #pragma once
 
-#include "box.hpp"
-
 #include <util/size.hpp>
+#include <util/vector.hpp>
+
+#include <memory> // std::shared_ptr
 
 namespace ionpot::widget {
-	template<class T> // T = Box*[]
+	template<class T> // T = Box
 	void
-	stack_down(T& boxes, int spacing = 0)
+	stack_down(util::PtrVector<T>& boxes, int spacing = 0)
 	{
-		Box* last {nullptr};
-		for (Box* box : boxes) {
+		std::shared_ptr<T> last {};
+		for (auto& box : boxes) {
 			if (last)
 				box->place_below(*last, spacing);
 			last = box;
 		}
 	}
 
-	template<class T> // T = Box*[]
+	template<class T> // T = Box
 	void
-	stack_down(T& boxes, util::Size spacing)
+	stack_down(util::PtrVector<T>& boxes, util::Size spacing)
 	{ stack_down(boxes, spacing.height); }
 }
