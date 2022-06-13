@@ -40,7 +40,7 @@ namespace ionpot::widget {
 		{ return m_label.size(); }
 
 		void
-		render(util::Point offset = {}) const
+		render(util::Point offset = {}) const final
 		{
 			auto pos = position() + offset;
 			m_label.render(pos);

@@ -13,7 +13,7 @@ namespace ionpot::widget {
 		Texture(sdl::Texture&&);
 		Texture(sdl::Texture&&, util::Size);
 
-		void render(util::Point offset = {}) const;
+		void render(util::Point offset = {}) const final;
 
 	private:
 		sdl::Texture m_texture;

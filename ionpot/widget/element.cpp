@@ -46,6 +46,10 @@ namespace ionpot::widget {
 	Element::hovered(bool value)
 	{ m_hovered = value; }
 
+	void
+	Element::render_if_visible(util::Point offset) const
+	{ if (m_visible) render(offset); }
+
 	bool
 	Element::visible() const
 	{ return m_visible; }

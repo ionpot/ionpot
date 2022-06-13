@@ -5,39 +5,15 @@
 #include <util/point.hpp>
 #include <util/size.hpp>
 
-#include <memory> // std::shared_ptr
-
 namespace ionpot::widget {
-	class Element;
-
-	template<class T> // T = Element
-	bool
-	contains(const T& elmt, util::Point point, util::Point offset = {})
-	{
-		return elmt.visible()
-			&& elmt.contains(point, offset);
-	}
-
-	template<class T> // T = Element
-	std::shared_ptr<Element>
-	find(T& elmt, util::Point point, util::Point offset = {})
-	{
-		if (elmt.visible())
-			return elmt.find(point, offset);
-		return {};
-	}
-
-	template<class T> // T = Element
-	void
-	render(const T& elmt, util::Point offset = {})
-	{
-		if (elmt.visible())
-			elmt.render(offset);
-	}
-
 	class Element : public Box {
 	public:
 		Element(util::Size = {}, util::Point = {});
+		virtual ~Element() {}
+
+		virtual void render(util::Point = {}) const {}
+
+		void render_if_visible(util::Point offset = {}) const;
 
 		bool clickable() const;
 		void clickable(bool);
@@ -59,23 +35,6 @@ namespace ionpot::widget {
 
 		bool operator==(const Element& e) const;
 		bool operator!=(const Element& e) const;
-
-		using Box::contains;
-
-		template<class T> // T = Element
-		bool
-		contains(const T& elmt, util::Point point, util::Point offset = {})
-		{ return widget::contains(elmt, point, position() + offset); }
-
-		template<class T> // T = Element
-		std::shared_ptr<Element>
-		find(T& elmt, util::Point point, util::Point offset = {})
-		{ return widget::find(elmt, point, position() + offset); }
-
-		template<class T> // T = Element
-		void
-		render(const T& elmt, util::Point offset = {}) const
-		{ widget::render(elmt, position() + offset); }
 
 	private:
 		bool m_clickable;

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "box.hpp"
 #include "element.hpp"
 #include "padding.hpp"
 
@@ -10,7 +9,7 @@
 #include <utility> // std::move
 
 namespace ionpot::widget {
-	template<class T> // T = Box
+	template<class T> // T = Element
 	class Padded : public Element {
 	public:
 		Padded(T&& content, Padding padding = {}):
@@ -27,10 +26,8 @@ namespace ionpot::widget {
 		{}
 
 		void
-		render(util::Point offset = {}) const
-		{
-			Element::render(m_content, offset + m_padding.offset());
-		}
+		render(util::Point offset = {}) const final
+		{ m_content->render(offset + m_padding.offset()); }
 
 	private:
 		T m_content;
