@@ -42,10 +42,10 @@ namespace ionpot::widget {
 		void
 		render(util::Point offset = {}) const final
 		{
-			auto pos = position() + offset;
-			m_label.render(pos);
+			offset += position();
+			m_label.render(offset);
 			if (m_value)
-				m_value->render(pos);
+				m_value->render(offset);
 		}
 
 		void
@@ -68,7 +68,7 @@ namespace ionpot::widget {
 		void
 		value_offset(util::Size size, int spacing = 0)
 		{
-			Box box {m_label};
+			Box box;
 			box.place_after(size, spacing);
 			m_value_offset = box.position();
 			if (m_value) {
