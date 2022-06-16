@@ -5,6 +5,7 @@
 #include "file.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
+#include "scale.hpp"
 #include "size.hpp"
 
 #include <string>
@@ -27,6 +28,7 @@ namespace ionpot::util {
 			std::pair<int, int> to_int_pair(char delim = ' ') const;
 			Point to_point() const;
 			RGB to_rgb() const;
+			Scale to_scale() const;
 			Size to_size() const;
 		private:
 			template<class T>

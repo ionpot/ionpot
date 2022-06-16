@@ -4,6 +4,7 @@
 #include "file.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
+#include "scale.hpp"
 #include "size.hpp"
 #include "string.hpp"
 
@@ -70,6 +71,19 @@ namespace ionpot::util {
 		catch (const s_BadValue&) {
 			throw s_BadValue {"an integer pair"};
 		}
+
+		Scale
+		s_to_scale(std::string input)
+		try {
+			auto [left, right] = s_split(input, 'x');
+			if (left.empty() && !right.empty()) {
+				return {s_to_double(right)};
+			}
+			throw s_BadValue {};
+		}
+		catch (const s_BadValue&) {
+			throw s_BadValue {"a multiplier"};
+		}
 	}
 
 	const std::string
@@ -133,6 +147,12 @@ namespace ionpot::util {
 	CfgFile::Pair::to_rgb() const
 	{
 		return RGB::from_hex(value);
+	}
+
+	Scale
+	CfgFile::Pair::to_scale() const
+	{
+		return to_value(s_to_scale);
 	}
 
 	Size
