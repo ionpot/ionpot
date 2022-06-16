@@ -21,6 +21,7 @@ namespace ionpot::widget {
 		void add_y(int amount);
 
 		void center_to(const Box&);
+		void center_y_to(const Box&);
 
 		void place_after(const Box&, int spacing = 0);
 		void place_after(const Box&, util::Size spacing);

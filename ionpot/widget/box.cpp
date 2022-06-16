@@ -23,6 +23,10 @@ namespace ionpot::widget {
 	Box::center_to(const Box& box)
 	{ m_position = box.size().center(size()) + box.position(); }
 
+	void
+	Box::center_y_to(const Box& box)
+	{ add_y(box.size().center(size()).y); }
+
 	bool
 	Box::contains(util::Point p, util::Point offset) const
 	{ return sdl::point_in_rect(m_position + offset, m_size, p); }
