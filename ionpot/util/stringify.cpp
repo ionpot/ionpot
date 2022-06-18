@@ -1,6 +1,7 @@
 #include "stringify.hpp"
 
 #include "percent.hpp"
+#include "range.hpp"
 
 #include <string>
 
@@ -17,6 +18,11 @@ namespace ionpot::util {
 
 	template<>
 	std::string
-	stringify(util::Percent p)
+	stringify(Percent p)
 	{ return p.to_str(); }
+
+	template<>
+	std::string
+	stringify(Range r)
+	{ return r.to_str(); }
 }

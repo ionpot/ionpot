@@ -1,6 +1,7 @@
 #pragma once
 
 #include "percent.hpp"
+#include "range.hpp"
 
 #include <string>
 
@@ -20,5 +21,9 @@ namespace ionpot::util {
 
 	template<>
 	std::string
-	stringify(util::Percent);
+	stringify(Percent);
+
+	template<>
+	std::string
+	stringify(Range);
 }
