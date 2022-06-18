@@ -4,6 +4,14 @@
 #include <string>
 
 namespace ionpot::util::dice {
+	int
+	Input::min() const
+	{ return count; }
+
+	int
+	Input::max() const
+	{ return count * sides; }
+
 	std::string
 	Input::to_str() const
 	{ return std::to_string(count) + "d" + std::to_string(sides); }

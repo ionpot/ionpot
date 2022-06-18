@@ -11,6 +11,10 @@ namespace ionpot::util::dice {
 	struct Input {
 		int count;
 		int sides;
+
+		int min() const;
+		int max() const;
+
 		std::string to_str() const;
 	};
 
