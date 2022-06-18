@@ -1,8 +1,14 @@
 #include "dice.hpp"
 
 #include <random>
+#include <string>
 
 namespace ionpot::util::dice {
+	std::string
+	Input::to_str() const
+	{ return std::to_string(count) + "d" + std::to_string(sides); }
+
+	// Engine
 	Engine::Engine(unsigned int seed):
 		m_engine {seed}
 	{}

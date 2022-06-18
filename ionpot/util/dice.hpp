@@ -3,6 +3,7 @@
 #include "exception.hpp"
 
 #include <random>
+#include <string>
 
 namespace ionpot::util::dice {
 	IONPOT_EXCEPTION("Dice")
@@ -10,6 +11,7 @@ namespace ionpot::util::dice {
 	struct Input {
 		int count;
 		int sides;
+		std::string to_str() const;
 	};
 
 	class Engine {
