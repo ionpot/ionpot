@@ -34,6 +34,13 @@ namespace ionpot::util {
 		}
 
 		template<class T>
+		void kv(std::string key, T value)
+		{
+			write(key, ": ");
+			put(value);
+		}
+
+		template<class T>
 		void write(T value, std::string suffix = " ")
 		{
 			file << std::forward<T>(value) << suffix;
