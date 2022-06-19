@@ -8,7 +8,7 @@ namespace ionpot::util {
 	{
 		auto str = std::to_string(min);
 		if (min != max)
-			str += " - " + std::to_string(max);
+			str += "-" + std::to_string(max);
 		return str;
 	}
 }
