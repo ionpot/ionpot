@@ -21,6 +21,7 @@ namespace ionpot::widget {
 		void update_size();
 
 	protected:
+		Elements& elements();
 		void elements(Elements&&);
 		void groups(Groups&&);
 

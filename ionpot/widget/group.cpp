@@ -10,6 +10,10 @@
 #include <vector>
 
 namespace ionpot::widget {
+	Group::Elements&
+	Group::elements()
+	{ return m_elements; }
+
 	void
 	Group::elements(Elements&& ls)
 	{ m_elements = std::move(ls); }
