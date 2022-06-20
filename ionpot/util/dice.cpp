@@ -27,6 +27,8 @@ namespace ionpot::util::dice {
 		auto [count, sides] = input;
 		if (sides < 1)
 			throw Exception {"Dice must have at least 1 side."};
+		if (sides == 1)
+			return count;
 		int result {0};
 		std::uniform_int_distribution<int> dist {1, sides};
 		while (count--)
