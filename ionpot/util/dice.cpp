@@ -33,4 +33,15 @@ namespace ionpot::util::dice {
 			result += dist(m_engine);
 		return result;
 	}
+
+	unsigned int
+	Engine::roll_index(unsigned int size)
+	{
+		if (!size)
+			throw Exception {"Cannot pick an index for an empty size."};
+		if (size == 1)
+			return size;
+		std::uniform_int_distribution<unsigned int> dist {0, size - 1};
+		return dist(m_engine);
+	}
 }
