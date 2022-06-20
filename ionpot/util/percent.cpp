@@ -7,6 +7,10 @@ namespace ionpot::util {
 		m_value {value}
 	{}
 
+	Percent
+	Percent::operator+(const Percent& p)
+	{ return {value() + p.value()}; }
+
 	bool
 	Percent::success(int value) const
 	{ return value <= m_value; }

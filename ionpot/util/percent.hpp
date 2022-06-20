@@ -10,6 +10,8 @@ namespace ionpot::util {
 		bool success(int) const;
 		int value() const;
 
+		Percent operator+(const Percent&);
+
 		std::string to_str() const;
 
 	private:
