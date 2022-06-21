@@ -109,8 +109,9 @@ namespace ionpot::util {
 	dice::Input
 	CfgFile::Pair::to_dice() const
 	try {
-		auto [left, right] = s_to_int_pair(value, 'd');
-		return {left, right};
+		auto [left, right] = s_split(value, 'd');
+		auto sides = right.empty() ? 1 : s_to_int(right);
+		return {s_to_int(left), sides};
 	}
 	catch (const s_BadValue&) {
 		throw BadValue {key, "a dice notation",  section};
