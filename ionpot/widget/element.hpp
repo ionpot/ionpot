@@ -5,13 +5,21 @@
 #include <util/point.hpp>
 #include <util/size.hpp>
 
+#include <memory> // std::shared_ptr
+#include <vector>
+
 namespace ionpot::widget {
 	class Element : public Box {
 	public:
+		using Child = std::shared_ptr<Element>;
+		using Children = std::vector<Child>;
+
 		Element(util::Size = {}, util::Point = {});
 		virtual ~Element() {}
 
-		virtual void render(util::Point = {}) const {}
+		Child find(util::Point, util::Point offset = {});
+
+		virtual void render(util::Point = {}) const;
 
 		void render_if_visible(util::Point offset = {}) const;
 
@@ -36,7 +44,14 @@ namespace ionpot::widget {
 		bool operator==(const Element& e) const;
 		bool operator!=(const Element& e) const;
 
+	protected:
+		Children& children();
+		void children(Children&&);
+
+		void update_size();
+
 	private:
+		Children m_children;
 		bool m_clickable;
 		bool m_held_down;
 		bool m_hovered;

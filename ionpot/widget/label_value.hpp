@@ -2,16 +2,12 @@
 
 #include "box.hpp"
 #include "element.hpp"
-#include "sum_sizes.hpp"
-#include "swap.hpp"
-#include "texture.hpp"
 
 #include <util/point.hpp>
 #include <util/size.hpp>
 
-#include <optional>
+#include <memory> // std::make_shared, std::shared_ptr
 #include <utility> // std::move
-#include <vector>
 
 namespace ionpot::widget {
 	template<class T, class U> // T = Texture, U = Texture
@@ -19,49 +15,30 @@ namespace ionpot::widget {
 	public:
 		LabelValue(T&& label, int spacing = 0):
 			Element {label.size()},
-			m_label {std::move(label)},
-			m_value {},
-			m_value_offset {}
+			m_label {std::make_shared<T>(std::move(label))}
 		{
+			children({m_label});
 			value_offset(size(), spacing);
 		}
 
 		LabelValue(T&& label, U&& value, int spacing = 0):
-			Element {},
-			m_label {std::move(label)},
-			m_value {std::move(value)},
-			m_value_offset {}
+			m_label {std::make_shared<T>(std::move(label))},
+			m_value {std::make_shared<U>(std::move(value))}
 		{
-			value_offset(label.size(), spacing);
+			children({m_label, m_value});
+			value_offset(m_label->size(), spacing);
 		}
 
 		util::Size
 		label_size() const
-		{ return m_label.size(); }
-
-		void
-		render(util::Point offset = {}) const final
-		{
-			offset += position();
-			m_label.render(offset);
-			if (m_value)
-				m_value->render(offset);
-		}
-
-		void
-		update_size()
-		{
-			std::vector<Element> ls {m_label};
-			if (m_value)
-				ls.push_back(*m_value);
-			size(sum_sizes(ls));
-		}
+		{ return m_label->size(); }
 
 		void
 		value(U&& new_value)
 		{
-			m_value = std::move(new_value);
+			m_value = std::make_shared<U>(std::move(new_value));
 			m_value->position(m_value_offset);
+			children({m_label, m_value});
 			update_size();
 		}
 
@@ -78,8 +55,8 @@ namespace ionpot::widget {
 		}
 
 	private:
-		T m_label;
-		std::optional<U> m_value;
+		std::shared_ptr<T> m_label;
+		std::shared_ptr<U> m_value;
 		util::Point m_value_offset;
 	};
 

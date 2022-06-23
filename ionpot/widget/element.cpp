@@ -1,6 +1,7 @@
 #include "element.hpp"
 
 #include "box.hpp"
+#include "sum_sizes.hpp"
 
 #include <util/point.hpp>
 #include <util/size.hpp>
@@ -13,6 +14,43 @@ namespace ionpot::widget {
 		m_hovered {false},
 		m_visible {true}
 	{}
+
+	Element::Children&
+	Element::children()
+	{ return m_children; }
+
+	void
+	Element::children(Children&& ls)
+	{ m_children = std::move(ls); }
+
+	Element::Child
+	Element::find(util::Point p, util::Point offset)
+	{
+		if (hidden())
+			return {};
+		offset += position();
+		for (auto child : m_children) {
+			if (child->hidden())
+				continue;
+			if (auto found = child->find(p, offset))
+				return found;
+			if (child->contains(p, offset))
+				return child;
+		}
+		return {};
+	}
+
+	void
+	Element::render(util::Point offset) const
+	{
+		offset += position();
+		for (const auto& child : m_children)
+			child->render_if_visible(offset);
+	}
+
+	void
+	Element::update_size()
+	{ size(sum_sizes(m_children)); }
 
 	bool
 	Element::clickable() const
