@@ -1,5 +1,7 @@
 #include "label_value.hpp"
 
+#include "box.hpp"
+
 #include <util/size.hpp>
 
 namespace ionpot::widget {
@@ -8,6 +10,7 @@ namespace ionpot::widget {
 		m_value {value}
 	{
 		children({m_label, m_value});
+		Box::align_y(*m_label, *m_value);
 		value_offset(m_label->size(), spacing);
 	}
 
@@ -21,6 +24,7 @@ namespace ionpot::widget {
 		new_value->place_on(*m_value);
 		m_value = new_value;
 		children({m_label, m_value});
+		Box::align_y(*m_label, *m_value);
 		update_size();
 	}
 

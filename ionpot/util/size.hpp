@@ -28,7 +28,11 @@ namespace ionpot::util {
 		Size& operator-=(const Size&);
 		Size& operator-=(int);
 
+		explicit operator bool() const;
+
 		void pick_max(const Size&);
+
+		bool shorter_than(const Size&) const;
 
 		std::string to_str() const;
 	};

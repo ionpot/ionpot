@@ -63,6 +63,9 @@ namespace ionpot::util {
 		return *this;
 	}
 
+	Size::operator bool() const
+	{ return width || height; }
+
 	void
 	Size::pick_max(const Size& size)
 	{
@@ -71,6 +74,10 @@ namespace ionpot::util {
 		if (height < size.height)
 			height = size.height;
 	}
+
+	bool
+	Size::shorter_than(const Size& size) const
+	{ return height < size.height; }
 
 	std::string
 	Size::to_str() const

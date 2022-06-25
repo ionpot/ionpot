@@ -84,4 +84,20 @@ namespace ionpot::widget {
 	void
 	Box::size(util::Size size)
 	{ m_size = size; }
+
+	bool
+	Box::shorter_than(const Box& box) const
+	{ return size().shorter_than(box.size()); }
+
+	// static
+	void
+	Box::align_y(Box& a, Box& b)
+	{
+		if (a.size() && b.size()) {
+			if (a.shorter_than(b))
+				a.center_y_to(b);
+			else if (b.shorter_than(a))
+				b.center_y_to(a);
+		}
+	}
 }

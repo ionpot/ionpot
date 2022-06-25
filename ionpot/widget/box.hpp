@@ -33,6 +33,10 @@ namespace ionpot::widget {
 
 		void place_on(const Box&);
 
+		bool shorter_than(const Box&) const;
+
+		static void align_y(Box&, Box&);
+
 	protected:
 		void size(util::Size);
 
