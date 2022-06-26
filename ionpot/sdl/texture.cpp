@@ -105,6 +105,13 @@ namespace ionpot::sdl {
 	}
 
 	void
+	Texture::set_alpha(Alpha value) const
+	{
+		if (SDL_SetTextureAlphaMod(m_texture, value))
+			throw Exception {};
+	}
+
+	void
 	Texture::set_blend() const
 	{
 		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))

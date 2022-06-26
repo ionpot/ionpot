@@ -20,8 +20,10 @@ namespace ionpot::widget {
 	{}
 
 	void
+	Texture::alpha(sdl::Texture::Alpha value) const
+	{ m_texture.set_alpha(value); }
+
+	void
 	Texture::render(util::Point offset) const
-	{
-		m_texture.render(position() + offset, size());
-	}
+	{ m_texture.render(position() + offset, size()); }
 }

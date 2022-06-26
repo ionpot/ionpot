@@ -15,6 +15,7 @@
 namespace ionpot::sdl {
 	class Texture {
 	public:
+		using Alpha = Uint8;
 		using Flags = Uint32;
 
 		Texture(std::shared_ptr<const Renderer>, util::Size, Flags);
@@ -35,6 +36,7 @@ namespace ionpot::sdl {
 			util::Point src_pos,
 			util::Size src_size) const;
 
+		void set_alpha(Alpha) const;
 		void set_blend() const;
 
 	protected:
