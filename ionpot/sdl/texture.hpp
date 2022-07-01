@@ -39,6 +39,9 @@ namespace ionpot::sdl {
 		void set_alpha(Alpha) const;
 		void set_blend() const;
 
+		void opaque() const;
+		void half_transparent() const;
+
 	protected:
 		std::shared_ptr<const Renderer> m_renderer;
 		SDL_Texture* m_texture;

@@ -73,6 +73,14 @@ namespace ionpot::sdl {
 		return *this;
 	}
 
+	void
+	Texture::half_transparent() const
+	{ set_alpha(128); }
+
+	void
+	Texture::opaque() const
+	{ set_alpha(255); }
+
 	util::Size
 	Texture::query_size() const
 	{

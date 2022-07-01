@@ -17,6 +17,9 @@ namespace ionpot::widget {
 
 		void alpha(sdl::Texture::Alpha) const;
 
+		void opaque() const;
+		void half_transparent() const;
+
 	private:
 		sdl::Texture m_texture;
 	};
