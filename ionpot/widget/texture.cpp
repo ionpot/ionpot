@@ -34,4 +34,11 @@ namespace ionpot::widget {
 	void
 	Texture::render(util::Point offset) const
 	{ m_texture.render(position() + offset, size()); }
+
+	void
+	Texture::swap(Texture&& tx)
+	{
+		tx.place_on(*this);
+		*this = std::move(tx);
+	}
 }
