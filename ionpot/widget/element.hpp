@@ -47,6 +47,7 @@ namespace ionpot::widget {
 	protected:
 		Children& children();
 		void children(Children&&);
+		void swap_child(Child& current, Child new_child);
 
 		void update_size();
 

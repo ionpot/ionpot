@@ -1,6 +1,7 @@
 #include "element.hpp"
 
 #include "box.hpp"
+#include "exception.hpp"
 #include "sum_sizes.hpp"
 
 #include <util/point.hpp>
@@ -49,6 +50,23 @@ namespace ionpot::widget {
 	}
 
 	void
+	Element::render_if_visible(util::Point offset) const
+	{ if (m_visible) render(offset); }
+
+	void
+	Element::swap_child(Child& old, Child nw)
+	{
+		for (auto& child : m_children) {
+			if (child == old) {
+				nw->place_on(*old);
+				child = old = nw;
+				return;
+			}
+		}
+		throw Exception {"Unknown child."};
+	}
+
+	void
 	Element::update_size()
 	{ size(sum_sizes(m_children)); }
 
@@ -83,10 +101,6 @@ namespace ionpot::widget {
 	void
 	Element::hovered(bool value)
 	{ m_hovered = value; }
-
-	void
-	Element::render_if_visible(util::Point offset) const
-	{ if (m_visible) render(offset); }
 
 	bool
 	Element::visible() const

@@ -21,9 +21,7 @@ namespace ionpot::widget {
 	void
 	LabelValue::value(Item new_value)
 	{
-		new_value->place_on(*m_value);
-		m_value = new_value;
-		children({m_label, m_value});
+		swap_child(m_value, new_value);
 		Box::align_y(*m_label, *m_value);
 		update_size();
 	}
